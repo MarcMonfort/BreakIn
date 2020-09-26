@@ -36,13 +36,14 @@ private:
 
 private:
 	Quad *quad;
-	Texture texs[2];
-	TexturedQuad *texQuad[4];
+	Texture texs[3];
+	TexturedQuad *texQuad[5];
 	ShaderProgram simpleProgram, texProgram;
 	float currentTime;
 	glm::mat4 projection;
 	Text text[2];
 	int rebots = 0;		//¿Aqui o en Init?
+	bool flagRebot = false;
 
 };
 

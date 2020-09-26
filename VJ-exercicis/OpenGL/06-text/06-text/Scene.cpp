@@ -34,12 +34,16 @@ void Scene::init()
 	texQuad[2] = TexturedQuad::createTexturedQuad(geom, texCoords, texProgram);		//rock
 	texCoords[0] = glm::vec2(0.f, 0.5f); texCoords[1] = glm::vec2(0.5f, 1.f);
 	texQuad[3] = TexturedQuad::createTexturedQuad(geom, texCoords, texProgram);		//bolet
+	texCoords[0] = glm::vec2(0.f, 0.f); texCoords[1] = glm::vec2(1.f, 1.f);
+	texQuad[4] = TexturedQuad::createTexturedQuad(geom, texCoords, texProgram);		//nuvol
 
 	// Load textures
 	texs[0].loadFromFile("images/varied.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	texs[0].setMagFilter(GL_NEAREST);
 	texs[1].loadFromFile("images/rocks.jpg", TEXTURE_PIXEL_FORMAT_RGB);
 	texs[1].setMagFilter(GL_NEAREST);
+	texs[2].loadFromFile("images/cloud2.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	texs[2].setMagFilter(GL_NEAREST);
 	projection = glm::ortho(0.f, float(CAMERA_WIDTH - 1), float(CAMERA_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
 	
@@ -75,6 +79,25 @@ void Scene::render()
 	texProgram.use();
 	texProgram.setUniformMatrix4f("projection", projection);
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
+
+	//nuvol
+	//modelview = glm::translate(glm::mat4(1.0f), glm::vec3(sin(currentTime / 5000.f) * 290.f, 0.f, 0.f));
+	modelview = glm::translate(glm::mat4(1.0f), glm::vec3((int)(currentTime / 10) % (760 + 100), 0.f, 0.f));
+	modelview = glm::translate(modelview, glm::vec3(-64.f, 100.f, 0.f));
+	//modelview = glm::translate(modelview, glm::vec3(64.f, 64.f, 0.f));
+	//modelview = glm::scale(modelview, glm::vec3(scaleValue, scaleValue, 0.0f));
+	modelview = glm::translate(modelview, glm::vec3(-64.f, -64.f, 0.f));
+	texProgram.setUniformMatrix4f("modelview", modelview);
+	texQuad[4]->render(texs[2]);
+	//nuvol2
+	//modelview = glm::translate(glm::mat4(1.0f), glm::vec3(sin(currentTime / 5000.f) * 290.f, 0.f, 0.f));
+	modelview = glm::translate(glm::mat4(1.0f), glm::vec3((int)(currentTime / 10) % (640 + 64 + 500), 0.f, 0.f));
+	modelview = glm::translate(modelview, glm::vec3(-500.f, 170.f, 0.f));
+	//modelview = glm::translate(modelview, glm::vec3(64.f, 64.f, 0.f));
+	//modelview = glm::scale(modelview, glm::vec3(scaleValue, scaleValue, 0.0f));
+	modelview = glm::translate(modelview, glm::vec3(-64.f, -64.f, 0.f));
+	texProgram.setUniformMatrix4f("modelview", modelview);
+	texQuad[4]->render(texs[2]);
 
 	//mario
 	modelview = glm::translate(glm::mat4(1.0f), glm::vec3(0.f, -abs(cos(currentTime / 600.f) * 80.f), 0.f));
@@ -118,9 +141,19 @@ void Scene::render()
 	modelview = glm::translate(modelview, glm::vec3(-64.f, -64.f, 0.f));
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texQuad[3]->render(texs[0]);
+
+	
 	
 	text[0].render("Videogames!!!", glm::vec2(10, CAMERA_HEIGHT-20), 32, glm::vec4(1, 1, 1, 1));
-	if ((int)(abs(sin(currentTime / 1000))*10000) == 9999) ++rebots;	//falta precision???
+
+	if (abs(sin(currentTime / 1000)) >= .99f && !flagRebot) {
+		flagRebot = true;
+		++rebots;	//falta precision???
+	}
+	if (abs(sin(currentTime / 1000)) < .99f && flagRebot) {
+		flagRebot = false;
+	}
+
 	text[0].render("Rebots: " + std::to_string(rebots), glm::vec2(10, 40), 32, glm::vec4(1, 1, 1, 1));	//se puede usar text multiples veces
 	if (showText) {
 		text[1].render("Bolet", glm::vec2((sin(currentTime / 1000.f) * 288.f) + 280.f, 280.f), 32, glm::vec4(1, 1, 1, 1));
