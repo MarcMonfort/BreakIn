@@ -1,18 +1,23 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include "Game.h"
+#include "MenuGameState.h"
 
 
 void Game::init()
 {
 	bPlay = true;
 	glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
-	scene.init();
+	states.push(&MenuGameState::instance());
+	states.top()->init();
+	//scene.init();
 }
 
 bool Game::update(int deltaTime)
 {
-	scene.update(deltaTime);
+	//scene.update(deltaTime);
+
+	states.top()->update(deltaTime);
 	
 	return bPlay;
 }
@@ -20,10 +25,33 @@ bool Game::update(int deltaTime)
 void Game::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	scene.render();
+	//scene.render();
+	states.top()->render();
 }
 
-void Game::keyPressed(int key)
+GameState* Game::getGameState()
+{
+	return states.top();
+}
+
+void Game::popGameState()
+{
+	states.pop();
+}
+
+void Game::pushGameState(GameState* state)
+{
+	states.push(state);
+}
+
+
+void Game::setBplay(bool b)
+{
+	bPlay = b;
+}
+
+
+/*void Game::keyPressed(int key)
 {
 	if(key == 27) // Escape code
 		bPlay = false;
@@ -55,9 +83,9 @@ void Game::mousePress(int button)
 
 void Game::mouseRelease(int button)
 {
-}
+}*/
 
-bool Game::getKey(int key) const
+/*bool Game::getKey(int key) const
 {
 	return keys[key];
 }
@@ -65,7 +93,7 @@ bool Game::getKey(int key) const
 bool Game::getSpecialKey(int key) const
 {
 	return specialKeys[key];
-}
+}*/
 
 
 
