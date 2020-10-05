@@ -1,8 +1,12 @@
 #ifndef _GAME_INCLUDE
 #define _GAME_INCLUDE
 
+#include <stack>
+
 
 #include "Scene.h"
+#include "GameState.h"
+
 
 
 #define SCREEN_WIDTH 640
@@ -29,24 +33,33 @@ public:
 	void init();
 	bool update(int deltaTime);
 	void render();
+
+	GameState* getGameState();
+	void popGameState();
+	void pushGameState(GameState* state);
+
+	void setBplay(bool b);
+	
 	
 	// Input callback methods
-	void keyPressed(int key);
+	/*void keyPressed(int key);
 	void keyReleased(int key);
 	void specialKeyPressed(int key);
 	void specialKeyReleased(int key);
 	void mouseMove(int x, int y);
 	void mousePress(int button);
-	void mouseRelease(int button);
+	void mouseRelease(int button);*/
 	
-	bool getKey(int key) const;
-	bool getSpecialKey(int key) const;
+	/*bool getKey(int key) const;
+	bool getSpecialKey(int key) const;*/
 
 private:
 	bool bPlay;                       // Continue to play game?
 	Scene scene;                      // Scene to render
-	bool keys[256], specialKeys[256]; // Store key states so that 
+	//bool keys[256], specialKeys[256]; // Store key states so that 
 	                                  // we can have access at any time
+
+	stack <GameState*> states;
 
 };
 
