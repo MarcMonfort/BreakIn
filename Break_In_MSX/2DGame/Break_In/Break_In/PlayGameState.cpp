@@ -4,6 +4,7 @@
 #include <cmath>
 #include <glm/gtc/matrix_transform.hpp>
 #include "Game.h"
+#include <GL\freeglut_std.h>
 
 
 #define SCREEN_X 32
@@ -12,40 +13,29 @@
 #define INIT_PLAYER_X_TILES 4
 #define INIT_PLAYER_Y_TILES 25
 
+#define LAST_LEVEL 2
+
 
 
 
 
 void PlayGameState::init()
 {
-	initShaders();
-	map = TileMap::createTileMap("levels/level01.txt", glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
-	player = new Player();
-	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
-	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
-	player->setTileMap(map);
-	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
-	currentTime = 0.0f;
+	currentLevel = 0;
+	Level* first = new Level();
+	first->createLevel(currentLevel+1);
+	levels.push_back(first);
 }
 
 void PlayGameState::update(int deltaTime)
 {
 	currentTime += deltaTime;
-	player->update(deltaTime);
+	levels[currentLevel]->update(deltaTime);
 }
 
 void PlayGameState::render()
 {
-	glm::mat4 modelview;
-
-	texProgram.use();
-	texProgram.setUniformMatrix4f("projection", projection);
-	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
-	modelview = glm::mat4(1.0f);
-	texProgram.setUniformMatrix4f("modelview", modelview);
-	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
-	map->render();
-	player->render();
+	levels[currentLevel]->render();
 }
 
 
@@ -55,6 +45,27 @@ void PlayGameState::keyPressed(int key)
 	{
 		Game::instance().popGameState(); //or better push so we dont loose the state??
 	}
+	else if (key == 'n')
+	{
+		if (currentLevel < LAST_LEVEL)
+		{
+			currentLevel += 1;
+			if (levels.size() <= currentLevel)
+			{
+				Level* nextLevel = new Level();  //recordar liberar espacio delete()
+				nextLevel->createLevel(currentLevel + 1);
+				levels.push_back(nextLevel);
+			}
+		}
+		
+	}
+	else if (key == 'b')
+	{
+		if (currentLevel > 0) {
+			currentLevel -= 1;
+		}
+	}
+	
 	keys[key] = true;
 }
 

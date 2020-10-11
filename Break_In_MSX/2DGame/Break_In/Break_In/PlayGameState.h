@@ -7,6 +7,7 @@
 #include "ShaderProgram.h"
 #include "TileMap.h"
 #include "Player.h"
+#include "Level.h"
 
 
 // PlayGameState contains all the entities of our game.
@@ -47,6 +48,11 @@ private:
 	ShaderProgram texProgram;
 	float currentTime;
 	glm::mat4 projection;
+
+	vector<Level*> levels;	// como conservar level?
+	//Level* level;
+	int currentLevel;
+
 
 };
 
