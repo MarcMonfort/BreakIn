@@ -1,2 +1,6 @@
 **/.vs
 VJ-exercicis/
+*.log
+*.obj
+/Break_In_MSX/2DGame/Break_In/Break_In/Debug/
+Break_In_MSX/2DGame/Break_In/Break_In/Debug/*
