@@ -21,7 +21,7 @@
 
 void PlayGameState::init()
 {
-	currentLevel = 0;
+	currentLevel = 0; // = 0!!
 	Level* first = new Level();
 	first->createLevel(currentLevel+1);
 	levels.push_back(first);

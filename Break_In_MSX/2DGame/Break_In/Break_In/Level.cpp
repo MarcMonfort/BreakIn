@@ -6,8 +6,8 @@
 
 
 
-#define SCREEN_X 32
-#define SCREEN_Y 16
+#define SCREEN_X 32 //32
+#define SCREEN_Y 48 //16
 
 #define INIT_PLAYER_X_TILES 4
 #define INIT_PLAYER_Y_TILES 25
@@ -40,8 +40,11 @@ void Level::render()
 	texProgram.setUniformMatrix4f("projection", projection);
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
 	modelview = glm::mat4(1.0f);
+	modelview = glm::scale(modelview, glm::vec3(1.3f, 1.3f, 0.0f)); //NEW
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
+
+
 	map->render();
 	player->render();
 }
