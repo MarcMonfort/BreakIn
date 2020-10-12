@@ -3,28 +3,30 @@ TILEMAP
 16 16 							-- Tile size & block size
 images/tileset.png 	-- Tilesheet
 16 16 								-- Number of tiles in tilesheet
-999999999999999999999999
-9                      9
-9                      9
-9      1234   3412     9
-9                      9
-9          56          9
-9        567856        9
-9                      9
-9                      9
-9                      9
-9                      9
-9                      9
-9                      9
-9                      9
-9                      9
-9                      9
-9                      9
-9                      9
-9                      9
-9                      9
-9                      9
-9                      9
-9                      9
-999999999999999999999999
+AAAAAAAAAAAAAAAAAAAAAAAA
+A                      A
+A                      A
+A 56      ;<;<      56 A
+A 5656;<;<5656;<;<5656 A
+A                      A
+A         ;<;<         A
+A         ;<;<         A
+A EF                78 A
+A UV  121212121212  78 A
+A 34  ;<  AAAA  ;<  34 A
+A                      A
+A                      A
+A                      A
+A       34    34       A
+A 34                34 A
+A                      A
+A                      A
+A                      A
+A                      A
+A                      A
+A                      A
+A                      A
+AAAAAAAA        AAAAAAAA
+
+
 
