@@ -40,7 +40,7 @@ void Level::render()
 	texProgram.setUniformMatrix4f("projection", projection);
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
 	modelview = glm::mat4(1.0f);
-	modelview = glm::scale(modelview, glm::vec3(1.3f, 1.3f, 0.0f)); //NEW
+	//modelview = glm::scale(modelview, glm::vec3(1.3f, 1.3f, 0.0f)); //NEW
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 
