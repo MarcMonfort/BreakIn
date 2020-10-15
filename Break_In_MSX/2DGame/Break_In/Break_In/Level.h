@@ -8,6 +8,7 @@
 #include "ShaderProgram.h"
 #include "TileMap.h"
 #include "Player.h"
+#include "Ball.h"
 #include "GameState.h"
 
 
@@ -26,6 +27,7 @@ private:
 private:
 	TileMap* map;
 	Player* player;
+	Ball* ball;
 	ShaderProgram texProgram;
 	float currentTime;
 	glm::mat4 projection;
