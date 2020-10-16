@@ -28,10 +28,10 @@ public:
 	
 	int getTileSize() const { return tileSize; }
 
-	bool collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) const;
-	bool collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) const;
-	bool collisionMoveUp(const glm::ivec2& pos, const glm::ivec2& size) const;
-	bool collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size) const;
+	bool collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) ;	//why was const???
+	bool collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) ;
+	bool collisionMoveUp(const glm::ivec2& pos, const glm::ivec2& size) ;
+	bool collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size) ;
 	
 private:
 	bool loadLevel(const string &levelFile);
@@ -47,7 +47,10 @@ private:
 	glm::vec2 tileTexSize;
 	int *map;
 
-	ShaderProgram* texProgram;
+	//ShaderProgram b;
+
+	glm::vec2 a;
+	ShaderProgram b;
 
 };
 

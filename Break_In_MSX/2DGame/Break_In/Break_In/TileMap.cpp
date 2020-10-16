@@ -6,6 +6,9 @@
 #include <glm\gtc\matrix_transform.hpp>
 
 
+#define SCREEN_X 32 //tiene que se igual al de PlayGameState.cpp
+#define SCREEN_Y 48 //16
+
 using namespace std;
 
 
@@ -20,7 +23,10 @@ TileMap *TileMap::createTileMap(const string &levelFile, const glm::vec2 &minCoo
 TileMap::TileMap(const string &levelFile, const glm::vec2 &minCoords, ShaderProgram &program)
 {
 	loadLevel(levelFile);
-	prepareArrays(minCoords, program);
+	a = minCoords;
+	b = program;
+	prepareArrays(a, b);
+	//prepareArrays(minCoords, program);
 }
 
 TileMap::~TileMap()
@@ -45,6 +51,7 @@ void TileMap::free()
 {
 	glDeleteBuffers(1, &vbo);
 }
+
 
 bool TileMap::loadLevel(const string &levelFile)
 {
@@ -152,7 +159,7 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 // Method collisionMoveDown also corrects Y coordinate if the box is
 // already intersecting a tile below.
 
-bool TileMap::collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) const
+bool TileMap::collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size)
 {
 	int x, y0, y1;
 	
@@ -161,14 +168,25 @@ bool TileMap::collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) c
 	y1 = (pos.y + size.y - 1) / tileSize;
 	for(int y=y0; y<=y1; y++)
 	{
-		if(map[y*mapSize.x+x] == 'A' - int('0'))
+		if (map[y * mapSize.x + x] != 0)
+		{
+			if (map[y * mapSize.x + x] <= '@' - int('0'))
+			{
+				map[y * mapSize.x + x] = 0;
+				if ((y * mapSize.x + x) % 2 == 0)
+					map[y * mapSize.x + x + 1] = 0;
+				else
+					map[y * mapSize.x + x - 1] = 0;
+				prepareArrays(a, b);
+			}
 			return true;
+		}
 	}
 	
 	return false;
 }
 
-bool TileMap::collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) const
+bool TileMap::collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size)
 {
 	int x, y0, y1;
 	
@@ -177,14 +195,26 @@ bool TileMap::collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) 
 	y1 = (pos.y + size.y - 1) / tileSize;
 	for(int y=y0; y<=y1; y++)
 	{
-		if(map[y*mapSize.x+x] == 'A' - int('0'))
+		if (map[y * mapSize.x + x] != 0)
+		{
+			if (map[y * mapSize.x + x] <= '@' - int('0'))
+			{
+				map[y * mapSize.x + x] = 0;
+				if ((y * mapSize.x + x) % 2 == 0)
+					map[y * mapSize.x + x + 1] = 0;
+				else
+					map[y * mapSize.x + x - 1] = 0;
+
+				prepareArrays(a, b);
+			}
 			return true;
+		}
 	}
 	
 	return false;
 }
 
-bool TileMap::collisionMoveUp(const glm::ivec2& pos, const glm::ivec2& size) const
+bool TileMap::collisionMoveUp(const glm::ivec2& pos, const glm::ivec2& size)
 {
 	int x0, x1, y;
 
@@ -193,14 +223,26 @@ bool TileMap::collisionMoveUp(const glm::ivec2& pos, const glm::ivec2& size) con
 	y = pos.y / tileSize;
 	for (int x = x0; x <= x1; x++)
 	{
-		if (map[y*mapSize.x+x] == 'A' - int('0'))
+		//if (map[y * mapSize.x + x] == 'A' - int('0'))
+		if (map[y * mapSize.x + x] != 0)
+		{
+			if (map[y * mapSize.x + x] <= '@' - int('0'))
+			{
+				map[y * mapSize.x + x] = 0;
+				if ((y * mapSize.x + x) % 2 == 0)
+					map[y * mapSize.x + x + 1] = 0;
+				else
+					map[y * mapSize.x + x - 1] = 0;
+				prepareArrays(a, b);
+			}
 			return true;
+		}
 	}
 
 	return false;
 }
 
-bool TileMap::collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size) const
+bool TileMap::collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size)
 {
 	int x0, x1, y;
 	
@@ -209,8 +251,19 @@ bool TileMap::collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size) c
 	y = (pos.y + size.y - 1) / tileSize;
 	for(int x=x0; x<=x1; x++)
 	{
-		if(map[y*mapSize.x+x] == 'A' - int('0'))
+		if (map[y * mapSize.x + x] != 0)
+		{
+			if (map[y * mapSize.x + x] <= '@' - int('0'))
+			{
+				map[y * mapSize.x + x] = 0;
+				if ((y * mapSize.x + x) % 2 == 0)
+					map[y * mapSize.x + x + 1] = 0;
+				else
+					map[y * mapSize.x + x - 1] = 0;
+				prepareArrays(a, b);
+			}
 			return true;
+		}
 	}
 	
 	return false;
