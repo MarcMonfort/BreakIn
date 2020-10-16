@@ -14,8 +14,8 @@ enum BallAnims
 
 void Ball::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 {
-	spritesheet.loadFromFile("images/ball_ampliada.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite = Sprite::createSprite(glm::ivec2(32, 32), glm::vec2(0.25, 0.25), &spritesheet, &shaderProgram);
+	spritesheet.loadFromFile("images/ball.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	sprite = Sprite::createSprite(glm::ivec2(22,22), glm::vec2(1.0, 1.0), &spritesheet, &shaderProgram);
 	tileMapDispl = tileMapPos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBall.x), float(tileMapDispl.y + posBall.y)));
 
@@ -28,24 +28,24 @@ void Ball::update(int deltaTime)
 	sprite->update(deltaTime);
 
 	posBall.y += vY;
-	if (map->collisionMoveUp(posBall, glm::ivec2(32, 32))) {
+	if (map->collisionMoveUp(posBall, glm::ivec2(22, 22))) {
 		cout << "Up" << endl;
 		posBall.y -= vY;
 		vY = abs(vY);
 	}
-	else if (map->collisionMoveDown(posBall, glm::ivec2(32, 32))) {
+	else if (map->collisionMoveDown(posBall, glm::ivec2(22, 22))) {
 		cout << "Down" << endl;
 		posBall.y -= vY;
 		vY = -abs(vY);
 	}
 
 	posBall.x += vX;
-	if (map->collisionMoveLeft(posBall, glm::ivec2(32, 32))) {
+	if (map->collisionMoveLeft(posBall, glm::ivec2(22, 22))) {
 		cout << "Left" << endl;
 		posBall.x -= vX;
 		vX = abs(vX);
 	}
-	else if (map->collisionMoveRight(posBall, glm::ivec2(32, 32))) {
+	else if (map->collisionMoveRight(posBall, glm::ivec2(22, 22))) {
 		cout << "Right" << endl;
 		posBall.x -= vX;
 		vX = -abs(vX);
