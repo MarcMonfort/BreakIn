@@ -23,7 +23,9 @@ private:
 	Texture spritesheet;
 	Sprite* sprite;
 	TileMap* map;
-	int angle;
+
+	float vX;
+	float vY;
 
 };
 

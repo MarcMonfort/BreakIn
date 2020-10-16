@@ -12,8 +12,8 @@
 #define INIT_PLAYER_X_TILES 4
 #define INIT_PLAYER_Y_TILES 25
 
-#define INIT_BALL_X_TILES 10
-#define INIT_BALL_Y_TILES 10
+#define INIT_BALL_X_TILES 5
+#define INIT_BALL_Y_TILES 5
 
 void Level::createLevel(int numLevel)
 {
