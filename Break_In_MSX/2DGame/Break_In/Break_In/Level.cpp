@@ -6,7 +6,7 @@
 
 
 
-#define SCREEN_X 32 //32
+#define SCREEN_X 32 //tiene que se igual al de PlayGameState.cpp
 #define SCREEN_Y 48 //16
 
 #define INIT_PLAYER_X_TILES 4
@@ -18,10 +18,10 @@
 void Level::createLevel(int numLevel)
 {
 	initShaders();
-	string pathLevel = "levels/level0" + to_string(numLevel) + ".txt";
+	string pathLevel = "levels/level0" + to_string(numLevel+1) + ".txt";
 	map = TileMap::createTileMap(pathLevel, glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
 
-	player = new Player();
+	/*player = new Player();
 	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * map->getTileSize(), INIT_PLAYER_Y_TILES * map->getTileSize()));
 	player->setTileMap(map);
@@ -29,7 +29,7 @@ void Level::createLevel(int numLevel)
 	ball = new Ball();
 	ball->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	ball->setPosition(glm::vec2(INIT_BALL_X_TILES * map->getTileSize(), INIT_BALL_Y_TILES * map->getTileSize()));
-	ball->setTileMap(map);
+	ball->setTileMap(map);*/
 
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
@@ -39,8 +39,8 @@ void Level::createLevel(int numLevel)
 void Level::update(int deltaTime)
 {
 	currentTime += deltaTime;
-	player->update(deltaTime);
-	ball->update(deltaTime);
+	/*player->update(deltaTime);
+	ball->update(deltaTime);*/
 }
 
 void Level::render()
@@ -57,10 +57,14 @@ void Level::render()
 
 
 	map->render();
-	player->render();
-	ball->render();
+	/*player->render();
+	ball->render();*/
 }
 
+TileMap* Level::getMap()
+{
+	return map;
+}
 
 void Level::initShaders()
 {

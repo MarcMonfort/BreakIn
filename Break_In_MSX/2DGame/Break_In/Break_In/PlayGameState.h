@@ -43,8 +43,10 @@ private:
 	void initShaders();
 
 private:
-	TileMap* map;
+	//TileMap* map;
 	Player* player;
+	Ball* ball;
+
 	ShaderProgram texProgram;
 	float currentTime;
 	glm::mat4 projection;

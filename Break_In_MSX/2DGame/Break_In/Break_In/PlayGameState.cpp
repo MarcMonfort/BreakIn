@@ -8,34 +8,62 @@
 
 
 #define SCREEN_X 32
-#define SCREEN_Y 16
+#define SCREEN_Y 48
 
 #define INIT_PLAYER_X_TILES 4
 #define INIT_PLAYER_Y_TILES 25
 
 #define LAST_LEVEL 2
 
-
+#define INIT_BALL_X_TILES 5
+#define INIT_BALL_Y_TILES 5
 
 
 
 void PlayGameState::init()
 {
+	initShaders();
+
 	currentLevel = 0; // = 0!!
 	Level* first = new Level();
 	first->createLevel(currentLevel+1);
 	levels.push_back(first);
+
+	player = new Player();
+	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * levels[currentLevel]->getMap()->getTileSize(), INIT_PLAYER_Y_TILES * levels[currentLevel]->getMap()->getTileSize()));
+	player->setTileMap(levels[currentLevel]->getMap());
+
+	ball = new Ball();
+	ball->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+	ball->setPosition(glm::vec2(INIT_BALL_X_TILES * levels[currentLevel]->getMap()->getTileSize(), INIT_BALL_Y_TILES * levels[currentLevel]->getMap()->getTileSize()));
+	ball->setTileMap(levels[currentLevel]->getMap());
+
 }
 
 void PlayGameState::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	levels[currentLevel]->update(deltaTime);
+
+	player->update(deltaTime);
+	ball->update(deltaTime);
 }
 
 void PlayGameState::render()
 {
+	glm::mat4 modelview;
+
+	texProgram.use();
+	texProgram.setUniformMatrix4f("projection", projection);
+	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
+	modelview = glm::mat4(1.0f);
+	texProgram.setUniformMatrix4f("modelview", modelview);
+	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
+
 	levels[currentLevel]->render();
+	player->render(); //creo que es mejor que este render lo haga el Level
+	ball->render();		//con una funcion setPlayer(Player* player)
 }
 
 
@@ -55,7 +83,11 @@ void PlayGameState::keyPressed(int key)
 				Level* nextLevel = new Level();  //recordar liberar espacio delete()
 				nextLevel->createLevel(currentLevel + 1);
 				levels.push_back(nextLevel);
+
+				
 			}
+			player->setTileMap(levels[currentLevel]->getMap());
+			ball->setTileMap(levels[currentLevel]->getMap());
 		}
 		
 	}
@@ -63,6 +95,8 @@ void PlayGameState::keyPressed(int key)
 	{
 		if (currentLevel > 0) {
 			currentLevel -= 1;
+			player->setTileMap(levels[currentLevel]->getMap());
+			ball->setTileMap(levels[currentLevel]->getMap());
 		}
 	}
 	
