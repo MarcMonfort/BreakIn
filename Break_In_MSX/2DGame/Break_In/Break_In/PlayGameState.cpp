@@ -13,7 +13,7 @@
 #define INIT_PLAYER_X_TILES 4
 #define INIT_PLAYER_Y_TILES 25
 
-#define LAST_LEVEL 2
+#define LAST_LEVEL 1
 
 #define INIT_BALL_X_TILES 5
 #define INIT_BALL_Y_TILES 5
