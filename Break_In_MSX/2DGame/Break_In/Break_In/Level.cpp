@@ -18,7 +18,7 @@
 void Level::createLevel(int numLevel)
 {
 	initShaders();
-	string pathLevel = "levels/level0" + to_string(numLevel+1) + ".txt";
+	string pathLevel = "levels/level0" + to_string(numLevel) + ".txt";
 	map = TileMap::createTileMap(pathLevel, glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
 
 	/*player = new Player();

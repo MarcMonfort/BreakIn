@@ -16,6 +16,9 @@ public:
 
 	void setTileMap(TileMap* tileMap);
 	void setPosition(const glm::vec2& pos);
+	glm::fvec2 getPosition();
+
+	void addVelocity(float increase);
 
 private:
 	glm::ivec2 tileMapDispl;

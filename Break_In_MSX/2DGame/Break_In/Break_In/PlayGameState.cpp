@@ -13,10 +13,10 @@
 #define INIT_PLAYER_X_TILES 4
 #define INIT_PLAYER_Y_TILES 25
 
-#define LAST_LEVEL 1
+#define LAST_LEVEL 3
 
-#define INIT_BALL_X_TILES 5
-#define INIT_BALL_Y_TILES 5
+#define INIT_BALL_X_TILES 12
+#define INIT_BALL_Y_TILES 21
 
 
 
@@ -66,6 +66,34 @@ void PlayGameState::render()
 	ball->render();		//con una funcion setPlayer(Player* player)
 }
 
+void PlayGameState::nextLevel()
+{
+	currentLevel += 1;
+	if (levels.size() <= currentLevel)
+	{
+		Level* nextLevel = new Level();  //recordar liberar espacio delete()
+		nextLevel->createLevel(currentLevel + 1);
+		levels.push_back(nextLevel);
+	}
+	player->setTileMap(levels[currentLevel]->getMap());
+
+	ball->setPosition(glm::vec2(ball->getPosition().x, INIT_BALL_Y_TILES * levels[currentLevel]->getMap()->getTileSize()));
+	ball->setTileMap(levels[currentLevel]->getMap());
+}
+
+void PlayGameState::lastLevel()
+{
+	if (currentLevel > 0) {
+		currentLevel -= 1;
+		player->setTileMap(levels[currentLevel]->getMap());
+		ball->setTileMap(levels[currentLevel]->getMap());
+	}
+	player->setTileMap(levels[currentLevel]->getMap());
+
+	ball->setPosition(glm::vec2(ball->getPosition().x, 1 * levels[currentLevel]->getMap()->getTileSize()));
+	ball->setTileMap(levels[currentLevel]->getMap());
+}
+
 
 void PlayGameState::keyPressed(int key)
 {
@@ -82,9 +110,7 @@ void PlayGameState::keyPressed(int key)
 			{
 				Level* nextLevel = new Level();  //recordar liberar espacio delete()
 				nextLevel->createLevel(currentLevel + 1);
-				levels.push_back(nextLevel);
-
-				
+				levels.push_back(nextLevel);	
 			}
 			player->setTileMap(levels[currentLevel]->getMap());
 			ball->setTileMap(levels[currentLevel]->getMap());
@@ -98,6 +124,15 @@ void PlayGameState::keyPressed(int key)
 			player->setTileMap(levels[currentLevel]->getMap());
 			ball->setTileMap(levels[currentLevel]->getMap());
 		}
+	}
+
+	else if (key == 'v')
+	{
+		ball->addVelocity(2);
+	}
+	else if (key == 'f')
+	{
+		ball->addVelocity(0.5);
 	}
 	
 	keys[key] = true;

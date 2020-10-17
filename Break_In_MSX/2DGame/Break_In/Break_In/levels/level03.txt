@@ -6,19 +6,6 @@ images/tileset.png 	-- Tilesheet
 AAAAAAAAAAAAAAAAAAAAAAAA
 A                      A
 A                      A
-A 56      ;<;<      56 A
-A 5656;<;<5656;<;<5656 A
-A                      A
-A         ;<;<         A
-A         ;<;<         A
-A EF                78 A
-A UV  121212121212  78 A
-A 34  ;<  AAAA  ;<  34 A
-A                      A
-A                      A
-A                      A
-A       34    34       A
-A 34                34 A
 A                      A
 A                      A
 A                      A
@@ -26,7 +13,20 @@ A                      A
 A                      A
 A                      A
 A                      A
-AAAAAAAAAAAAAAAAAAAAAAAA
+AAAA                AAAA
+AAAA                AAAA
+A                      A
+A                      A
+A                      A
+A                      A
+A                      A
+A                      A
+A                      A
+A                      A
+A                      A
+A                      A
+A                      A
+AAAAAAAADDDDDDDDAAAAAAAA
 
 
 
