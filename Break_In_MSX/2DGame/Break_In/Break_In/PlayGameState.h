@@ -30,6 +30,9 @@ public:
 	void update(int deltaTime);
 	void render();
 
+	void nextLevel();
+	void lastLevel();
+
 	// Input callback methods
 	void keyPressed(int key);
 	void keyReleased(int key);

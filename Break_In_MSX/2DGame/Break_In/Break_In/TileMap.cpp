@@ -4,6 +4,7 @@
 #include <vector>
 #include "TileMap.h"
 #include <glm\gtc\matrix_transform.hpp>
+#include "PlayGameState.h"
 
 
 #define SCREEN_X 32 //tiene que se igual al de PlayGameState.cpp
@@ -170,16 +171,7 @@ bool TileMap::collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size)
 	{
 		if (map[y * mapSize.x + x] != 0)
 		{
-			if (map[y * mapSize.x + x] <= '@' - int('0'))
-			{
-				map[y * mapSize.x + x] = 0;
-				if ((y * mapSize.x + x) % 2 == 0)
-					map[y * mapSize.x + x + 1] = 0;
-				else
-					map[y * mapSize.x + x - 1] = 0;
-				prepareArrays(a, b);
-			}
-			return true;
+			return treatCollision(y * mapSize.x + x);
 		}
 	}
 	
@@ -197,17 +189,7 @@ bool TileMap::collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size)
 	{
 		if (map[y * mapSize.x + x] != 0)
 		{
-			if (map[y * mapSize.x + x] <= '@' - int('0'))
-			{
-				map[y * mapSize.x + x] = 0;
-				if ((y * mapSize.x + x) % 2 == 0)
-					map[y * mapSize.x + x + 1] = 0;
-				else
-					map[y * mapSize.x + x - 1] = 0;
-
-				prepareArrays(a, b);
-			}
-			return true;
+			return treatCollision(y * mapSize.x + x);
 		}
 	}
 	
@@ -226,16 +208,7 @@ bool TileMap::collisionMoveUp(const glm::ivec2& pos, const glm::ivec2& size)
 		//if (map[y * mapSize.x + x] == 'A' - int('0'))
 		if (map[y * mapSize.x + x] != 0)
 		{
-			if (map[y * mapSize.x + x] <= '@' - int('0'))
-			{
-				map[y * mapSize.x + x] = 0;
-				if ((y * mapSize.x + x) % 2 == 0)
-					map[y * mapSize.x + x + 1] = 0;
-				else
-					map[y * mapSize.x + x - 1] = 0;
-				prepareArrays(a, b);
-			}
-			return true;
+			return treatCollision(y * mapSize.x + x);
 		}
 	}
 
@@ -253,20 +226,99 @@ bool TileMap::collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size)
 	{
 		if (map[y * mapSize.x + x] != 0)
 		{
-			if (map[y * mapSize.x + x] <= '@' - int('0'))
-			{
-				map[y * mapSize.x + x] = 0;
-				if ((y * mapSize.x + x) % 2 == 0)
-					map[y * mapSize.x + x + 1] = 0;
-				else
-					map[y * mapSize.x + x - 1] = 0;
-				prepareArrays(a, b);
-			}
-			return true;
+			return treatCollision(y * mapSize.x + x);
 		}
 	}
 	
 	return false;
+}
+
+int TileMap::checkBlock(int block)
+{
+	if (block <= 14)
+		return basic;
+	else if (block <= 16)
+		return strong;
+	else if (block <= 19)
+		return wall;
+	else if (block == 20)
+		return lose;
+	else if (block <= 22)
+		return arrow;
+	else if (block == 23 || block == 24 || block == 39 || block == 40)
+		return key;
+
+}
+
+bool TileMap::treatCollision(int pos)
+{
+	int block = checkBlock(map[pos]);
+	if (block == basic)
+	{
+		if (map[pos] % 2 == 0)
+			map[pos - 1] = 0;
+		else
+			map[pos + 1] = 0;
+		map[pos] = 0;
+	}
+	else if (block == strong)
+	{
+		if (map[pos] % 2 == 0) {
+			map[pos] = 16;
+			map[pos - 1] = 15;
+		}
+		else {
+			map[pos] = 15;
+			map[pos + 1] = 16;
+		}	
+	}
+	else if (block == key)
+	{
+		if (map[pos] == 23) {
+			map[pos+1] = 0;
+			map[pos+mapSize.x] = 0;
+			map[pos+mapSize.x+1] = 0;
+
+		}
+		else if (map[pos] == 24) {
+			map[pos - 1] = 0;
+			map[pos + mapSize.x] = 0;
+			map[pos + mapSize.x - 1] = 0;
+		}
+		else if (map[pos] == 39) {
+			map[pos + 1] = 0;
+			map[pos - mapSize.x] = 0;
+			map[pos - mapSize.x + 1] = 0;
+		}
+		else if (map[pos] == 40) {
+			map[pos - 1] = 0;
+			map[pos - mapSize.x] = 0;
+			map[pos - mapSize.x - 1] = 0;
+		}
+		map[pos] = 0;
+		map[8] = 21;
+		map[9] = 22;
+		map[10] = 21;
+		map[11] = 22;
+		map[12] = 21;
+		map[13] = 22;
+		map[14] = 21;
+		map[15] = 22;
+	}
+	else if (block == arrow)
+	{
+		PlayGameState::instance().nextLevel();
+		return false;
+	}
+	else if (block == lose)
+	{
+		PlayGameState::instance().lastLevel();
+		return false;
+	}
+	prepareArrays(a, b);
+	return true;
+
+
 }
 
 

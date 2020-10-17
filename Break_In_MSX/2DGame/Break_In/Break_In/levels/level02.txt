@@ -5,26 +5,28 @@ images/tileset.png 	-- Tilesheet
 16 16 								-- Number of tiles in tilesheet
 AAAAAAAAAAAAAAAAAAAAAAAA
 A                      A
-A         EF           A
-A         UV           A
-A   125656    565612   A
-A 12      5656      12 A
-A 12121212    12121212 A
-A 34343434565634343434 A
+A                      A
+A 56      ;<;<      56 A
+A 5656;<;<5656;<;<5656 A
+A                      A
+A         ;<;<         A
+A         ;<;<         A
+A GH                78 A
+A WX  121212121212  78 A
+A 34  ;<  AAAA  ;<  34 A
+A                      A
+A                      A
+A                      A
+A       34    34       A
 A 34                34 A
-A 34343434565634343434 A
-A 78787878    78787878 A
-A 78      5656      78 A
-A   785656    565678   A
 A                      A
 A                      A
 A                      A
 A                      A
 A                      A
-A 1212           12122 A
-A 34                34 A
-A 7878            7878 A
 A                      A
 A                      A
-AAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAADDDDDDDDAAAAAAAA
+
+
 

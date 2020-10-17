@@ -32,6 +32,21 @@ public:
 	bool collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) ;
 	bool collisionMoveUp(const glm::ivec2& pos, const glm::ivec2& size) ;
 	bool collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size) ;
+
+
+	enum block
+	{
+		wall,
+		lose,
+		basic,
+		strong,
+		key,
+		ring,
+		arrow,
+	};
+
+	int checkBlock(int block);
+	bool treatCollision(int pos);
 	
 private:
 	bool loadLevel(const string &levelFile);

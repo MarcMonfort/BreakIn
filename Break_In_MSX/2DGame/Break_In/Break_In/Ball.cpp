@@ -65,6 +65,17 @@ void Ball::setTileMap(TileMap* tileMap)
 	map = tileMap;
 }
 
+glm::fvec2 Ball::getPosition()
+{
+	return posBall;
+}
+
+void Ball::addVelocity(float increase)
+{
+	vX *= increase;
+	vY *= increase;
+}
+
 void Ball::setPosition(const glm::vec2& pos)
 {
 	posBall = pos;
