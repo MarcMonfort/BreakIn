@@ -41,6 +41,10 @@ void Level::update(int deltaTime)
 	currentTime += deltaTime;
 	/*player->update(deltaTime);
 	ball->update(deltaTime);*/
+	if (transTime > 0)
+		transTime -= deltaTime;
+
+	//cout << downTime << endl;
 }
 
 void Level::render()
@@ -52,6 +56,24 @@ void Level::render()
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
 	modelview = glm::mat4(1.0f);
 	//modelview = glm::scale(modelview, glm::vec3(1.3f, 1.3f, 0.0f)); //NEW
+	if (transTime > 0)
+	{
+		switch (transition)
+		{
+			case upCenter:
+				modelview = glm::translate(modelview, glm::vec3(0.f, -(2*transTime), 0.0f));
+				break;
+			case downCenter:
+				modelview = glm::translate(modelview, glm::vec3(0.f, 2* transTime, 0.0f));
+				break;
+			case centerUp:
+				modelview = glm::translate(modelview, glm::vec3(0.f, -2 * (200 - transTime), 0.0f));
+				break;
+			case centerDown:
+				modelview = glm::translate(modelview, glm::vec3(0.f, 2 * (200 - transTime), 0.0f));
+				break;
+		}
+	}
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 
@@ -60,6 +82,13 @@ void Level::render()
 	/*player->render();
 	ball->render();*/
 }
+
+void Level::setTransition(int transition)
+{
+	this->transition = transition;
+	transTime = 200;
+}
+
 
 TileMap* Level::getMap()
 {

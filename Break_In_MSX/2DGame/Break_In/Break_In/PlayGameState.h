@@ -57,6 +57,9 @@ private:
 	vector<Level*> levels;	// como conservar level?
 	//Level* level;
 	int currentLevel;
+	int previousLevel;
+
+	float upDownTime = 0;
 
 
 };

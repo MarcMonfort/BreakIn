@@ -46,6 +46,14 @@ void PlayGameState::update(int deltaTime)
 	currentTime += deltaTime;
 	levels[currentLevel]->update(deltaTime);
 
+	if (upDownTime > 0) {
+		levels[previousLevel]->update(deltaTime);
+	}
+
+	if (upDownTime > 0) {
+		upDownTime -= deltaTime;
+	}
+
 	player->update(deltaTime);
 	ball->update(deltaTime);
 }
@@ -61,13 +69,20 @@ void PlayGameState::render()
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 
+	if (upDownTime > 0) {
+		levels[previousLevel]->render();
+	}
 	levels[currentLevel]->render();
+
 	player->render(); //creo que es mejor que este render lo haga el Level
 	ball->render();		//con una funcion setPlayer(Player* player)
 }
 
 void PlayGameState::nextLevel()
 {
+	levels[currentLevel]->setTransition(3);
+	previousLevel = currentLevel;
+	upDownTime = 200;
 	currentLevel += 1;
 	if (levels.size() <= currentLevel)
 	{
@@ -75,8 +90,8 @@ void PlayGameState::nextLevel()
 		nextLevel->createLevel(currentLevel + 1);
 		levels.push_back(nextLevel);
 	}
+	levels[currentLevel]->setTransition(0);
 	player->setTileMap(levels[currentLevel]->getMap());
-
 	ball->setPosition(glm::vec2(ball->getPosition().x, INIT_BALL_Y_TILES * levels[currentLevel]->getMap()->getTileSize()));
 	ball->setTileMap(levels[currentLevel]->getMap());
 }
@@ -84,12 +99,15 @@ void PlayGameState::nextLevel()
 void PlayGameState::lastLevel()
 {
 	if (currentLevel > 0) {
+		levels[currentLevel]->setTransition(2);
+		previousLevel = currentLevel;
+		upDownTime = 200;
 		currentLevel -= 1;
+		levels[currentLevel]->setTransition(1);
 		player->setTileMap(levels[currentLevel]->getMap());
 		ball->setTileMap(levels[currentLevel]->getMap());
 	}
 	player->setTileMap(levels[currentLevel]->getMap());
-
 	ball->setPosition(glm::vec2(ball->getPosition().x, 1 * levels[currentLevel]->getMap()->getTileSize()));
 	ball->setTileMap(levels[currentLevel]->getMap());
 }
@@ -105,6 +123,9 @@ void PlayGameState::keyPressed(int key)
 	{
 		if (currentLevel < LAST_LEVEL)
 		{
+			levels[currentLevel]->setTransition(3);
+			previousLevel = currentLevel;
+			upDownTime = 200;
 			currentLevel += 1;
 			if (levels.size() <= currentLevel)
 			{
@@ -112,6 +133,7 @@ void PlayGameState::keyPressed(int key)
 				nextLevel->createLevel(currentLevel + 1);
 				levels.push_back(nextLevel);	
 			}
+			levels[currentLevel]->setTransition(0);
 			player->setTileMap(levels[currentLevel]->getMap());
 			ball->setTileMap(levels[currentLevel]->getMap());
 		}
@@ -120,7 +142,11 @@ void PlayGameState::keyPressed(int key)
 	else if (key == 'b')
 	{
 		if (currentLevel > 0) {
+			levels[currentLevel]->setTransition(2);
+			previousLevel = currentLevel;
+			upDownTime = 200;
 			currentLevel -= 1;
+			levels[currentLevel]->setTransition(1);
 			player->setTileMap(levels[currentLevel]->getMap());
 			ball->setTileMap(levels[currentLevel]->getMap());
 		}
@@ -133,6 +159,14 @@ void PlayGameState::keyPressed(int key)
 	else if (key == 'f')
 	{
 		ball->addVelocity(0.5);
+	}
+	else if (key == 'q')
+	{
+		levels[currentLevel]->setTransition(1);
+	}
+	else if (key == 'w')
+	{
+		levels[currentLevel]->setTransition(3);
 	}
 	
 	keys[key] = true;

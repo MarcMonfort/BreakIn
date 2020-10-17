@@ -22,6 +22,17 @@ public:
 
 	TileMap* getMap();
 
+
+	enum transitions
+	{
+		upCenter,
+		downCenter,
+		centerUp,
+		centerDown
+	};
+
+	void setTransition(int transition);
+
 private:
 	void initShaders();
 
@@ -33,6 +44,12 @@ private:
 	float currentTime;
 	glm::mat4 projection;
 	int numLevel;
+
+	float transTime;
+
+	
+	int transition;
+
 };
 
 
