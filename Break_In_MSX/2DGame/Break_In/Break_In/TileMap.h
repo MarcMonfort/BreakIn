@@ -45,12 +45,15 @@ public:
 		arrow,
 	};
 
-	int checkBlock(int block);
-	bool treatCollision(int pos);
+	string getBackgroundFile();
+
+	
 	
 private:
 	bool loadLevel(const string &levelFile);
 	void prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program);
+	int checkBlock(int block);
+	bool treatCollision(int pos);
 
 private:
 	GLuint vao;
@@ -67,6 +70,7 @@ private:
 	glm::vec2 a;
 	ShaderProgram b;
 
+	string backgroundFile;
 };
 
 

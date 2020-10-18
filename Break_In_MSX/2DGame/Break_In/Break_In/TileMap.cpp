@@ -26,8 +26,8 @@ TileMap::TileMap(const string &levelFile, const glm::vec2 &minCoords, ShaderProg
 	loadLevel(levelFile);
 	a = minCoords;
 	b = program;
-	prepareArrays(a, b);
-	//prepareArrays(minCoords, program);
+	//prepareArrays(a, b);
+	prepareArrays(minCoords, program);
 }
 
 TileMap::~TileMap()
@@ -46,6 +46,7 @@ void TileMap::render() const
 	glEnableVertexAttribArray(texCoordLocation);
 	glDrawArrays(GL_TRIANGLES, 0, 6 * mapSize.x * mapSize.y);
 	glDisable(GL_TEXTURE_2D);
+
 }
 
 void TileMap::free()
@@ -73,6 +74,9 @@ bool TileMap::loadLevel(const string &levelFile)
 	getline(fin, line);
 	sstream.str(line);
 	sstream >> tileSize >> blockSize;
+	getline(fin, line);
+	sstream.str(line);
+	sstream >> backgroundFile;
 	getline(fin, line);
 	sstream.str(line);
 	sstream >> tilesheetFile;
@@ -155,6 +159,13 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 	posLocation = program.bindVertexAttribute("position", 2, 4*sizeof(float), 0);
 	texCoordLocation = program.bindVertexAttribute("texCoord", 2, 4*sizeof(float), (void *)(2*sizeof(float)));
 }
+
+
+string TileMap::getBackgroundFile()
+{
+	return backgroundFile;
+}
+
 
 // Collision tests for axis aligned bounding boxes.
 // Method collisionMoveDown also corrects Y coordinate if the box is

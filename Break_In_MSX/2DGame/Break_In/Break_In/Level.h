@@ -46,9 +46,12 @@ private:
 	int numLevel;
 
 	float transTime;
-
-	
 	int transition;
+
+	Sprite* background;
+	Texture spritesheet;
+
+
 
 };
 
