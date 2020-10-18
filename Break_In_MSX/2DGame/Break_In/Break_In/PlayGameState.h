@@ -44,6 +44,7 @@ public:
 
 private:
 	void initShaders();
+	void deleteLevels();
 
 private:
 	//TileMap* map;

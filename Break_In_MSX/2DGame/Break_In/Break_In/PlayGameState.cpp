@@ -28,6 +28,7 @@ void PlayGameState::init()
 	Level* first = new Level();
 	first->createLevel(currentLevel+1);
 	levels.push_back(first);
+	levels[currentLevel]->setTransition(0);
 
 	player = new Player();
 	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
@@ -78,6 +79,14 @@ void PlayGameState::render()
 	ball->render();		//con una funcion setPlayer(Player* player)
 }
 
+void PlayGameState::deleteLevels() {
+	for (int i = 0; i < levels.size(); ++i) {
+		delete levels[i];
+	}
+	levels.clear();
+	//cout << levels.size() << endl;
+}
+
 void PlayGameState::nextLevel()
 {
 	levels[currentLevel]->setTransition(3);
@@ -117,6 +126,7 @@ void PlayGameState::keyPressed(int key)
 {
 	if (key == 27) // Escape code
 	{
+		deleteLevels();
 		Game::instance().popGameState(); //or better push so we dont loose the state??
 	}
 	else if (key == 'n')
@@ -167,6 +177,10 @@ void PlayGameState::keyPressed(int key)
 	else if (key == 'w')
 	{
 		levels[currentLevel]->setTransition(3);
+	}
+	else if (key == 'd')
+	{
+		deleteLevels();
 	}
 	
 	keys[key] = true;
