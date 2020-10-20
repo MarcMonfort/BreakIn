@@ -5,13 +5,6 @@
 #include "Ball.h"
 #include "Game.h"
 
-#define ANGLE_STEP 4
-
-enum BallAnims
-{
-	EXISTIR
-};
-
 void Ball::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 {
 	spritesheet.loadFromFile("images/ball.png", TEXTURE_PIXEL_FORMAT_RGBA);
@@ -103,12 +96,21 @@ bool Ball::collisionPlayer(const glm::ivec2& posPlayer)
 		float playerWidth = 32.0; //es podria passar per parametre
 		float pxmin = posPlayer.x;
 		float pxmax = posPlayer.x + playerWidth;
+		float pxcenter = posPlayer.x + playerWidth / 2.0;
 		float py = posPlayer.y;
 
 		if (bymax >= py && bymin < py)
 			//if ((bxmin >= pxmin && bxmin <= pxmax) || (bxmax >= pxmin && bxmax <= pxmax))
-			if (bxcenter >= pxmin && bxcenter <= pxmax)
+			if (bxcenter >= pxmin && bxcenter <= pxmax) {
+
+				if (bxcenter < pxcenter)
+					vX = -0.2 * (pxcenter - bxcenter);
+				else if (bxcenter > pxcenter)
+					vX = 0.2 * (bxcenter - pxcenter);
+				else
+					vX = 0;
 				return true;
+			}
 	}
 	
 	return false;
