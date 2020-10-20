@@ -30,6 +30,10 @@ void PlayGameState::init()
 	levels.push_back(first);
 	levels[currentLevel]->setTransition(0);
 
+	spritesheet.loadFromFile("images/counters.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	counters = Sprite::createSprite(glm::ivec2(2*62, 2*192), glm::vec2(1.f, 1.f), &spritesheet, &texProgram);
+	counters->setPosition(glm::vec2(450, 48));  //Nombre arbitrari (a ojo), potser caldria calcular-lo
+
 	player = new Player();
 	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * levels[currentLevel]->getMap()->getTileSize(), INIT_PLAYER_Y_TILES * levels[currentLevel]->getMap()->getTileSize()));
@@ -75,6 +79,8 @@ void PlayGameState::render()
 		levels[previousLevel]->render();
 	}
 	levels[currentLevel]->render();
+
+	counters->render();
 
 	player->render(); //creo que es mejor que este render lo haga el Level
 	ball->render();		//con una funcion setPlayer(Player* player)

@@ -6,6 +6,7 @@
 #include "GameState.h"
 #include "ShaderProgram.h"
 #include "TileMap.h"
+#include "Sprite.h"
 #include "Player.h"
 #include "Level.h"
 
@@ -50,6 +51,9 @@ private:
 	//TileMap* map;
 	Player* player;
 	Ball* ball;
+
+	Texture spritesheet;
+	Sprite* counters;
 
 	ShaderProgram texProgram;
 	float currentTime;
