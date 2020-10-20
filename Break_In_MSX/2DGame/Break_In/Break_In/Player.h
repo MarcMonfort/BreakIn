@@ -19,6 +19,7 @@ public:
 	void render();
 	
 	void setTileMap(TileMap *tileMap);
+	glm::vec2 getPosition();
 	void setPosition(const glm::vec2 &pos);
 	
 private:

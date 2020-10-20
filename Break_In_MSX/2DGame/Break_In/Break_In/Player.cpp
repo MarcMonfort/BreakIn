@@ -19,8 +19,8 @@ enum PlayerAnims
 
 void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 {
-	spritesheet.loadFromFile("images/ulls_ampliats.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite = Sprite::createSprite(glm::ivec2(32, 32), glm::vec2(0.25, 0.25), &spritesheet, &shaderProgram);
+	spritesheet.loadFromFile("images/eye_sense_fons.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	sprite = Sprite::createSprite(glm::ivec2(32, 44), glm::vec2(1.0, 1.0), &spritesheet, &shaderProgram); //glm::vec2(0.1484375, 0.203125)
 	sprite->setNumberAnimations(4);
 	
 		sprite->setAnimationSpeed(STAND_LEFT, 8);
@@ -126,12 +126,13 @@ void Player::setTileMap(TileMap *tileMap)
 	map = tileMap;
 }
 
+glm::vec2 Player::getPosition()
+{
+	return(posPlayer);
+}
+
 void Player::setPosition(const glm::vec2 &pos)
 {
 	posPlayer = pos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
 }
-
-
-
-

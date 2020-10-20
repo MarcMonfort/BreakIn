@@ -56,7 +56,8 @@ void PlayGameState::update(int deltaTime)
 	}
 
 	player->update(deltaTime);
-	ball->update(deltaTime);
+	glm::vec2 posPlayer = player->getPosition();
+	ball->update(deltaTime, posPlayer);
 }
 
 void PlayGameState::render()
