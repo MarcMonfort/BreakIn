@@ -44,9 +44,32 @@ void PlayGameState::init()
 	ball->setPosition(glm::vec2(INIT_BALL_X_TILES * levels[currentLevel]->getMap()->getTileSize(), INIT_BALL_Y_TILES * levels[currentLevel]->getMap()->getTileSize()));
 	ball->setTileMap(levels[currentLevel]->getMap());
 
+	int y = 0;
+
 	money = 0;
+	y += 65;
 	moneyDisplay = new NumDisplay();
-	moneyDisplay->init(7, 65); //nombre de digits, coordenada y
+	moneyDisplay->init(7, y); //nombre de digits, coordenada y
+
+	points = 0;
+	y += 80;
+	pointsDisplay = new NumDisplay();
+	pointsDisplay->init(7, y);
+
+	lives = 0;
+	y += 96;
+	livesDisplay = new NumDisplay();
+	livesDisplay->init(2, y);
+
+	bank = 0;
+	y += 64;
+	bankDisplay = new NumDisplay();
+	bankDisplay->init(2, y);
+
+	room = 0;
+	y += 112;
+	roomDisplay = new NumDisplay();
+	roomDisplay->init(2, y);
 
 }
 
@@ -68,6 +91,10 @@ void PlayGameState::update(int deltaTime)
 	ball->update(deltaTime, posPlayer);
 
 	moneyDisplay->displayNum(money);
+	pointsDisplay->displayNum(points);
+	livesDisplay->displayNum(lives);
+	bankDisplay->displayNum(bank);
+	roomDisplay->displayNum(room);
 }
 
 void PlayGameState::render()
@@ -92,7 +119,10 @@ void PlayGameState::render()
 	ball->render();		//con una funcion setPlayer(Player* player)
 
 	moneyDisplay->render();
-	
+	pointsDisplay->render();
+	livesDisplay->render();
+	bankDisplay->render();
+	roomDisplay->render();
 }
 
 void PlayGameState::deleteLevels() {

@@ -56,8 +56,20 @@ private:
 	Texture spritesheet;
 	Sprite* counters;
 
-	NumDisplay* moneyDisplay;
 	int money;
+	NumDisplay* moneyDisplay;
+	
+	int points;
+	NumDisplay* pointsDisplay;
+
+	int lives;
+	NumDisplay* livesDisplay;
+
+	int bank;
+	NumDisplay* bankDisplay;
+
+	int room;
+	NumDisplay* roomDisplay;
 
 	ShaderProgram texProgram;
 	float currentTime;
