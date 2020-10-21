@@ -17,6 +17,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="MenuGameState.h" />
+    <ClInclude Include="NumDisplay.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayGameState.h" />
     <ClInclude Include="Scene.h" />
@@ -33,6 +34,7 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuGameState.cpp" />
+    <ClCompile Include="NumDisplay.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayGameState.cpp" />
     <ClCompile Include="Scene.cpp" />

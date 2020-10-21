@@ -9,6 +9,7 @@
 #include "Sprite.h"
 #include "Player.h"
 #include "Level.h"
+#include "NumDisplay.h"
 
 
 // PlayGameState contains all the entities of our game.
@@ -54,6 +55,9 @@ private:
 
 	Texture spritesheet;
 	Sprite* counters;
+
+	NumDisplay* moneyDisplay;
+	int money;
 
 	ShaderProgram texProgram;
 	float currentTime;

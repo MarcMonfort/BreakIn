@@ -44,6 +44,10 @@ void PlayGameState::init()
 	ball->setPosition(glm::vec2(INIT_BALL_X_TILES * levels[currentLevel]->getMap()->getTileSize(), INIT_BALL_Y_TILES * levels[currentLevel]->getMap()->getTileSize()));
 	ball->setTileMap(levels[currentLevel]->getMap());
 
+	money = 0;
+	moneyDisplay = new NumDisplay();
+	moneyDisplay->init(7, 65); //nombre de digits, coordenada y
+
 }
 
 void PlayGameState::update(int deltaTime)
@@ -62,6 +66,8 @@ void PlayGameState::update(int deltaTime)
 	player->update(deltaTime);
 	glm::vec2 posPlayer = player->getPosition();
 	ball->update(deltaTime, posPlayer);
+
+	moneyDisplay->displayNum(money);
 }
 
 void PlayGameState::render()
@@ -84,6 +90,9 @@ void PlayGameState::render()
 
 	player->render(); //creo que es mejor que este render lo haga el Level
 	ball->render();		//con una funcion setPlayer(Player* player)
+
+	moneyDisplay->render();
+	
 }
 
 void PlayGameState::deleteLevels() {
@@ -91,7 +100,6 @@ void PlayGameState::deleteLevels() {
 		delete levels[i];
 	}
 	levels.clear();
-	//cout << levels.size() << endl;
 }
 
 void PlayGameState::nextLevel()
@@ -188,6 +196,10 @@ void PlayGameState::keyPressed(int key)
 	else if (key == 'd')
 	{
 		deleteLevels();
+	}
+	else if (key == 'm')
+	{
+		money += 1;
 	}
 	
 	keys[key] = true;
