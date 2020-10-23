@@ -12,8 +12,8 @@ void Ball::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 	tileMapDispl = tileMapPos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBall.x), float(tileMapDispl.y + posBall.y)));
 
-	vX = 2;
-	vY = 1;
+	vX = 4;
+	vY = 2;
 }
 
 void Ball::update(int deltaTime, glm::vec2 posPlayer)
