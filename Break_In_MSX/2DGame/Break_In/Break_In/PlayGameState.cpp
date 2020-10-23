@@ -71,24 +71,32 @@ void PlayGameState::init()
 	roomDisplay = new NumDisplay();
 	roomDisplay->init(2, y);
 
+	animation = new Animation();
+	animation->init();
+
 }
 
 void PlayGameState::update(int deltaTime)
 {
 	currentTime += deltaTime;
-	levels[currentLevel]->update(deltaTime);
+	
+	if (!bAnim)
+	{
+		levels[currentLevel]->update(deltaTime);
 
-	if (upDownTime > 0) {
-		levels[previousLevel]->update(deltaTime);
+		if (upDownTime > 0) {
+			levels[previousLevel]->update(deltaTime);
+			upDownTime -= deltaTime;
+		}
+
+		player->update(deltaTime);
+		glm::vec2 posPlayer = player->getPosition();
+		ball->update(deltaTime, posPlayer);
 	}
-
-	if (upDownTime > 0) {
-		upDownTime -= deltaTime;
+	else 
+	{
+		animation->update(deltaTime);
 	}
-
-	player->update(deltaTime);
-	glm::vec2 posPlayer = player->getPosition();
-	ball->update(deltaTime, posPlayer);
 
 	moneyDisplay->displayNum(money);
 	pointsDisplay->displayNum(points);
@@ -108,16 +116,23 @@ void PlayGameState::render()
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 
-	if (upDownTime > 0) {
-		levels[previousLevel]->render();
+	if (!bAnim)
+	{
+		if (upDownTime > 0) {
+			levels[previousLevel]->render();
+		}
+		levels[currentLevel]->render();
+
+
+		player->render(); //creo que es mejor que este render lo haga el Level
+		ball->render();		//con una funcion setPlayer(Player* player)
 	}
-	levels[currentLevel]->render();
+	else
+	{
+		animation->render();
+	}
 
 	counters->render();
-
-	player->render(); //creo que es mejor que este render lo haga el Level
-	ball->render();		//con una funcion setPlayer(Player* player)
-
 	moneyDisplay->render();
 	pointsDisplay->render();
 	livesDisplay->render();
@@ -230,6 +245,10 @@ void PlayGameState::keyPressed(int key)
 	else if (key == 'm')
 	{
 		money += 1;
+	}
+	else if (key == 'a')
+	{
+		bAnim = !bAnim;
 	}
 	
 	keys[key] = true;

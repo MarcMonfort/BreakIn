@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "Level.h"
 #include "NumDisplay.h"
+#include "Animation.h"
 
 
 // PlayGameState contains all the entities of our game.
@@ -81,6 +82,9 @@ private:
 	int previousLevel;
 
 	float upDownTime = 0;
+
+	Animation* animation;
+	bool bAnim = false;
 
 
 };

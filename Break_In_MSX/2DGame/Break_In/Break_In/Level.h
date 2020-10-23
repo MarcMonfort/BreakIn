@@ -1,4 +1,3 @@
-#pragma once
 #ifndef _LEVEL_INCLUDE
 #define _LEVEL_INCLUDE
 
@@ -9,7 +8,6 @@
 #include "TileMap.h"
 #include "Player.h"
 #include "Ball.h"
-#include "GameState.h"
 
 
 class Level
