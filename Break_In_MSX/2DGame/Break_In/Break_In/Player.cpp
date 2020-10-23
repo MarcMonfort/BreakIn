@@ -10,6 +10,9 @@
 #define JUMP_HEIGHT 96
 #define FALL_STEP 4
 
+#define SIZE_X_PLAYER 38
+#define SIZE_Y_PLAYER 52
+
 
 enum PlayerAnims
 {
@@ -19,8 +22,8 @@ enum PlayerAnims
 
 void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 {
-	spritesheet.loadFromFile("images/eye_sense_fons.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite = Sprite::createSprite(glm::ivec2(32, 44), glm::vec2(1.0, 1.0), &spritesheet, &shaderProgram); //glm::vec2(0.1484375, 0.203125)
+	spritesheet.loadFromFile("images/eyes_new.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	sprite = Sprite::createSprite(glm::ivec2(SIZE_X_PLAYER, SIZE_Y_PLAYER), glm::vec2(1.0, 1.0), &spritesheet, &shaderProgram); //glm::vec2(0.1484375, 0.203125)
 	sprite->setNumberAnimations(4);
 	
 		sprite->setAnimationSpeed(STAND_LEFT, 8);

@@ -88,7 +88,7 @@ bool Ball::collisionPlayer(const glm::ivec2& posPlayer)
 		float bymin = posBall.y;
 		float bymax = posBall.y + ball_size;
 
-		float playerWidth = 32.0; //es podria passar per parametre
+		float playerWidth = 38.0; //es podria passar per parametre
 		float pxmin = posPlayer.x;
 		float pxmax = posPlayer.x + playerWidth;
 		float pxcenter = posPlayer.x + playerWidth / 2.0;
