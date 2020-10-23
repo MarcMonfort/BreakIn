@@ -22,30 +22,25 @@ void Ball::update(int deltaTime, glm::vec2 posPlayer)
 
 	posBall.y += vY;
 	if (map->collisionMoveUp(posBall, glm::ivec2(22, 22))) {
-		cout << "Up" << endl;
 		posBall.y -= vY;
 		vY = abs(vY);
 	}
 	else if (map->collisionMoveDown(posBall, glm::ivec2(22, 22))) {
-		cout << "Down" << endl;
 		posBall.y -= vY;
 		vY = -abs(vY);
 	}
 
 	if (collisionPlayer(posPlayer)) {
-		cout << "Player" << endl;
 		posBall.y -= vY;
 		vY = -abs(vY);
 	}
 
 	posBall.x += vX;
 	if (map->collisionMoveLeft(posBall, glm::ivec2(22, 22))) {
-		cout << "Left" << endl;
 		posBall.x -= vX;
 		vX = abs(vX);
 	}
 	else if (map->collisionMoveRight(posBall, glm::ivec2(22, 22))) {
-		cout << "Right" << endl;
 		posBall.x -= vX;
 		vX = -abs(vX);
 	}
