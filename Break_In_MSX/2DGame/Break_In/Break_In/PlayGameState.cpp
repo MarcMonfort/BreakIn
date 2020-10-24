@@ -182,6 +182,7 @@ void PlayGameState::lastMap()
 		player->setTileMap(levels[currentMap]->getMap());
 		ball->setTileMap(levels[currentMap]->getMap());
 	}
+	room -= 1;
 	player->setTileMap(levels[currentMap]->getMap());
 	ball->setPosition(glm::vec2(ball->getPosition().x, 1 * levels[currentMap]->getMap()->getTileSize()));
 	ball->setTileMap(levels[currentMap]->getMap());
@@ -196,8 +197,6 @@ void PlayGameState::nextLevel() {
 
 void PlayGameState::stopAnimation() {
 	bAnim = false;
-	bank += 1;
-	room = 1;
 }
 
 
@@ -207,6 +206,8 @@ void PlayGameState::setLevel(int level) {
 		currentLevel = level;
 		currentMap = 0;
 		previousMap = 0;
+		room = 1;
+		bank = level;
 
 		Level* first = new Level();
 		first->createLevel(currentLevel, currentMap + 1);
