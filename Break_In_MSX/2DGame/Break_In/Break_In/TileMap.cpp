@@ -264,6 +264,7 @@ int TileMap::checkBlock(int block)
 bool TileMap::treatCollision(int pos)
 {
 	int block = checkBlock(map[pos]);
+	
 	if (block == basic)
 	{
 		if (map[pos] % 2 == 0)
@@ -271,6 +272,7 @@ bool TileMap::treatCollision(int pos)
 		else
 			map[pos + 1] = 0;
 		map[pos] = 0;
+		PlayGameState::instance().addPoints(100);
 	}
 	else if (block == strong)
 	{
@@ -282,6 +284,7 @@ bool TileMap::treatCollision(int pos)
 			map[pos] = 15;
 			map[pos + 1] = 16;
 		}	
+		PlayGameState::instance().addPoints(100);
 	}
 	else if (block == key)
 	{

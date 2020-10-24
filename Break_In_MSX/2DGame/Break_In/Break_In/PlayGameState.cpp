@@ -292,5 +292,10 @@ void PlayGameState::initShaders()
 	fShader.free();
 }
 
+void PlayGameState::addPoints(int addedPoints)
+{
+	points += addedPoints;
+}
+
 
 
