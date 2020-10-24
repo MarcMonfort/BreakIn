@@ -275,12 +275,12 @@ bool TileMap::treatCollision(int pos)
 	else if (block == strong)
 	{
 		if (map[pos] % 2 == 0) {
-			map[pos] = 16;
-			map[pos - 1] = 15;
+			map[pos] = 14;
+			map[pos - 1] = 13;
 		}
 		else {
-			map[pos] = 15;
-			map[pos + 1] = 16;
+			map[pos] = 13;
+			map[pos + 1] = 14;
 		}	
 	}
 	else if (block == key)
@@ -318,12 +318,12 @@ bool TileMap::treatCollision(int pos)
 	}
 	else if (block == arrow)
 	{
-		PlayGameState::instance().nextLevel();
+		PlayGameState::instance().nextMap();
 		return false;
 	}
 	else if (block == lose)
 	{
-		PlayGameState::instance().lastLevel();
+		PlayGameState::instance().lastMap();
 		return false;
 	}
 	prepareArrays(a, b);

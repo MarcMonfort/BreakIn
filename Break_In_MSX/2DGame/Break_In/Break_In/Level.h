@@ -14,7 +14,7 @@ class Level
 {
 
 public:
-	void createLevel(int numLevel);
+	void createLevel(int numLevel, int numMap);
 	void update(int deltaTime);
 	void render();
 

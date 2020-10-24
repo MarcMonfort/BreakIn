@@ -3,9 +3,17 @@
 #include <cmath>
 #include <glm/gtc/matrix_transform.hpp>
 #include "Game.h"
+#include "PlayGameState.h"
+#include <GL/glew.h>
+#include <GL/glut.h>
+
+
 
 #define SCREEN_X 32 //tiene que se igual al de PlayGameState.cpp
 #define SCREEN_Y 48
+
+#define INIT_PLAYER_X_TILES 4
+#define INIT_PLAYER_Y_TILES 25
 
 void Animation::init()
 {
@@ -17,15 +25,32 @@ void Animation::init()
 	background = Sprite::createSprite(glm::ivec2(24 * 16, 24 * 16), glm::vec2(1.f, 1.f), &spritesheet, &texProgram);
 	background->setPosition(glm::vec2(SCREEN_X, SCREEN_Y ));
 
+	thief = new Thief();
+	thief->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+	thief->setPosition(glm::vec2(60,258) );
+
+
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
 
 
 }
 
+void Animation::restart()
+{
+	thief->setPosition(glm::vec2(60, 258));
+
+}
+
 void Animation::update(int deltaTime)
 {
 	currentTime += deltaTime;
+	thief->update(deltaTime);
+
+	if (thief->getPosition().x >= 325 || Game::instance().getGameState()->getKey(32)) {
+		PlayGameState::instance().stopAnimation();
+	}
+
 
 }
 
@@ -40,6 +65,8 @@ void Animation::render()
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	background->render();
+
+	thief->render();
 }
 
 void Animation::initShaders()

@@ -8,6 +8,7 @@
 #include "TileMap.h"
 #include "Player.h"
 #include "Ball.h"
+#include "Thief.h"
 
 class Animation
 {
@@ -16,6 +17,7 @@ public:
 	void init();
 	void update(int deltaTime);
 	void render();
+	void restart();
 
 
 private:
@@ -28,6 +30,9 @@ private:
 	ShaderProgram texProgram;
 	float currentTime;
 	glm::mat4 projection;
+
+	Thief* thief;
+
 };
 
 #endif
