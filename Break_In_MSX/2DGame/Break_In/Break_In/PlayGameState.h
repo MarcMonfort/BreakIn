@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "Level.h"
 #include "NumDisplay.h"
+#include "Animation.h"
 
 
 // PlayGameState contains all the entities of our game.
@@ -32,8 +33,11 @@ public:
 	void update(int deltaTime);
 	void render();
 
+	void nextMap();
+	void lastMap();
+
 	void nextLevel();
-	void lastLevel();
+	void stopAnimation();
 
 	// Input callback methods
 	void keyPressed(int key);
@@ -50,6 +54,9 @@ public:
 private:
 	void initShaders();
 	void deleteLevels();
+	void setLevel(int level);
+
+	void setGodMode();
 
 private:
 	//TileMap* map;
@@ -80,10 +87,14 @@ private:
 
 	vector<Level*> levels;	// como conservar level?
 	//Level* level;
+	int currentMap;
+	int previousMap;
 	int currentLevel;
-	int previousLevel;
 
 	float upDownTime = 0;
+
+	Animation* animation;
+	bool bAnim = false;
 
 
 };

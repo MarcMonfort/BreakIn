@@ -7,7 +7,7 @@
 
 
 #define SCREEN_X 32 //tiene que se igual al de PlayGameState.cpp
-#define SCREEN_Y 48 //16
+#define SCREEN_Y 48
 
 #define INIT_PLAYER_X_TILES 4
 #define INIT_PLAYER_Y_TILES 25
@@ -15,10 +15,10 @@
 #define INIT_BALL_X_TILES 5
 #define INIT_BALL_Y_TILES 5
 
-void Level::createLevel(int numLevel)
+void Level::createLevel(int numLevel, int numMap)
 {
 	initShaders();
-	string pathLevel = "levels/level0" + to_string(numLevel) + ".txt";
+	string pathLevel = "levels/level" + to_string(numLevel) + to_string(numMap) +  ".txt";
 	map = TileMap::createTileMap(pathLevel, glm::vec2(SCREEN_X, SCREEN_Y), texProgram);
 
 	spritesheet.loadFromFile(map->getBackgroundFile(), TEXTURE_PIXEL_FORMAT_RGBA);

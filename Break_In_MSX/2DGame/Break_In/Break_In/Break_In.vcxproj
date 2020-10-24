@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimKeyframes.h" />
     <ClInclude Include="Ball.h" />
     <ClInclude Include="Game.h" />
@@ -25,9 +26,11 @@
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Thief.h" />
     <ClInclude Include="TileMap.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameState.cpp" />
@@ -42,6 +45,7 @@
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Thief.cpp" />
     <ClCompile Include="TileMap.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
