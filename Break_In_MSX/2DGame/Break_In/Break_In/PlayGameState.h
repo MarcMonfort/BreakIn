@@ -43,7 +43,9 @@ public:
 	void mouseMove(int x, int y);
 	void mousePress(int button);
 	void mouseRelease(int button);
+
 	void addPoints(int addedPoints);
+	void addMoney(int addedMoney);
 
 private:
 	void initShaders();

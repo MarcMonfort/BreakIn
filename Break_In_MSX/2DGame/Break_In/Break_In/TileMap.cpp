@@ -258,7 +258,10 @@ int TileMap::checkBlock(int block)
 		return arrow;
 	else if (block == 23 || block == 24 || block == 39 || block == 40)
 		return key;
-
+	else if (block == 31 || block == 32 || block == 47 || block == 48)
+		return bag;
+	else if (block == 49 || block == 50 || block == 65 || block == 66)
+		return coin;
 }
 
 bool TileMap::treatCollision(int pos)
@@ -329,37 +332,60 @@ bool TileMap::treatCollision(int pos)
 		PlayGameState::instance().lastLevel();
 		return false;
 	}
+	else if (block == bag)
+	{
+		if (map[pos] == 31) {
+			map[pos + 1] = 0;
+			map[pos + mapSize.x] = 0;
+			map[pos + mapSize.x + 1] = 0;
+
+		}
+		else if (map[pos] == 32) {
+			map[pos - 1] = 0;
+			map[pos + mapSize.x] = 0;
+			map[pos + mapSize.x - 1] = 0;
+		}
+		else if (map[pos] == 47) {
+			map[pos + 1] = 0;
+			map[pos - mapSize.x] = 0;
+			map[pos - mapSize.x + 1] = 0;
+		}
+		else if (map[pos] == 48) {
+			map[pos - 1] = 0;
+			map[pos - mapSize.x] = 0;
+			map[pos - mapSize.x - 1] = 0;
+		}
+		map[pos] = 0;
+		PlayGameState::instance().addMoney(200);
+	}
+	else if (block == coin)
+	{
+		if (map[pos] == 49) {
+			map[pos + 1] = 0;
+			map[pos + mapSize.x] = 0;
+			map[pos + mapSize.x + 1] = 0;
+
+		}
+		else if (map[pos] == 50) {
+			map[pos - 1] = 0;
+			map[pos + mapSize.x] = 0;
+			map[pos + mapSize.x - 1] = 0;
+		}
+		else if (map[pos] == 65) {
+			map[pos + 1] = 0;
+			map[pos - mapSize.x] = 0;
+			map[pos - mapSize.x + 1] = 0;
+		}
+		else if (map[pos] == 66) {
+			map[pos - 1] = 0;
+			map[pos - mapSize.x] = 0;
+			map[pos - mapSize.x - 1] = 0;
+		}
+		map[pos] = 0;
+		PlayGameState::instance().addMoney(100);
+	}
 	prepareArrays(a, b);
 	return true;
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

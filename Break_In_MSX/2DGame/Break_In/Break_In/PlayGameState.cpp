@@ -297,5 +297,7 @@ void PlayGameState::addPoints(int addedPoints)
 	points += addedPoints;
 }
 
-
-
+void PlayGameState::addMoney(int addedMoney)
+{
+	money += addedMoney;
+}

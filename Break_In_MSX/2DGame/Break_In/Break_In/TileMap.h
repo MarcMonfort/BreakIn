@@ -43,6 +43,8 @@ public:
 		key,
 		ring,
 		arrow,
+		bag,
+		coin,
 	};
 
 	string getBackgroundFile();
