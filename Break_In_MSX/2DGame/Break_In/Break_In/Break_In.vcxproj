@@ -86,13 +86,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\libs\Simple OpenGL Image Library\src;..\..\..\libs\freeglut\include;..\..\..\libs\glew-1.13.0\include;..\..\..\libs\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\libs\Simple OpenGL Image Library\src;..\..\..\libs\freeglut\include;..\..\..\libs\glew-1.13.0\include;..\..\..\libs\glm;..\..\..\libs\FMOD Studio API Windows\api\core\inc;..\..\..\libs\FMOD Studio API Windows\api\studio\inc;..\..\..\libs\FMOD Studio API Windows\api\fsbank\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\..\..\libs\Simple OpenGL Image Library\projects\VC9\Debug;..\..\..\libs\freeglut\lib;..\..\..\libs\glew-1.13.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SOIL.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\..\libs\FMOD Studio API Windows\api\studio\lib\x64;..\..\..\libs\FMOD Studio API Windows\api\fsbank\lib\x64;..\..\..\libs\FMOD Studio API Windows\api\core\lib\x64;..\..\..\libs\Simple OpenGL Image Library\projects\VC9\Debug;..\..\..\libs\freeglut\lib;..\..\..\libs\glew-1.13.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SOIL.lib;glew32.lib;fmodL_vc.lib;fmodstudioL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
