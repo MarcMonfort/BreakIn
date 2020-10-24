@@ -59,17 +59,17 @@ void PlayGameState::init()
 	pointsDisplay = new NumDisplay();
 	pointsDisplay->init(7, y);
 
-	lives = 0;
+	lives = 4;
 	y += 96;
 	livesDisplay = new NumDisplay();
 	livesDisplay->init(2, y);
 
-	bank = 0;
+	bank = 1;
 	y += 64;
 	bankDisplay = new NumDisplay();
 	bankDisplay->init(2, y);
 
-	room = 0;
+	room = 1;
 	y += 112;
 	roomDisplay = new NumDisplay();
 	roomDisplay->init(2, y);
@@ -158,6 +158,7 @@ void PlayGameState::nextMap()
 	previousMap = currentMap;
 	upDownTime = 200;
 	currentMap += 1;
+	room += 1;
 	if (levels.size() <= currentMap)
 	{
 		Level* nextLevel = new Level();  //recordar liberar espacio delete()
@@ -195,6 +196,8 @@ void PlayGameState::nextLevel() {
 
 void PlayGameState::stopAnimation() {
 	bAnim = false;
+	bank += 1;
+	room = 1;
 }
 
 
