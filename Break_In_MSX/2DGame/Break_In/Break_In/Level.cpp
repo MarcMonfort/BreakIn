@@ -25,6 +25,17 @@ void Level::createLevel(int numLevel, int numMap)
 	background = Sprite::createSprite(glm::ivec2(22*16, 23*16), glm::vec2(11.f, 11.f), &spritesheet, &texProgram);
 	background->setPosition(glm::vec2(SCREEN_X+16, SCREEN_Y+16));
 
+	if (map->hasRing())
+	{
+		bRing = true;
+		ring = new Ring();
+		ring->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+		ring->setPosition(map->getRingPosition());
+	}
+
+	guard = new Guard();
+	guard->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+	guard->setPosition(glm::vec2(SCREEN_X+1*16, SCREEN_Y+15*16));
 
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
@@ -36,6 +47,15 @@ void Level::update(int deltaTime)
 	currentTime += deltaTime;
 	if (transTime > 0)
 		transTime -= deltaTime;
+
+	if (!bAlarm && bRing && map->alarmOn())
+		bAlarm = true;
+
+	if (bAlarm)
+		ring->update(deltaTime);
+
+	guard->update(deltaTime);
+
 
 }
 
@@ -81,6 +101,17 @@ void Level::render()
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	map->render();
+
+	if (bAlarm) {
+		ring->setPosition(glm::vec2(map->getRingPosition().x, map->getRingPosition().y + transY));
+		ring->render();
+	}
+
+	glm::vec2 aux = guard->getPosition();
+	guard->setPosition(glm::vec2(guard->getPosition().x, guard->getPosition().y + transY));
+	guard->render();
+	guard->setPosition(aux);
+
 
 
 }

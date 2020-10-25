@@ -8,6 +8,8 @@
 #include "TileMap.h"
 #include "Player.h"
 #include "Ball.h"
+#include "Ring.h"
+#include "Guard.h"
 
 
 class Level
@@ -49,7 +51,12 @@ private:
 	Sprite* background;
 	Texture spritesheet;
 
+	Ring* ring;
 
+	bool bRing = false;
+	bool bAlarm = false;
+
+	Guard* guard;
 
 };
 

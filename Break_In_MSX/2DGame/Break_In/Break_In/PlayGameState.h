@@ -51,6 +51,8 @@ public:
 	void addPoints(int addedPoints);
 	void addMoney(int addedMoney);
 
+	glm::vec2 getPlayerPosition();
+
 private:
 	void initShaders();
 	void deleteLevels();
