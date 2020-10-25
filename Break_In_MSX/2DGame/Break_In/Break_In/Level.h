@@ -8,6 +8,8 @@
 #include "TileMap.h"
 #include "Player.h"
 #include "Ball.h"
+#include "Ring.h"
+#include "Guard.h"
 
 
 class Level
@@ -30,6 +32,7 @@ public:
 	};
 
 	void setTransition(int transition);
+	void resetGuard();
 
 private:
 	void initShaders();
@@ -49,7 +52,12 @@ private:
 	Sprite* background;
 	Texture spritesheet;
 
+	Ring* ring;
 
+	bool bRing = false;
+	bool bAlarm = false;
+
+	Guard* guard;
 
 };
 

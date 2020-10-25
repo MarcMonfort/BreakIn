@@ -98,8 +98,15 @@ bool TileMap::loadLevel(const string &levelFile)
 			fin.get(tile);
 			if(tile == ' ')
 				map[j*mapSize.x+i] = 0;
-			else
+			else {
 				map[j*mapSize.x+i] = tile - int('0');
+				
+				if (tile == 'I') {
+					bRing = true;
+					ringPosition = glm::vec2(j * tileSize, i * tileSize);
+				}
+			}
+
 		}
 		fin.get(tile);
 #ifndef _WIN32
@@ -166,6 +173,21 @@ string TileMap::getBackgroundFile()
 	return backgroundFile;
 }
 
+
+bool TileMap::hasRing()
+{
+	return bRing;
+}
+
+glm::vec2 TileMap::getRingPosition()
+{
+	return ringPosition;
+}
+
+bool TileMap::alarmOn()
+{
+	return bAlarm;
+}
 
 // Collision tests for axis aligned bounding boxes.
 // Method collisionMoveDown also corrects Y coordinate if the box is
@@ -258,6 +280,8 @@ int TileMap::checkBlock(int block)
 		return arrow;
 	else if (block == 23 || block == 24 || block == 39 || block == 40)
 		return key;
+	else if (block == 25 || block == 26 || block == 41 || block == 42)
+		return ring;
 	else if (block == 31 || block == 32 || block == 47 || block == 48)
 		return bag;
 	else if (block == 49 || block == 50 || block == 65 || block == 66)
@@ -384,8 +408,35 @@ bool TileMap::treatCollision(int pos)
 		map[pos] = 0;
 		PlayGameState::instance().addMoney(100);
 	}
+	else if (block == ring)
+	{
+		bAlarm = true;
+		if (map[pos] == 25) {
+			map[pos + 1] = 33;
+			map[pos + mapSize.x] = 43;
+			map[pos + mapSize.x + 1] = 33;
+			map[pos] = 27;
+		}
+		else if (map[pos] == 26) {
+			map[pos - 1] = 27;
+			map[pos + mapSize.x] = 33;
+			map[pos + mapSize.x - 1] = 43;
+			map[pos] = 33;
+		}
+		else if (map[pos] == 41) {
+			map[pos + 1] = 33;
+			map[pos - mapSize.x] = 27;
+			map[pos - mapSize.x + 1] = 33;
+			map[pos] = 43;
+		}
+		else if (map[pos] == 42) {
+			map[pos - 1] = 43;
+			map[pos - mapSize.x] = 33;
+			map[pos - mapSize.x - 1] = 27;
+			map[pos] = 33;
+		}
+	}
 	prepareArrays(a, b);
 	return true;
-
 
 }

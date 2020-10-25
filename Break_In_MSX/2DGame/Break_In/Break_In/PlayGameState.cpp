@@ -13,7 +13,8 @@
 #define INIT_PLAYER_X_TILES 4
 #define INIT_PLAYER_Y_TILES 25
 
-#define LAST_LEVEL 2
+#define NUM_MAPS 3
+#define NUM_LEVELS 3
 
 #define INIT_BALL_X_TILES 12
 #define INIT_BALL_Y_TILES 21
@@ -81,8 +82,6 @@ void PlayGameState::init()
 
 void PlayGameState::update(int deltaTime)
 {
-
-	cout << "level:  "<<  currentLevel << "     map:  " << currentMap<<  endl;
 	currentTime += deltaTime;
 	
 	if (!bAnim)
@@ -155,6 +154,7 @@ void PlayGameState::deleteLevels() {
 void PlayGameState::nextMap()
 {
 	levels[currentMap]->setTransition(3);
+	levels[currentMap]->resetGuard();
 	previousMap = currentMap;
 	upDownTime = 200;
 	currentMap += 1;
@@ -175,6 +175,7 @@ void PlayGameState::lastMap()
 {
 	if (currentMap > 0) {
 		levels[currentMap]->setTransition(2);
+		levels[currentMap]->resetGuard();
 		previousMap = currentMap;
 		upDownTime = 200;
 		currentMap -= 1;
@@ -222,21 +223,30 @@ void PlayGameState::setLevel(int level) {
 	}
 }
 
+glm::vec2 PlayGameState::getPlayerPosition() {
+	return player->getPosition();
+}
 
 void PlayGameState::keyPressed(int key)
 {
 	if (key == 27) // Escape code
 	{
-		deleteLevels();
-		Game::instance().popGameState(); //or better push so we dont loose the state??
+		if (!bAnim)
+		{
+			deleteLevels();
+			Game::instance().popGameState(); //or better push so we dont loose the state??
+		}
+		else {
+			bAnim = false;
+		}
 	}
 	else if (key == 'n')
 	{
 		if (!bAnim)
 		{
-			if (currentMap < LAST_LEVEL)
+			if (currentMap < NUM_MAPS-1)
 				nextMap();
-			else if (currentLevel < 2)
+			else if (currentLevel < NUM_LEVELS)
 				nextLevel();
 		}
 		else {
@@ -249,6 +259,8 @@ void PlayGameState::keyPressed(int key)
 			lastMap();
 		else if (currentLevel > 1)
 			setLevel(currentLevel-1);
+		if (bAnim)
+			bAnim = false;
 	}
 
 	else if (key == 'v')
@@ -258,18 +270,6 @@ void PlayGameState::keyPressed(int key)
 	else if (key == 'f')
 	{
 		ball->addVelocity(0.5);
-	}
-	else if (key == 'q')
-	{
-		levels[currentMap]->setTransition(1);
-	}
-	else if (key == 'w')
-	{
-		levels[currentMap]->setTransition(3);
-	}
-	else if (key == 'd')
-	{
-		deleteLevels();
 	}
 	else if (key == 'm')
 	{

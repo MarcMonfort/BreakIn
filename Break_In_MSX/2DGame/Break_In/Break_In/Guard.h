@@ -1,10 +1,13 @@
-#ifndef _THIEF_INCLUDE
-#define _THIEF_INCLUDE
+#pragma once
+
+
+#ifndef _GUARD_INCLUDE
+#define _GUARD_INCLUDE
 
 #include "Sprite.h"
 #include "TileMap.h"
 
-class Thief
+class Guard
 {
 public:
 	void init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram);
@@ -14,12 +17,17 @@ public:
 	void setPosition(const glm::vec2& pos);
 	glm::vec2 getPosition();
 
+	void reset();
+
 private:
-	glm::ivec2 tileMapDispl, posPlayer;
+	glm::ivec2 tileMapDispl, posGuard;
 	Texture spritesheet;
 	Sprite* sprite;
 
 	int counter = 0;
+	int counter2 = 0;
+
+	glm::vec2 goTo;
 };
 
 

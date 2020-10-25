@@ -49,6 +49,9 @@ public:
 
 	string getBackgroundFile();
 
+	bool hasRing();
+	bool alarmOn();
+	glm::vec2 getRingPosition();
 	
 	
 private:
@@ -73,6 +76,10 @@ private:
 	ShaderProgram b;
 
 	string backgroundFile;
+
+	bool bRing = false;
+	bool bAlarm = false;
+	glm::vec2 ringPosition;
 };
 
 

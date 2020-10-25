@@ -1,10 +1,10 @@
-#ifndef _THIEF_INCLUDE
-#define _THIEF_INCLUDE
+#ifndef _RING_INCLUDE
+#define _RING_INCLUDE
 
 #include "Sprite.h"
 #include "TileMap.h"
 
-class Thief
+class Ring
 {
 public:
 	void init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram);
