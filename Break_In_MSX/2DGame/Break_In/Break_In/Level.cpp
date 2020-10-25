@@ -31,11 +31,12 @@ void Level::createLevel(int numLevel, int numMap)
 		ring = new Ring();
 		ring->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 		ring->setPosition(map->getRingPosition());
+
+		guard = new Guard();
+		guard->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+		guard->setPosition(glm::vec2(SCREEN_X-8, SCREEN_Y + 312));
 	}
 
-	guard = new Guard();
-	guard->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
-	guard->setPosition(glm::vec2(SCREEN_X+1*16, SCREEN_Y+15*16));
 
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
@@ -51,10 +52,10 @@ void Level::update(int deltaTime)
 	if (!bAlarm && bRing && map->alarmOn())
 		bAlarm = true;
 
-	if (bAlarm)
+	if (bAlarm) {
 		ring->update(deltaTime);
-
-	guard->update(deltaTime);
+		guard->update(deltaTime);
+	}
 
 
 }
@@ -105,15 +106,20 @@ void Level::render()
 	if (bAlarm) {
 		ring->setPosition(glm::vec2(map->getRingPosition().x, map->getRingPosition().y + transY));
 		ring->render();
+
+		glm::vec2 aux = guard->getPosition();
+		guard->setPosition(glm::vec2(guard->getPosition().x, guard->getPosition().y + transY));
+		guard->render();
+		guard->setPosition(aux);
 	}
+}
 
-	glm::vec2 aux = guard->getPosition();
-	guard->setPosition(glm::vec2(guard->getPosition().x, guard->getPosition().y + transY));
-	guard->render();
-	guard->setPosition(aux);
-
-
-
+void Level::resetGuard()
+{
+	if (bAlarm) {
+		guard->setPosition(glm::vec2(SCREEN_X - 8, SCREEN_Y + 312));
+		guard->reset();
+	}
 }
 
 void Level::setTransition(int transition)

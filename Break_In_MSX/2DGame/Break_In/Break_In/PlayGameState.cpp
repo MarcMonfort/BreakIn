@@ -154,6 +154,7 @@ void PlayGameState::deleteLevels() {
 void PlayGameState::nextMap()
 {
 	levels[currentMap]->setTransition(3);
+	levels[currentMap]->resetGuard();
 	previousMap = currentMap;
 	upDownTime = 200;
 	currentMap += 1;
@@ -174,6 +175,7 @@ void PlayGameState::lastMap()
 {
 	if (currentMap > 0) {
 		levels[currentMap]->setTransition(2);
+		levels[currentMap]->resetGuard();
 		previousMap = currentMap;
 		upDownTime = 200;
 		currentMap -= 1;

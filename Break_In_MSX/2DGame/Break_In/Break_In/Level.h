@@ -32,6 +32,7 @@ public:
 	};
 
 	void setTransition(int transition);
+	void resetGuard();
 
 private:
 	void initShaders();

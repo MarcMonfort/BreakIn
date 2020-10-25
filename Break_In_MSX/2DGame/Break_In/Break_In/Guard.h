@@ -17,6 +17,8 @@ public:
 	void setPosition(const glm::vec2& pos);
 	glm::vec2 getPosition();
 
+	void reset();
+
 private:
 	glm::ivec2 tileMapDispl, posGuard;
 	Texture spritesheet;
