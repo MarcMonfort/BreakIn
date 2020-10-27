@@ -4,6 +4,7 @@
 #include <GL/glut.h>
 #include "Player.h"
 #include "Game.h"
+#include "PlayGameState.h"
 
 
 #define JUMP_ANGLE_STEP 4
@@ -88,6 +89,8 @@ void Player::update(int deltaTime)
 	// Amunt o avall
 	if (Game::instance().getGameState()->getSpecialKey(GLUT_KEY_UP))
 	{
+		PlayGameState::instance().setStarted(true);
+
 		if (sprite->animation() != MOVE_LEFT)
 			sprite->changeAnimation(MOVE_LEFT);
 		posPlayer.y -= 4;
@@ -99,6 +102,8 @@ void Player::update(int deltaTime)
 	}
 	else if (Game::instance().getGameState()->getSpecialKey(GLUT_KEY_DOWN))
 	{
+		PlayGameState::instance().setStarted(true);
+
 		if (sprite->animation() != MOVE_RIGHT)
 			sprite->changeAnimation(MOVE_RIGHT);
 		posPlayer.y += 4;

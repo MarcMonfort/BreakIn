@@ -4,6 +4,7 @@
 #include <GL/glut.h>
 #include "Ball.h"
 #include "Game.h"
+#include "PlayGameState.h"
 
 void Ball::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 {
@@ -20,31 +21,36 @@ void Ball::update(int deltaTime, glm::vec2 posPlayer)
 {
 	sprite->update(deltaTime);
 
-	posBall.y += vY;
-	if (map->collisionMoveUp(posBall, glm::ivec2(22, 22))) {
-		posBall.y -= vY;
-		vY = abs(vY);
-	}
-	else if (map->collisionMoveDown(posBall, glm::ivec2(22, 22))) {
-		posBall.y -= vY;
-		vY = -abs(vY);
-	}
+	if (PlayGameState::instance().getStarted()) {
 
-	if (collisionPlayer(posPlayer)) {
-		posBall.y -= vY;
-		vY = -abs(vY);
-	}
+		posBall.y += vY;
+		if (map->collisionMoveUp(posBall, glm::ivec2(22, 22))) {
+			posBall.y -= vY;
+			vY = abs(vY);
+		}
+		else if (map->collisionMoveDown(posBall, glm::ivec2(22, 22))) {
+			posBall.y -= vY;
+			vY = -abs(vY);
+		}
 
-	posBall.x += vX;
-	if (map->collisionMoveLeft(posBall, glm::ivec2(22, 22))) {
-		posBall.x -= vX;
-		vX = abs(vX);
-	}
-	else if (map->collisionMoveRight(posBall, glm::ivec2(22, 22))) {
-		posBall.x -= vX;
-		vX = -abs(vX);
-	}
+		if (collisionPlayer(posPlayer)) {
+			posBall.y -= vY;
+			vY = -abs(vY);
+		}
 
+		posBall.x += vX;
+		if (map->collisionMoveLeft(posBall, glm::ivec2(22, 22))) {
+			posBall.x -= vX;
+			vX = abs(vX);
+		}
+		else if (map->collisionMoveRight(posBall, glm::ivec2(22, 22))) {
+			posBall.x -= vX;
+			vX = -abs(vX);
+		}
+	}
+	else {
+		posBall = posPlayer + glm::vec2(8, -22); //Posicio inicial de la pilota sobre la barra del jugador
+	}
 	
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBall.x), float(tileMapDispl.y + posBall.y)));
 }

@@ -39,6 +39,9 @@ public:
 	void nextLevel();
 	void stopAnimation();
 
+	bool getStarted();
+	void setStarted(bool b);
+
 	// Input callback methods
 	void keyPressed(int key);
 	void keyReleased(int key);
@@ -97,6 +100,8 @@ private:
 
 	Animation* animation;
 	bool bAnim = false;
+
+	bool started = false;
 
 
 };

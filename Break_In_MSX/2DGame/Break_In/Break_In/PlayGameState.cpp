@@ -10,14 +10,14 @@
 #define SCREEN_X 32
 #define SCREEN_Y 48
 
-#define INIT_PLAYER_X_TILES 4
-#define INIT_PLAYER_Y_TILES 25
+#define INIT_PLAYER_X_TILES 11
+#define INIT_PLAYER_Y_TILES 20.5
 
 #define NUM_MAPS 3
 #define NUM_LEVELS 3
 
-#define INIT_BALL_X_TILES 12
-#define INIT_BALL_Y_TILES 21
+#define INIT_BALL_X_TILES 11
+#define INIT_BALL_Y_TILES 20.5
 
 
 
@@ -283,6 +283,10 @@ void PlayGameState::keyPressed(int key)
 	{
 		setLevel(key-'0');
 	}
+	else if (key == ' ')
+	{
+		started = true;
+	}
 	
 	keys[key] = true;
 }
@@ -352,4 +356,12 @@ void PlayGameState::addPoints(int addedPoints)
 void PlayGameState::addMoney(int addedMoney)
 {
 	money += addedMoney;
+}
+
+bool PlayGameState::getStarted() {
+	return started;
+}
+
+void PlayGameState::setStarted(bool b) {
+	started = b;
 }
