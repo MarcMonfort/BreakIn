@@ -6,6 +6,9 @@
 
 #include "Scene.h"
 #include "GameState.h"
+#include "MenuGameState.h"
+#include "SoundManager.h"
+
 
 
 
@@ -60,6 +63,10 @@ private:
 	                                  // we can have access at any time
 
 	stack <GameState*> states;
+
+	SoundManager soundManager;
+	FMOD::Sound* music;
+	FMOD::Channel* channel;
 
 };
 
