@@ -26,6 +26,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
+    <ClInclude Include="SoundManager.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Thief.h" />
@@ -47,6 +48,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
+    <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Thief.cpp" />
@@ -94,12 +96,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\libs\Simple OpenGL Image Library\src;..\..\..\libs\freeglut\include;..\..\..\libs\glew-1.13.0\include;..\..\..\libs\glm;..\..\..\libs\FMOD Studio API Windows\api\core\inc;..\..\..\libs\FMOD Studio API Windows\api\studio\inc;..\..\..\libs\FMOD Studio API Windows\api\fsbank\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\libs\Simple OpenGL Image Library\src;..\..\..\libs\freeglut\include;..\..\..\libs\glew-1.13.0\include;..\..\..\libs\glm;..\..\..\libs\FMODapi/lowlevel/inc;..\..\..\libs\FMODapi/studio/inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\..\..\libs\FMOD Studio API Windows\api\studio\lib\x64;..\..\..\libs\FMOD Studio API Windows\api\fsbank\lib\x64;..\..\..\libs\FMOD Studio API Windows\api\core\lib\x64;..\..\..\libs\Simple OpenGL Image Library\projects\VC9\Debug;..\..\..\libs\freeglut\lib;..\..\..\libs\glew-1.13.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\libs/FMODapi/studio/lib;..\..\..\libs/FMODapi/lowlevel/lib;..\..\..\libs\Simple OpenGL Image Library\projects\VC9\Debug;..\..\..\libs\freeglut\lib;..\..\..\libs\glew-1.13.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SOIL.lib;glew32.lib;fmodL_vc.lib;fmodstudioL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -112,15 +114,15 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\libs\Simple OpenGL Image Library\src;..\..\..\libs\freeglut\include;..\..\..\libs\glew-1.13.0\include;..\..\..\libs\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\libs/FMODapi/lowlevel/inc;..\..\..\libs/FMODapi/studio/inc;..\..\..\libs\Simple OpenGL Image Library\src;..\..\..\libs\freeglut\include;..\..\..\libs\glew-1.13.0\include;..\..\..\libs\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>..\..\..\libs\Simple OpenGL Image Library\projects\VC9\Debug;..\..\..\libs\freeglut\lib;..\..\..\libs\glew-1.13.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SOIL.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\..\libs/FMODapi/studio/lib;..\..\..\libs/FMODapi/lowlevel/lib;..\..\..\libs\Simple OpenGL Image Library\projects\VC9\Debug;..\..\..\libs\freeglut\lib;..\..\..\libs\glew-1.13.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>fmodL_vc.lib;fmodstudioL_vc.lib;SOIL.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

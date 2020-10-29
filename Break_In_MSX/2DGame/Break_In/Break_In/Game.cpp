@@ -1,7 +1,7 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include "Game.h"
-#include "MenuGameState.h"
+#include "SoundManager.h"
 
 
 void Game::init()
@@ -12,6 +12,14 @@ void Game::init()
 	states.push(&MenuGameState::instance());
 	states.top()->init();
 	//scene.init();
+
+	music = soundManager.loadSound("sounds/MenuSong.ogg", FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
+
+	channel = soundManager.playSound(music);
+	channel->setVolume(1.0f);
+
+
+
 }
 
 bool Game::update(int deltaTime)
