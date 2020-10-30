@@ -4,7 +4,7 @@
 #include "GameState.h"
 #include "ShaderProgram.h"
 #include "Sprite.h"
-
+#include "SoundManager.h"
 
 
 
@@ -44,6 +44,10 @@ private:
 	ShaderProgram texProgram;
 	float currentTime;
 	glm::mat4 projection;
+
+	SoundManager soundManager;
+	FMOD::Sound* music;
+	FMOD::Channel* channel;
 
 };
 

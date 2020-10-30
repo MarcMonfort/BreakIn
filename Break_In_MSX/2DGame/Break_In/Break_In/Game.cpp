@@ -12,14 +12,6 @@ void Game::init()
 	states.push(&MenuGameState::instance());
 	states.top()->init();
 	//scene.init();
-
-	music = soundManager.loadSound("sounds/MenuSong.ogg", FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
-
-	channel = soundManager.playSound(music);
-	channel->setVolume(1.0f);
-
-
-
 }
 
 bool Game::update(int deltaTime)
