@@ -13,8 +13,8 @@ void Ball::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 	tileMapDispl = tileMapPos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBall.x), float(tileMapDispl.y + posBall.y)));
 
-	vX = 0; //4
-	vY = 2;
+	velocity.x = 0; //4
+	velocity.y = 2;
 
 	radi = 11+2;
 	shortSide = 6; 
@@ -28,130 +28,130 @@ void Ball::update(int deltaTime, glm::vec2 posPlayer)
 
 	if (PlayGameState::instance().getStarted()) {
 
-		/*posBall.y += vY;
+		/*posBall.y += velocity.y;
 		if (map->collisionMoveUp(posBall, glm::ivec2(22, 22))) {
-			posBall.y -= vY;
-			vY = abs(vY);
+			posBall.y -= velocity.y;
+			velocity.y = abs(velocity.y);
 		}
 		else if (map->collisionMoveDown(posBall, glm::ivec2(22, 22))) {
-			posBall.y -= vY;
-			vY = -abs(vY);
+			posBall.y -= velocity.y;
+			velocity.y = -abs(velocity.y);
 		}
 
 		if (collisionPlayer(posPlayer)) {
-			posBall.y -= vY;
-			vY = -abs(vY);
+			posBall.y -= velocity.y;
+			velocity.y = -abs(velocity.y);
 		}
 
-		posBall.x += vX;
+		posBall.x += velocity.x;
 		if (map->collisionMoveLeft(posBall, glm::ivec2(22, 22))) {
-			posBall.x -= vX;
-			vX = abs(vX);
+			posBall.x -= velocity.x;
+			velocity.x = abs(velocity.x);
 		}
 		else if (map->collisionMoveRight(posBall, glm::ivec2(22, 22))) {
-			posBall.x -= vX;
-			vX = -abs(vX);
+			posBall.x -= velocity.x;
+			velocity.x = -abs(velocity.x);
 		}*/
-		posBall.x += vX;
-		posBall.y += vY;
+		posBall.x += velocity.x;
+		posBall.y += velocity.y;
 
 		center = glm::ivec2(posBall.x + 11, posBall.y + 11);
 
 		if (map->checkCollision(glm::ivec2(center.x, center.y - radi))) {
 			if (map->collisionPoint(glm::ivec2(center.x, center.y - radi))) {	//up
-				posBall.y += vY;
-				vY = abs(vY);
+				posBall.y += velocity.y;
+				velocity.y = abs(velocity.y);
 			}
 		}
 		else if (map->checkCollision(glm::ivec2(center.x, center.y + radi))) {
 			if (map->collisionPoint(glm::ivec2(center.x, center.y + radi))) {	//down
-				posBall.y += vY;
-				vY = -abs(vY);
+				posBall.y += velocity.y;
+				velocity.y = -abs(velocity.y);
 			}
 		}
 		else if (map->checkCollision(glm::ivec2(center.x - radi, center.y))) {
 			if (map->collisionPoint(glm::ivec2(center.x - radi, center.y))) {	//left
-				posBall.x -= vX;
-				vX = abs(vX);
+				posBall.x -= velocity.x;
+				velocity.x = abs(velocity.x);
 			}
 		}
 		else if (map->checkCollision(glm::ivec2(center.x + radi, center.y))) {	//right
 			if (map->collisionPoint(glm::ivec2(center.x + radi, center.y))) {	//right
-				posBall.x -= vX;
-				vX = -abs(vX);
+				posBall.x -= velocity.x;
+				velocity.x = -abs(velocity.x);
 			}
 		}
 
 		 //4.21 - 10.16
 		else if (map->checkCollision(glm::ivec2(center.x + shortSide, center.y - longSide))) {	//up-right-1
 			if (map->collisionPoint(glm::ivec2(center.x + shortSide, center.y - longSide))) {	//up-right-1
-				posBall.y += vY;
-				vY = abs(vY);
+				posBall.y += velocity.y;
+				velocity.y = abs(velocity.y);
 			}
 		}
 		else if (map->checkCollision(glm::ivec2(center.x + longSide, center.y - shortSide))) {	//up-right-2
 			if (map->collisionPoint(glm::ivec2(center.x + longSide, center.y - shortSide))) {	//up-right-2
-				posBall.x -= vX;
-				vX = -abs(vX);
+				posBall.x -= velocity.x;
+				velocity.x = -abs(velocity.x);
 			}
 		}
 		else if (map->checkCollision(glm::ivec2(center.x + longSide, center.y + shortSide))) {	//right-down-1
 			if (map->collisionPoint(glm::ivec2(center.x + longSide, center.y + shortSide))) {	//right-down-1
-				posBall.x -= vX;
-				vX = -abs(vX);
+				posBall.x -= velocity.x;
+				velocity.x = -abs(velocity.x);
 			}
 		}
 		else if (map->checkCollision(glm::ivec2(center.x + shortSide, center.y + longSide))) {	//right-down-2
 			if (map->collisionPoint(glm::ivec2(center.x + shortSide, center.y + longSide))) {	//right-down-2
-				posBall.y += vY;
-				vY = -abs(vY);
+				posBall.y += velocity.y;
+				velocity.y = -abs(velocity.y);
 			}
 		}
 		else if (map->checkCollision(glm::ivec2(center.x - shortSide, center.y + longSide))) {	//down-left
 			if (map->collisionPoint(glm::ivec2(center.x - shortSide, center.y + longSide))) {	//down-left
-				posBall.y += vY;
-				vY = -abs(vY);
+				posBall.y += velocity.y;
+				velocity.y = -abs(velocity.y);
 			}
 		}
 		else if (map->checkCollision(glm::ivec2(center.x - longSide, center.y + shortSide))) {	//down-left
 			if (map->collisionPoint(glm::ivec2(center.x - longSide, center.y + shortSide))) {	//down-left
-				posBall.x -= vX;
-				vX = abs(vX);
+				posBall.x -= velocity.x;
+				velocity.x = abs(velocity.x);
 			}
 		}
 		else if (map->checkCollision(glm::ivec2(center.x - longSide, center.y - shortSide))) {	//left-up
 			if (map->collisionPoint(glm::ivec2(center.x - longSide, center.y - shortSide))) {	//left-up
-				posBall.x -= vX;
-				vX = abs(vX);
+				posBall.x -= velocity.x;
+				velocity.x = abs(velocity.x);
 			}
 		}
 		else if (map->checkCollision(glm::ivec2(center.x - shortSide, center.y - longSide))) {	//left-up
 			if (map->collisionPoint(glm::ivec2(center.x - shortSide, center.y - longSide))) {	//left-up
-				posBall.y += vY;
-				vY = abs(vY);
+				posBall.y += velocity.y;
+				velocity.y = abs(velocity.y);
 			}
 		}
 
 		////7.788 square
 		//else if (map->collisionPoint(glm::ivec2(center.x + 7.79, center.y -7.79))) {	//up-right
-		//	vX = -vX;
-		//	vY = -vY;
+		//	velocity.x = -velocity.x;
+		//	velocity.y = -velocity.y;
 		//}
 		//else if (map->collisionPoint(glm::ivec2(center.x + 7.79, center.y + 7.79))) {	//right-down
-		//	vX = -vX;
-		//	vY = -vY;
+		//	velocity.x = -velocity.x;
+		//	velocity.y = -velocity.y;
 		//}
 		//else if (map->collisionPoint(glm::ivec2(center.x - 7.79, center.y + 7.79))) {	//down-left
-		//	vX = -vX;
-		//	vY = -vY;
+		//	velocity.x = -velocity.x;
+		//	velocity.y = -velocity.y;
 		//}
 		//else if (map->collisionPoint(glm::ivec2(center.x - 7.79, center.y - 7.79))) {	//left-up
-		//	vX = -vX;
-		//	vY = -vY;
+		//	velocity.x = -velocity.x;
+		//	velocity.y = -velocity.y;
 		//}
 
 		else if (collisionPlayer(posPlayer)) {
-			vY = -abs(vY);
+			velocity.y = -abs(velocity.y);
 		}
 
 		
@@ -181,8 +181,19 @@ glm::fvec2 Ball::getPosition()
 
 void Ball::addVelocity(float increase)
 {
-	vX *= increase;
-	vY *= increase;
+	velocity.x *= increase;
+	velocity.y *= increase;
+}
+
+glm::vec2 Ball::getVelocity()
+{
+	return velocity;
+}
+
+void Ball::setVelocity(glm::vec2 velocity)
+{
+	this->velocity.x = velocity.x;
+	this->velocity.y = velocity.y;
 }
 
 void Ball::setPosition(const glm::vec2& pos)
@@ -193,7 +204,7 @@ void Ball::setPosition(const glm::vec2& pos)
 
 bool Ball::collisionPlayer(const glm::ivec2& posPlayer)
 {
-	if (vY >= 0) { //nomes si la pilota esta baixant
+	if (velocity.y >= 0) { //nomes si la pilota esta baixant
 
 		float ball_size = 22.0; //es podria crear un atribut de la classe
 		//float bxmin = posBall.x;
@@ -214,11 +225,11 @@ bool Ball::collisionPlayer(const glm::ivec2& posPlayer)
 			if (bxcenter >= pxmin && bxcenter <= pxmax) {
 
 				if (bxcenter < pxcenter)
-					vX = -0.2 * (pxcenter - bxcenter);
+					velocity.x = -0.2 * (pxcenter - bxcenter);
 				else if (bxcenter > pxcenter)
-					vX = 0.2 * (bxcenter - pxcenter);
+					velocity.x = 0.2 * (bxcenter - pxcenter);
 				else
-					vX = 0;
+					velocity.x = 0;
 				return true;
 			}
 	}

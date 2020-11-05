@@ -22,6 +22,9 @@ public:
 
 	void addVelocity(float increase);
 
+	void setVelocity(glm::vec2 velocity);
+	glm::vec2 getVelocity();
+
 private:
 	glm::ivec2 tileMapDispl;
 	glm::fvec2 posBall;
@@ -31,6 +34,8 @@ private:
 
 	float vX;
 	float vY;
+
+	glm::fvec2 velocity;
 
 	int radi;
 	int shortSide;

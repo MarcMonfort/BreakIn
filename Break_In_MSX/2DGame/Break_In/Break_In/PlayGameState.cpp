@@ -168,6 +168,10 @@ void PlayGameState::nextMap()
 	levels[currentMap]->setTransition(0);
 	player->setTileMap(levels[currentMap]->getMap());
 	ball->setPosition(glm::vec2(ball->getPosition().x, INIT_BALL_Y_TILES * levels[currentMap]->getMap()->getTileSize()));
+
+	glm::vec2 velocity = ball->getVelocity();
+	velocity.y = -abs(velocity.y);
+	ball->setVelocity(velocity);
 	ball->setTileMap(levels[currentMap]->getMap());
 }
 
@@ -186,6 +190,10 @@ void PlayGameState::lastMap()
 	room -= 1;
 	player->setTileMap(levels[currentMap]->getMap());
 	ball->setPosition(glm::vec2(ball->getPosition().x, 1.5 * levels[currentMap]->getMap()->getTileSize()));
+
+	glm::vec2 velocity = ball->getVelocity();
+	velocity.y = abs(velocity.y);
+	ball->setVelocity(velocity);
 	ball->setTileMap(levels[currentMap]->getMap());
 }
 
