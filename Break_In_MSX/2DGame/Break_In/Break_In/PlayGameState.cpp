@@ -265,11 +265,11 @@ void PlayGameState::keyPressed(int key)
 
 	else if (key == 'v')
 	{
-		ball->addVelocity(2);
+		ball->addVelocity(1.5);
 	}
 	else if (key == 'f')
 	{
-		ball->addVelocity(0.5);
+		ball->addVelocity(0.8);
 	}
 	else if (key == 'm')
 	{

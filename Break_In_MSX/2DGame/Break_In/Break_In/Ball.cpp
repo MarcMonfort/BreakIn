@@ -15,6 +15,11 @@ void Ball::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 
 	vX = 4;
 	vY = 2;
+
+	radi = 11;
+	shortSide = 4;
+	longSide = 10;
+
 }
 
 void Ball::update(int deltaTime, glm::vec2 posPlayer)
@@ -23,7 +28,7 @@ void Ball::update(int deltaTime, glm::vec2 posPlayer)
 
 	if (PlayGameState::instance().getStarted()) {
 
-		posBall.y += vY;
+		/*posBall.y += vY;
 		if (map->collisionMoveUp(posBall, glm::ivec2(22, 22))) {
 			posBall.y -= vY;
 			vY = abs(vY);
@@ -46,7 +51,78 @@ void Ball::update(int deltaTime, glm::vec2 posPlayer)
 		else if (map->collisionMoveRight(posBall, glm::ivec2(22, 22))) {
 			posBall.x -= vX;
 			vX = -abs(vX);
+		}*/
+
+
+		center = glm::ivec2(posBall.x + 11, posBall.y + 11);
+
+		if (map->collisionPoint(glm::ivec2(center.x, center.y-radi))) {	//up
+			vY = abs(vY);
 		}
+		else if (map->collisionPoint(glm::ivec2(center.x, center.y+radi))) {	//down
+			vY = -abs(vY);
+		}
+		else if (map->collisionPoint(glm::ivec2(center.x-radi, center.y))) {	//left
+			vX = abs(vX);
+		}
+		else if (map->collisionPoint(glm::ivec2(center.x+radi, center.y))) {	//right
+			vX = -abs(vX);
+		}
+
+		 //4.21 - 10.16
+		else if (map->collisionPoint(glm::ivec2(center.x + shortSide, center.y - longSide))) {	//up-right-1
+			vY = -vY;
+		}
+		else if (map->collisionPoint(glm::ivec2(center.x + longSide, center.y - shortSide))) {	//up-right-2
+			vX = -vX;
+		}
+
+		else if (map->collisionPoint(glm::ivec2(center.x + longSide, center.y + shortSide))) {	//right-down-1
+			vX = -vX;
+		}
+		else if (map->collisionPoint(glm::ivec2(center.x + shortSide, center.y + longSide))) {	//right-down-2
+			vY = -vY;
+		}
+
+		else if (map->collisionPoint(glm::ivec2(center.x - shortSide, center.y + longSide))) {	//down-left
+			vY = -vY;
+		}
+		else if (map->collisionPoint(glm::ivec2(center.x - longSide, center.y + shortSide))) {	//down-left
+			vX = -vX;
+		}
+
+		else if (map->collisionPoint(glm::ivec2(center.x - longSide, center.y - shortSide))) {	//left-up
+			vX = -vX;
+		}
+		else if (map->collisionPoint(glm::ivec2(center.x - shortSide, center.y - longSide))) {	//left-up
+			vY = -vY;
+		}
+
+		////7.788 square
+		//else if (map->collisionPoint(glm::ivec2(center.x + 7.79, center.y -7.79))) {	//up-right
+		//	vX = -vX;
+		//	vY = -vY;
+		//}
+		//else if (map->collisionPoint(glm::ivec2(center.x + 7.79, center.y + 7.79))) {	//right-down
+		//	vX = -vX;
+		//	vY = -vY;
+		//}
+		//else if (map->collisionPoint(glm::ivec2(center.x - 7.79, center.y + 7.79))) {	//down-left
+		//	vX = -vX;
+		//	vY = -vY;
+		//}
+		//else if (map->collisionPoint(glm::ivec2(center.x - 7.79, center.y - 7.79))) {	//left-up
+		//	vX = -vX;
+		//	vY = -vY;
+		//}
+
+		else if (collisionPlayer(posPlayer)) {
+			vY = -abs(vY);
+		}
+
+		posBall.x += vX;
+		posBall.y += vY;
+
 	}
 	else {
 		posBall = posPlayer + glm::vec2(8, -22); //Posicio inicial de la pilota sobre la barra del jugador

@@ -32,6 +32,11 @@ private:
 	float vX;
 	float vY;
 
+	int radi;
+	int shortSide;
+	int longSide;
+	glm::ivec2 center;
+
 };
 
 

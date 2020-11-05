@@ -33,6 +33,8 @@ public:
 	bool collisionMoveUp(const glm::ivec2& pos, const glm::ivec2& size) ;
 	bool collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size) ;
 
+	bool collisionPoint(const glm::ivec2& pos);	//why was const???
+
 
 	enum block
 	{
