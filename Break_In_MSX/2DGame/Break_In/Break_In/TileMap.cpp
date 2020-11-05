@@ -193,6 +193,19 @@ bool TileMap::alarmOn()
 // Method collisionMoveDown also corrects Y coordinate if the box is
 // already intersecting a tile below.
 
+
+bool TileMap::checkCollision(const glm::ivec2& pos)
+{
+	int x, y;
+
+	x = pos.x / tileSize;
+	y = pos.y / tileSize;
+	if (map[y * mapSize.x + x] != 0)
+		return true;
+
+	return false;
+}
+
 bool TileMap::collisionPoint(const glm::ivec2& pos)
 {
 	int x, y;

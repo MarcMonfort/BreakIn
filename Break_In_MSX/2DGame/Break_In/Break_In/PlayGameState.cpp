@@ -17,7 +17,7 @@
 #define NUM_LEVELS 3
 
 #define INIT_BALL_X_TILES 11
-#define INIT_BALL_Y_TILES 20.5
+#define INIT_BALL_Y_TILES 21.5
 
 
 
@@ -185,7 +185,7 @@ void PlayGameState::lastMap()
 	}
 	room -= 1;
 	player->setTileMap(levels[currentMap]->getMap());
-	ball->setPosition(glm::vec2(ball->getPosition().x, 1 * levels[currentMap]->getMap()->getTileSize()));
+	ball->setPosition(glm::vec2(ball->getPosition().x, 1.5 * levels[currentMap]->getMap()->getTileSize()));
 	ball->setTileMap(levels[currentMap]->getMap());
 }
 

@@ -13,12 +13,12 @@ void Ball::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 	tileMapDispl = tileMapPos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBall.x), float(tileMapDispl.y + posBall.y)));
 
-	vX = 4;
+	vX = 0; //4
 	vY = 2;
 
-	radi = 11;
-	shortSide = 4;
-	longSide = 10;
+	radi = 11+2;
+	shortSide = 6; 
+	longSide = 9;
 
 }
 
@@ -52,50 +52,84 @@ void Ball::update(int deltaTime, glm::vec2 posPlayer)
 			posBall.x -= vX;
 			vX = -abs(vX);
 		}*/
-
+		posBall.x += vX;
+		posBall.y += vY;
 
 		center = glm::ivec2(posBall.x + 11, posBall.y + 11);
 
-		if (map->collisionPoint(glm::ivec2(center.x, center.y-radi))) {	//up
-			vY = abs(vY);
+		if (map->checkCollision(glm::ivec2(center.x, center.y - radi))) {
+			if (map->collisionPoint(glm::ivec2(center.x, center.y - radi))) {	//up
+				posBall.y += vY;
+				vY = abs(vY);
+			}
 		}
-		else if (map->collisionPoint(glm::ivec2(center.x, center.y+radi))) {	//down
-			vY = -abs(vY);
+		else if (map->checkCollision(glm::ivec2(center.x, center.y + radi))) {
+			if (map->collisionPoint(glm::ivec2(center.x, center.y + radi))) {	//down
+				posBall.y += vY;
+				vY = -abs(vY);
+			}
 		}
-		else if (map->collisionPoint(glm::ivec2(center.x-radi, center.y))) {	//left
-			vX = abs(vX);
+		else if (map->checkCollision(glm::ivec2(center.x - radi, center.y))) {
+			if (map->collisionPoint(glm::ivec2(center.x - radi, center.y))) {	//left
+				posBall.x -= vX;
+				vX = abs(vX);
+			}
 		}
-		else if (map->collisionPoint(glm::ivec2(center.x+radi, center.y))) {	//right
-			vX = -abs(vX);
+		else if (map->checkCollision(glm::ivec2(center.x + radi, center.y))) {	//right
+			if (map->collisionPoint(glm::ivec2(center.x + radi, center.y))) {	//right
+				posBall.x -= vX;
+				vX = -abs(vX);
+			}
 		}
 
 		 //4.21 - 10.16
-		else if (map->collisionPoint(glm::ivec2(center.x + shortSide, center.y - longSide))) {	//up-right-1
-			vY = -vY;
+		else if (map->checkCollision(glm::ivec2(center.x + shortSide, center.y - longSide))) {	//up-right-1
+			if (map->collisionPoint(glm::ivec2(center.x + shortSide, center.y - longSide))) {	//up-right-1
+				posBall.y += vY;
+				vY = abs(vY);
+			}
 		}
-		else if (map->collisionPoint(glm::ivec2(center.x + longSide, center.y - shortSide))) {	//up-right-2
-			vX = -vX;
+		else if (map->checkCollision(glm::ivec2(center.x + longSide, center.y - shortSide))) {	//up-right-2
+			if (map->collisionPoint(glm::ivec2(center.x + longSide, center.y - shortSide))) {	//up-right-2
+				posBall.x -= vX;
+				vX = -abs(vX);
+			}
 		}
-
-		else if (map->collisionPoint(glm::ivec2(center.x + longSide, center.y + shortSide))) {	//right-down-1
-			vX = -vX;
+		else if (map->checkCollision(glm::ivec2(center.x + longSide, center.y + shortSide))) {	//right-down-1
+			if (map->collisionPoint(glm::ivec2(center.x + longSide, center.y + shortSide))) {	//right-down-1
+				posBall.x -= vX;
+				vX = -abs(vX);
+			}
 		}
-		else if (map->collisionPoint(glm::ivec2(center.x + shortSide, center.y + longSide))) {	//right-down-2
-			vY = -vY;
+		else if (map->checkCollision(glm::ivec2(center.x + shortSide, center.y + longSide))) {	//right-down-2
+			if (map->collisionPoint(glm::ivec2(center.x + shortSide, center.y + longSide))) {	//right-down-2
+				posBall.y += vY;
+				vY = -abs(vY);
+			}
 		}
-
-		else if (map->collisionPoint(glm::ivec2(center.x - shortSide, center.y + longSide))) {	//down-left
-			vY = -vY;
+		else if (map->checkCollision(glm::ivec2(center.x - shortSide, center.y + longSide))) {	//down-left
+			if (map->collisionPoint(glm::ivec2(center.x - shortSide, center.y + longSide))) {	//down-left
+				posBall.y += vY;
+				vY = -abs(vY);
+			}
 		}
-		else if (map->collisionPoint(glm::ivec2(center.x - longSide, center.y + shortSide))) {	//down-left
-			vX = -vX;
+		else if (map->checkCollision(glm::ivec2(center.x - longSide, center.y + shortSide))) {	//down-left
+			if (map->collisionPoint(glm::ivec2(center.x - longSide, center.y + shortSide))) {	//down-left
+				posBall.x -= vX;
+				vX = abs(vX);
+			}
 		}
-
-		else if (map->collisionPoint(glm::ivec2(center.x - longSide, center.y - shortSide))) {	//left-up
-			vX = -vX;
+		else if (map->checkCollision(glm::ivec2(center.x - longSide, center.y - shortSide))) {	//left-up
+			if (map->collisionPoint(glm::ivec2(center.x - longSide, center.y - shortSide))) {	//left-up
+				posBall.x -= vX;
+				vX = abs(vX);
+			}
 		}
-		else if (map->collisionPoint(glm::ivec2(center.x - shortSide, center.y - longSide))) {	//left-up
-			vY = -vY;
+		else if (map->checkCollision(glm::ivec2(center.x - shortSide, center.y - longSide))) {	//left-up
+			if (map->collisionPoint(glm::ivec2(center.x - shortSide, center.y - longSide))) {	//left-up
+				posBall.y += vY;
+				vY = abs(vY);
+			}
 		}
 
 		////7.788 square
@@ -120,8 +154,7 @@ void Ball::update(int deltaTime, glm::vec2 posPlayer)
 			vY = -abs(vY);
 		}
 
-		posBall.x += vX;
-		posBall.y += vY;
+		
 
 	}
 	else {
