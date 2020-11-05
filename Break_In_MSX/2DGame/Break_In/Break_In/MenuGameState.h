@@ -45,7 +45,7 @@ private:
 	float currentTime;
 	glm::mat4 projection;
 
-	SoundManager soundManager;
+	const SoundManager* soundManager;
 	FMOD::Sound* music;
 	FMOD::Channel* channel;
 

@@ -5,6 +5,7 @@
 #include "TileMap.h"
 #include <glm\gtc\matrix_transform.hpp>
 #include "PlayGameState.h"
+#include "Game.h"
 
 
 #define SCREEN_X 32 //tiene que se igual al de PlayGameState.cpp
@@ -23,6 +24,16 @@ TileMap *TileMap::createTileMap(const string &levelFile, const glm::vec2 &minCoo
 
 TileMap::TileMap(const string &levelFile, const glm::vec2 &minCoords, ShaderProgram &program)
 {
+
+	soundManager = Game::instance().getSoundManager();
+	music_wall_coin = soundManager->loadSound("sounds/wall_coin.mp3", FMOD_DEFAULT);
+	music_basic_block = soundManager->loadSound("sounds/basic_block.mp3", FMOD_DEFAULT);
+	music_bag = soundManager->loadSound("sounds/bag.mp3", FMOD_DEFAULT);
+
+	/*music = soundManager->loadSound("sounds/main_theme.mp3", FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
+	channel = soundManager->playSound(music);
+	channel->setVolume(1.0f);*/
+
 	loadLevel(levelFile);
 	a = minCoords;
 	b = program;
@@ -325,7 +336,15 @@ bool TileMap::treatCollision(int pos)
 		else
 			map[pos + 1] = 0;
 		map[pos] = 0;
+		//channel->stop();
+		channel = soundManager->playSound(music_basic_block);
+		channel->setVolume(1.0f);
 		PlayGameState::instance().addPoints(100);
+	}
+	else if (block == wall) {
+		//channel->stop();
+		channel = soundManager->playSound(music_wall_coin);
+		channel->setVolume(1.0f);
 	}
 	else if (block == strong)
 	{
@@ -336,7 +355,10 @@ bool TileMap::treatCollision(int pos)
 		else {
 			map[pos] = 13;
 			map[pos + 1] = 14;
-		}	
+		}
+		//channel->stop();
+		channel = soundManager->playSound(music_basic_block);
+		channel->setVolume(1.0f);
 		PlayGameState::instance().addPoints(100);
 	}
 	else if (block == key)
@@ -371,6 +393,9 @@ bool TileMap::treatCollision(int pos)
 		map[13] = 22;
 		map[14] = 21;
 		map[15] = 22;
+		map[pos] = 0;
+		channel = soundManager->playSound(music_wall_coin);
+		channel->setVolume(1.0f);
 	}
 	else if (block == arrow)
 	{
@@ -406,6 +431,8 @@ bool TileMap::treatCollision(int pos)
 			map[pos - mapSize.x - 1] = 0;
 		}
 		map[pos] = 0;
+		channel = soundManager->playSound(music_bag);
+		channel->setVolume(1.0f);
 		PlayGameState::instance().addMoney(200);
 	}
 	else if (block == coin)
@@ -432,6 +459,8 @@ bool TileMap::treatCollision(int pos)
 			map[pos - mapSize.x - 1] = 0;
 		}
 		map[pos] = 0;
+		channel = soundManager->playSound(music_wall_coin);
+		channel->setVolume(1.0f);
 		PlayGameState::instance().addMoney(100);
 	}
 	else if (block == ring)

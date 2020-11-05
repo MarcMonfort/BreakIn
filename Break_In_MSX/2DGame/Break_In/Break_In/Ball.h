@@ -4,6 +4,7 @@
 
 #include "Sprite.h"
 #include "TileMap.h"
+#include "SoundManager.h"
 
 
 class Ball
@@ -42,6 +43,9 @@ private:
 	int longSide;
 	glm::ivec2 center;
 
+	const SoundManager* soundManager;
+	FMOD::Sound* music;
+	FMOD::Channel* channel;
 };
 
 

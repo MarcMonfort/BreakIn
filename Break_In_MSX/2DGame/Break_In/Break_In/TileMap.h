@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 #include "Texture.h"
 #include "ShaderProgram.h"
+#include "SoundManager.h"
 
 
 // Class Tilemap is capable of loading a tile map from a text file in a very
@@ -83,6 +84,12 @@ private:
 	bool bRing = false;
 	bool bAlarm = false;
 	glm::vec2 ringPosition;
+
+	const SoundManager* soundManager;
+	FMOD::Sound* music_wall_coin;
+	FMOD::Sound* music_bag;
+	FMOD::Sound* music_basic_block;
+	FMOD::Channel* channel;
 };
 
 

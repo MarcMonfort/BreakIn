@@ -242,7 +242,18 @@ void PlayGameState::keyPressed(int key)
 		if (!bAnim)
 		{
 			deleteLevels();
+			delete ball;
+			delete player;
+			delete moneyDisplay;
+			delete pointsDisplay;
+			delete livesDisplay;
+			delete bankDisplay;
+			delete roomDisplay;
+			delete animation;
+
+			MenuGameState::instance().init();
 			Game::instance().popGameState(); //or better push so we dont loose the state??
+			Game::instance().pushGameState(&MenuGameState::instance());
 		}
 		else {
 			bAnim = false;

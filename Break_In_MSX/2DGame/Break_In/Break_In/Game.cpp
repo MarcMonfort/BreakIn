@@ -1,7 +1,6 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include "Game.h"
-#include "SoundManager.h"
 
 
 void Game::init()
@@ -49,6 +48,10 @@ void Game::pushGameState(GameState* state)
 void Game::setBplay(bool b)
 {
 	bPlay = b;
+}
+
+const SoundManager* Game::getSoundManager() const {
+	return &soundManager;
 }
 
 

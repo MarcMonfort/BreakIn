@@ -7,6 +7,8 @@
 #include "Scene.h"
 #include "GameState.h"
 #include "MenuGameState.h"
+#include "SoundManager.h"
+
 
 
 
@@ -43,6 +45,8 @@ public:
 	void setBplay(bool b);
 	
 	
+	const SoundManager* getSoundManager() const;
+	
 	// Input callback methods
 	/*void keyPressed(int key);
 	void keyReleased(int key);
@@ -62,6 +66,8 @@ private:
 	                                  // we can have access at any time
 
 	stack <GameState*> states;
+
+	SoundManager soundManager;
 };
 
 
