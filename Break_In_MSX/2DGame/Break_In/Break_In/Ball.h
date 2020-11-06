@@ -27,21 +27,22 @@ public:
 	glm::vec2 getVelocity();
 
 private:
-	glm::ivec2 tileMapDispl;
 	glm::fvec2 posBall;
+	glm::fvec2 velocity;
+	glm::fvec2 center;
+
+	glm::ivec2 tileMapDispl;
 	Texture spritesheet;
 	Sprite* sprite;
 	TileMap* map;
 
-	float vX;
-	float vY;
+	//float vX;
+	//float vY;
 
-	glm::fvec2 velocity;
 
 	int radi;
 	int shortSide;
 	int longSide;
-	glm::ivec2 center;
 
 	const SoundManager* soundManager;
 	FMOD::Sound* music;

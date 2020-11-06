@@ -5,29 +5,29 @@ images/cross.png    -- Background
 images/tileset.png 	-- Tilesheet
 16 16 								-- Number of tiles in tilesheet
 AAAAAAAAAAAAAAAAAAAAAAAA
-A  A  A  A  A  A  A  A A
-A  A  A  A  A  A  A  A A
-A  A  A  A  A  A  A  A A
-A                      A
-A                      A
-AAA                  AAA
-A                      A
-A                      A
-AAA                  AAA
-A                      A
-A                      A
-AAA                  AAA
-A                      A
-A                      A
-AAA                  AAA
-A                      A
-A                      A
-AAA                  AAA
 A                      A
 A                      A
 A                      A
 A                      A
-AAAAAAAAAAAAAAAAAAAAAAAA
+A                      A
+A                      A
+A                      A
+A                      A
+A                      A
+AAAA                AAAA
+AAAA                AAAA
+A                      A
+A                      A
+A                      A
+A                      A
+A                      A
+A                      A
+A                      A
+A                      A
+A                      A
+A                      A
+A                      A
+AAAAAAAADDDDDDDDAAAAAAAA
 
 
 

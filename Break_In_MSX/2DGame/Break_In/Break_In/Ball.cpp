@@ -14,7 +14,7 @@ void Ball::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBall.x), float(tileMapDispl.y + posBall.y)));
 
 	velocity.x = 0; //4
-	velocity.y = 2;
+	velocity.y = 4;
 
 	radi = 11;
 	shortSide = 6; 
@@ -58,83 +58,141 @@ void Ball::update(int deltaTime, glm::vec2 posPlayer)
 			posBall.x -= velocity.x;
 			velocity.x = -abs(velocity.x);
 		}*/
-		posBall.x += velocity.x;
-		posBall.y += velocity.y;
 
-		center = glm::ivec2(posBall.x + 11, posBall.y + 11);
+		glm::fvec2 center_0 = glm::fvec2(posBall.x + radi, posBall.y + radi);
+		posBall.y += velocity.y;
+		posBall.x += velocity.x;
+		center = glm::fvec2(center_0.x + velocity.x, center_0.y + velocity.y);
+
 
 		if (map->checkCollision(glm::ivec2(center.x, center.y - radi))) {
 			if (map->collisionPoint(glm::ivec2(center.x, center.y - radi))) {	//up
 				posBall.y -= velocity.y;
+				if (map->checkCollision(glm::ivec2(center.x, center.y - radi - velocity.y))) {
+					posBall.x -= velocity.x;
+					velocity.x = - velocity.x;
+				}
 				velocity.y = abs(velocity.y);
 			}
 		}
 		else if (map->checkCollision(glm::ivec2(center.x, center.y + radi))) {
 			if (map->collisionPoint(glm::ivec2(center.x, center.y + radi))) {	//down
 				posBall.y -= velocity.y;
+				if (map->checkCollision(glm::ivec2(center.x, center.y + radi - velocity.y))) {
+					posBall.x -= velocity.x;
+					velocity.x = -velocity.x;
+				}
 				velocity.y = -abs(velocity.y);
 			}
 		}
-		else if (map->checkCollision(glm::ivec2(center.x - radi, center.y))) {
-			if (map->collisionPoint(glm::ivec2(center.x - radi, center.y))) {	//left
-				posBall.x -= velocity.x;
-				velocity.x = abs(velocity.x);
-			}
-		}
-		else if (map->checkCollision(glm::ivec2(center.x + radi, center.y))) {	//right
-			if (map->collisionPoint(glm::ivec2(center.x + radi, center.y))) {	//right
-				posBall.x -= velocity.x;
-				velocity.x = -abs(velocity.x);
-			}
-		}
-
-		 //4.21 - 10.16
+		//4.21 - 10.16
 		else if (map->checkCollision(glm::ivec2(center.x + shortSide, center.y - longSide))) {	//up-right-1
 			if (map->collisionPoint(glm::ivec2(center.x + shortSide, center.y - longSide))) {	//up-right-1
 				posBall.y -= velocity.y;
+				if (map->checkCollision(glm::ivec2(center.x + shortSide, center.y - longSide - velocity.y))) {
+					posBall.x -= velocity.x;
+					velocity.x = -velocity.x;
+				}
 				velocity.y = abs(velocity.y);
-			}
-		}
-		else if (map->checkCollision(glm::ivec2(center.x + longSide, center.y - shortSide))) {	//up-right-2
-			if (map->collisionPoint(glm::ivec2(center.x + longSide, center.y - shortSide))) {	//up-right-2
-				posBall.x -= velocity.x;
-				velocity.x = -abs(velocity.x);
-			}
-		}
-		else if (map->checkCollision(glm::ivec2(center.x + longSide, center.y + shortSide))) {	//right-down-1
-			if (map->collisionPoint(glm::ivec2(center.x + longSide, center.y + shortSide))) {	//right-down-1
-				posBall.x -= velocity.x;
-				velocity.x = -abs(velocity.x);
 			}
 		}
 		else if (map->checkCollision(glm::ivec2(center.x + shortSide, center.y + longSide))) {	//right-down-2
 			if (map->collisionPoint(glm::ivec2(center.x + shortSide, center.y + longSide))) {	//right-down-2
 				posBall.y -= velocity.y;
+				if (map->checkCollision(glm::ivec2(center.x + shortSide, center.y + longSide - velocity.y))) {
+					posBall.x -= velocity.x;
+					velocity.x = -velocity.x;
+				}
 				velocity.y = -abs(velocity.y);
 			}
 		}
 		else if (map->checkCollision(glm::ivec2(center.x - shortSide, center.y + longSide))) {	//down-left
 			if (map->collisionPoint(glm::ivec2(center.x - shortSide, center.y + longSide))) {	//down-left
 				posBall.y -= velocity.y;
+				if (map->checkCollision(glm::ivec2(center.x - shortSide, center.y + longSide - velocity.y))) {
+					posBall.x -= velocity.x;
+					velocity.x = -velocity.x;
+				}
 				velocity.y = -abs(velocity.y);
+			}
+		}
+		else if (map->checkCollision(glm::ivec2(center.x - shortSide, center.y - longSide))) {	//left-up
+			if (map->collisionPoint(glm::ivec2(center.x - shortSide, center.y - longSide))) {	//left-up
+				posBall.y -= velocity.y;
+				if (map->checkCollision(glm::ivec2(center.x - shortSide, center.y - longSide - velocity.y))) {
+					posBall.x -= velocity.x;
+					velocity.x = -velocity.x;
+				}
+				velocity.y = abs(velocity.y);
+			}
+		}
+
+
+		/*posBall.x += velocity.x;
+		center = glm::fvec2(center_0.x + velocity.x, center_0.y);*/
+
+
+		else if (map->checkCollision(glm::ivec2(center.x - radi, center.y))) {
+			if (map->collisionPoint(glm::ivec2(center.x - radi, center.y))) {	//left
+				posBall.x -= velocity.x;
+				if (map->checkCollision(glm::ivec2(center.x - radi - velocity.x, center.y))) {
+					posBall.y -= velocity.y;
+					velocity.y = -velocity.y;
+				}
+				velocity.x = abs(velocity.x);
+			}
+		}
+		else if (map->checkCollision(glm::ivec2(center.x + radi, center.y))) {	//right
+			if (map->collisionPoint(glm::ivec2(center.x + radi, center.y))) {	//right
+				posBall.x -= velocity.x;
+				if (map->checkCollision(glm::ivec2(center.x + radi - velocity.x, center.y))) {
+					posBall.y -= velocity.y;
+					velocity.y = -velocity.y;
+				}
+				velocity.x = -abs(velocity.x);
+			}
+		}
+
+		//4.21 - 10.16
+
+		else if (map->checkCollision(glm::ivec2(center.x + longSide, center.y - shortSide))) {	//up-right-2
+			if (map->collisionPoint(glm::ivec2(center.x + longSide, center.y - shortSide))) {	//up-right-2
+				posBall.x -= velocity.x;
+				if (map->checkCollision(glm::ivec2(center.x + longSide - velocity.x, center.y - shortSide))) {
+					posBall.y -= velocity.y;
+					velocity.y = -velocity.y;
+				}
+				velocity.x = -abs(velocity.x);
+			}
+		}
+		else if (map->checkCollision(glm::ivec2(center.x + longSide, center.y + shortSide))) {	//right-down-1
+			if (map->collisionPoint(glm::ivec2(center.x + longSide, center.y + shortSide))) {	//right-down-1
+				posBall.x -= velocity.x;
+				if (map->checkCollision(glm::ivec2(center.x + longSide - velocity.x, center.y + shortSide))) {
+					posBall.y -= velocity.y;
+					velocity.y = -velocity.y;
+				}
+				velocity.x = -abs(velocity.x);
 			}
 		}
 		else if (map->checkCollision(glm::ivec2(center.x - longSide, center.y + shortSide))) {	//down-left
 			if (map->collisionPoint(glm::ivec2(center.x - longSide, center.y + shortSide))) {	//down-left
 				posBall.x -= velocity.x;
+				if (map->checkCollision(glm::ivec2(center.x - longSide - velocity.x, center.y + shortSide))) {
+					posBall.y -= velocity.y;
+					velocity.y = -velocity.y;
+				}
 				velocity.x = abs(velocity.x);
 			}
 		}
 		else if (map->checkCollision(glm::ivec2(center.x - longSide, center.y - shortSide))) {	//left-up
 			if (map->collisionPoint(glm::ivec2(center.x - longSide, center.y - shortSide))) {	//left-up
 				posBall.x -= velocity.x;
+				if (map->checkCollision(glm::ivec2(center.x - longSide - velocity.x, center.y - shortSide))) {
+					posBall.y -= velocity.y;
+					velocity.y = -velocity.y;
+				}
 				velocity.x = abs(velocity.x);
-			}
-		}
-		else if (map->checkCollision(glm::ivec2(center.x - shortSide, center.y - longSide))) {	//left-up
-			if (map->collisionPoint(glm::ivec2(center.x - shortSide, center.y - longSide))) {	//left-up
-				posBall.y -= velocity.y;
-				velocity.y = abs(velocity.y);
 			}
 		}
 
@@ -156,7 +214,7 @@ void Ball::update(int deltaTime, glm::vec2 posPlayer)
 		//	velocity.y = -velocity.y;
 		//}
 
-		else if (collisionPlayer(posPlayer)) {
+		if (collisionPlayer(posPlayer)) {
 			velocity.y = -abs(velocity.y);
 		}
 
@@ -226,73 +284,131 @@ bool Ball::collisionPlayer(const glm::ivec2& posPlayer)
 		float pxcenter = posPlayer.x + playerWidth / 2.0;
 		float py = posPlayer.y;
 
+		float movement = abs(velocity.x) + abs(velocity.y);
 
-		/*if (center.y + radi >= py && center.y + radi <= py + 10) {
+		if (center.y + radi >= py && center.y + radi <= py + 10) {
 			if (center.x >= pxmin && center.x <= pxmax) {
-				if (bxcenter < pxcenter)
-					velocity.x = velocity.x - 0.1 * (pxcenter - center.x);
-				else if (center.x > pxcenter)
-					velocity.x = velocity.x + 0.1 * (center.x - pxcenter);
-				else
+				float moveX = (abs(pxcenter - center.x) / (playerWidth / 2)) * 0.9;  // %%% 
+				float moveY = 1.f - moveX;
+
+				if (center.x < pxcenter) {
+					velocity.x = -moveX * movement;
+					velocity.y = moveY * movement;
+				}
+				else if (center.x > pxcenter) {
+					velocity.x = moveX * movement;
+					velocity.y = moveY * movement;
+				}
+				else {
 					velocity.x = 0;
+					velocity.y = movement;
+				}
 				return true;
 			}
 		}
 
-		else if (center.y + longSide >= py && center.y + longSide <= py + 10) {
+		if (center.y + longSide >= py && center.y + longSide <= py + 10) {
 			if (center.x + shortSide >= pxmin && center.x + shortSide <= pxmax) {
-				if (center.x < pxcenter)
-					velocity.x = velocity.x - 0.1 * (pxcenter - center.x);
-				else if (center.x > pxcenter)
-					velocity.x = velocity.x + 0.1 * (center.x - pxcenter);
-				else
+				float moveX = (abs(pxcenter - (center.x + shortSide)) / (playerWidth / 2)) * 0.9;  // %%% 
+				float moveY = 1.f - moveX;
+
+				if (center.x < pxcenter) {
+					velocity.x = -moveX * movement;
+					velocity.y = moveY * movement;
+				}
+				else if (center.x > pxcenter) {
+					velocity.x = moveX * movement;
+					velocity.y = moveY * movement;
+				}
+				else {
 					velocity.x = 0;
+					velocity.y = movement;
+				}
 				return true;
 			}
 			else if (center.x - shortSide >= pxmin && center.x - shortSide <= pxmax) {
-				if (center.x < pxcenter)
-					velocity.x = velocity.x - 0.1 * (pxcenter - center.x);
-				else if (center.x > pxcenter)
-					velocity.x = velocity.x - 0.1 * (center.x - pxcenter);
-				else
+				float moveX = (abs(pxcenter - (center.x - shortSide)) / (playerWidth / 2)) * 0.9;  // %%% 
+				float moveY = 1.f - moveX;
+
+				if (center.x < pxcenter) {
+					velocity.x = -moveX * movement;
+					velocity.y = moveY * movement;
+				}
+				else if (center.x > pxcenter) {
+					velocity.x = moveX * movement;
+					velocity.y = moveY * movement;
+				}
+				else {
 					velocity.x = 0;
+					velocity.y = movement;
+				}
 				return true;
 			}
 		}
 
-		else if (center.y + shortSide >= py && center.y + shortSide <= py + 10) {
+		if (center.y + shortSide >= py && center.y + shortSide <= py + 10) {
 			if (center.x + longSide >= pxmin && center.x + longSide <= pxmax) {
-				if (center.x < pxcenter)
-					velocity.x = -0.1 * (pxcenter - center.x);
-				else if (center.x > pxcenter)
-					velocity.x = 0.1 * (center.x - pxcenter);
-				else
+				float moveX = (abs(pxcenter - (center.x + longSide)) / (playerWidth / 2)) * 0.9;  // %%% 
+				float moveY = 1.f - moveX;
+
+				if (center.x < pxcenter) {
+					velocity.x = -moveX * movement;
+					velocity.y = moveY * movement;
+				}
+				else if (center.x > pxcenter) {
+					velocity.x = moveX * movement;
+					velocity.y = moveY * movement;
+				}
+				else {
 					velocity.x = 0;
+					velocity.y = movement;
+				}
 				return true;
 			}
 			else if (center.x - longSide >= pxmin && center.x - longSide <= pxmax) {
-				if (center.x < pxcenter)
-					velocity.x = -0.1 * (pxcenter - center.x);
-				else if (center.x > pxcenter)
-					velocity.x = 0.1 * (center.x - pxcenter);
-				else
+				float moveX = (abs(pxcenter - (center.x - longSide)) / (playerWidth / 2)) * 0.9;  // %%% 
+				float moveY = 1.f - moveX;
+
+				if (center.x < pxcenter) {
+					velocity.x = -moveX * movement;
+					velocity.y = moveY * movement;
+				}
+				else if (center.x > pxcenter) {
+					velocity.x = moveX * movement;
+					velocity.y = moveY * movement;
+				}
+				else {
 					velocity.x = 0;
+					velocity.y = movement;
+				}
 				return true;
 			}
-		}*/
+		}
 
-		if (bymax >= py && bymin < py)
-			//if ((bxmin >= pxmin && bxmin <= pxmax) || (bxmax >= pxmin && bxmax <= pxmax))
-			if (center.x >= pxmin && bxcenter <= pxmax) {
 
-				if (bxcenter < pxcenter)
-					velocity.x = -0.2 * (pxcenter - bxcenter);
-				else if (bxcenter > pxcenter)
-					velocity.x = 0.2 * (bxcenter - pxcenter);
-				else
-					velocity.x = 0;
-				return true;
-			}
+
+		//if (center.y + radi >= py && center.y + radi <= py+32)
+		//	if (center.x >= pxmin && center.x <= pxmax) {
+
+		//		float movement = abs(velocity.x) + abs(velocity.y);
+
+		//		float moveX = (abs(pxcenter - center.x) / (playerWidth / 2)) - 0.1f;  // %%% 
+		//		float moveY = 1.f - moveX;
+
+		//		if (center.x < pxcenter) {
+		//			velocity.x = -moveX * movement;
+		//			velocity.y = moveY * movement;
+		//		}
+		//		else if (center.x > pxcenter) {
+		//			velocity.x = moveX * movement;
+		//			velocity.y = moveY * movement;
+		//		}
+		//		else {
+		//			velocity.x = 0;
+		//			velocity.y = movement;
+		//		}
+		//		return true;
+		//	}
 
 	}
 	
