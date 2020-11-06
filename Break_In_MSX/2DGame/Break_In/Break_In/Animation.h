@@ -9,6 +9,8 @@
 #include "Player.h"
 #include "Ball.h"
 #include "Thief.h"
+#include "SoundManager.h"
+
 
 class Animation
 {
@@ -32,6 +34,10 @@ private:
 	glm::mat4 projection;
 
 	Thief* thief;
+
+	const SoundManager* soundManager;
+	FMOD::Sound* music_player;
+	FMOD::Channel* channel;
 
 };
 

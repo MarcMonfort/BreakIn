@@ -33,13 +33,16 @@ void Animation::init()
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
 
+	soundManager = Game::instance().getSoundManager();
+	music_player = soundManager->loadSound("sounds/thief.mp3", FMOD_DEFAULT);
+	
 
 }
 
 void Animation::restart()
 {
 	thief->setPosition(glm::vec2(60, 258));
-
+	channel = soundManager->playSound(music_player);
 }
 
 void Animation::update(int deltaTime)
