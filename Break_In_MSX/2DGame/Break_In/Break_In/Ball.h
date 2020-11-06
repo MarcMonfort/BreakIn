@@ -45,7 +45,7 @@ private:
 	int longSide;
 
 	const SoundManager* soundManager;
-	FMOD::Sound* music;
+	FMOD::Sound* music_player;
 	FMOD::Channel* channel;
 };
 

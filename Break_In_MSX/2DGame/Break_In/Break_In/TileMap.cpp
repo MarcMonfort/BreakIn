@@ -338,13 +338,13 @@ bool TileMap::treatCollision(int pos)
 		map[pos] = 0;
 		//channel->stop();
 		channel = soundManager->playSound(music_basic_block);
-		channel->setVolume(1.0f);
+		//channel->setVolume(1.0f);
 		PlayGameState::instance().addPoints(100);
 	}
 	else if (block == wall) {
 		//channel->stop();
 		channel = soundManager->playSound(music_wall_coin);
-		channel->setVolume(1.0f);
+		//channel->setVolume(1.0f);
 	}
 	else if (block == strong)
 	{
@@ -358,7 +358,7 @@ bool TileMap::treatCollision(int pos)
 		}
 		//channel->stop();
 		channel = soundManager->playSound(music_basic_block);
-		channel->setVolume(1.0f);
+		//channel->setVolume(1.0f);
 		PlayGameState::instance().addPoints(100);
 	}
 	else if (block == key)
@@ -395,7 +395,7 @@ bool TileMap::treatCollision(int pos)
 		map[15] = 22;
 		map[pos] = 0;
 		channel = soundManager->playSound(music_wall_coin);
-		channel->setVolume(1.0f);
+		//channel->setVolume(1.0f);
 	}
 	else if (block == arrow)
 	{

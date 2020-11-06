@@ -22,10 +22,7 @@ void Ball::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 
 
 	soundManager = Game::instance().getSoundManager();
-	/*music = soundManager->loadSound("sounds/main_theme.mp3", FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
-	channel = soundManager->playSound(music);
-	channel->setVolume(1.0f);*/
-
+	music_player = soundManager->loadSound("sounds/player.mp3", FMOD_DEFAULT);
 }
 
 void Ball::update(int deltaTime, glm::vec2 posPlayer)
@@ -33,31 +30,6 @@ void Ball::update(int deltaTime, glm::vec2 posPlayer)
 	sprite->update(deltaTime);
 
 	if (PlayGameState::instance().getStarted()) {
-
-		/*posBall.y += velocity.y;
-		if (map->collisionMoveUp(posBall, glm::ivec2(22, 22))) {
-			posBall.y -= velocity.y;
-			velocity.y = abs(velocity.y);
-		}
-		else if (map->collisionMoveDown(posBall, glm::ivec2(22, 22))) {
-			posBall.y -= velocity.y;
-			velocity.y = -abs(velocity.y);
-		}
-
-		if (collisionPlayer(posPlayer)) {
-			posBall.y -= velocity.y;
-			velocity.y = -abs(velocity.y);
-		}
-
-		posBall.x += velocity.x;
-		if (map->collisionMoveLeft(posBall, glm::ivec2(22, 22))) {
-			posBall.x -= velocity.x;
-			velocity.x = abs(velocity.x);
-		}
-		else if (map->collisionMoveRight(posBall, glm::ivec2(22, 22))) {
-			posBall.x -= velocity.x;
-			velocity.x = -abs(velocity.x);
-		}*/
 
 		glm::fvec2 center_0 = glm::fvec2(posBall.x + radi, posBall.y + radi);
 		posBall.y += velocity.y;
@@ -128,10 +100,6 @@ void Ball::update(int deltaTime, glm::vec2 posPlayer)
 		}
 
 
-		/*posBall.x += velocity.x;
-		center = glm::fvec2(center_0.x + velocity.x, center_0.y);*/
-
-
 		else if (map->checkCollision(glm::ivec2(center.x - radi, center.y))) {
 			if (map->collisionPoint(glm::ivec2(center.x - radi, center.y))) {	//left
 				posBall.x -= velocity.x;
@@ -196,24 +164,6 @@ void Ball::update(int deltaTime, glm::vec2 posPlayer)
 			}
 		}
 
-		////7.788 square
-		//else if (map->collisionPoint(glm::ivec2(center.x + 7.79, center.y -7.79))) {	//up-right
-		//	velocity.x = -velocity.x;
-		//	velocity.y = -velocity.y;
-		//}
-		//else if (map->collisionPoint(glm::ivec2(center.x + 7.79, center.y + 7.79))) {	//right-down
-		//	velocity.x = -velocity.x;
-		//	velocity.y = -velocity.y;
-		//}
-		//else if (map->collisionPoint(glm::ivec2(center.x - 7.79, center.y + 7.79))) {	//down-left
-		//	velocity.x = -velocity.x;
-		//	velocity.y = -velocity.y;
-		//}
-		//else if (map->collisionPoint(glm::ivec2(center.x - 7.79, center.y - 7.79))) {	//left-up
-		//	velocity.x = -velocity.x;
-		//	velocity.y = -velocity.y;
-		//}
-
 		if (collisionPlayer(posPlayer)) {
 			velocity.y = -abs(velocity.y);
 		}
@@ -271,12 +221,6 @@ bool Ball::collisionPlayer(const glm::ivec2& posPlayer)
 	if (velocity.y >= -0.5) { //nomes si la pilota esta baixant
 
 		float ball_size = 22.0; //es podria crear un atribut de la classe
-		//float bxmin = posBall.x;
-		//float bxmax = posBall.x + ball_size;
-		float bxcenter = posBall.x + ball_size / 2.0;
-
-		float bymin = posBall.y;
-		float bymax = posBall.y + ball_size;
 
 		float playerWidth = 38.0; //es podria passar per parametre
 		float pxmin = posPlayer.x;
@@ -303,6 +247,7 @@ bool Ball::collisionPlayer(const glm::ivec2& posPlayer)
 					velocity.x = 0;
 					velocity.y = movement;
 				}
+				channel = soundManager->playSound(music_player);
 				return true;
 			}
 		}
@@ -324,6 +269,7 @@ bool Ball::collisionPlayer(const glm::ivec2& posPlayer)
 					velocity.x = 0;
 					velocity.y = movement;
 				}
+				channel = soundManager->playSound(music_player);
 				return true;
 			}
 			else if (center.x - shortSide >= pxmin && center.x - shortSide <= pxmax) {
@@ -342,6 +288,7 @@ bool Ball::collisionPlayer(const glm::ivec2& posPlayer)
 					velocity.x = 0;
 					velocity.y = movement;
 				}
+				channel = soundManager->playSound(music_player);
 				return true;
 			}
 		}
@@ -363,6 +310,7 @@ bool Ball::collisionPlayer(const glm::ivec2& posPlayer)
 					velocity.x = 0;
 					velocity.y = movement;
 				}
+				channel = soundManager->playSound(music_player);
 				return true;
 			}
 			else if (center.x - longSide >= pxmin && center.x - longSide <= pxmax) {
@@ -381,35 +329,10 @@ bool Ball::collisionPlayer(const glm::ivec2& posPlayer)
 					velocity.x = 0;
 					velocity.y = movement;
 				}
+				channel = soundManager->playSound(music_player);
 				return true;
 			}
 		}
-
-
-
-		//if (center.y + radi >= py && center.y + radi <= py+32)
-		//	if (center.x >= pxmin && center.x <= pxmax) {
-
-		//		float movement = abs(velocity.x) + abs(velocity.y);
-
-		//		float moveX = (abs(pxcenter - center.x) / (playerWidth / 2)) - 0.1f;  // %%% 
-		//		float moveY = 1.f - moveX;
-
-		//		if (center.x < pxcenter) {
-		//			velocity.x = -moveX * movement;
-		//			velocity.y = moveY * movement;
-		//		}
-		//		else if (center.x > pxcenter) {
-		//			velocity.x = moveX * movement;
-		//			velocity.y = moveY * movement;
-		//		}
-		//		else {
-		//			velocity.x = 0;
-		//			velocity.y = movement;
-		//		}
-		//		return true;
-		//	}
-
 	}
 	
 	return false;
