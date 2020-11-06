@@ -59,9 +59,16 @@ public:
 	bool getSpecialKey(int key) const;*/
 
 private:
+	void initShaders();
+
+	Sprite* fib_logo;
+	Sprite* upc_logo;
+	Texture spritesheet;
+	Texture spritesheet2;
+	ShaderProgram texProgram;
+
+
 	bool bPlay;                       // Continue to play game?
-	//bool keys[256], specialKeys[256]; // Store key states so that 
-	                                  // we can have access at any time
 
 	stack <GameState*> states;
 

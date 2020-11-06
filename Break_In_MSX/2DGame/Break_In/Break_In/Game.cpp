@@ -1,3 +1,4 @@
+#include <iostream>
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include "Game.h"
@@ -5,6 +6,15 @@
 
 void Game::init()
 {
+	initShaders();
+	spritesheet.loadFromFile("images/fib_logo.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	fib_logo = Sprite::createSprite(glm::ivec2(43, 16), glm::vec2(1.f, 1.f), &spritesheet, &texProgram);
+	fib_logo->setPosition(glm::vec2(55, 450));
+
+	spritesheet2.loadFromFile("images/upc_logo.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	upc_logo = Sprite::createSprite(glm::ivec2(24, 24), glm::vec2(1.f, 1.f), &spritesheet2, &texProgram);
+	upc_logo->setPosition(glm::vec2(15, 445));
+
 	bPlay = true;
 	//glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	glClearColor(0.f, 0.f, 0.f, 1.0f);
@@ -27,6 +37,10 @@ void Game::render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	//scene.render();
 	states.top()->render();
+
+	fib_logo->render();
+	upc_logo->render();
+
 }
 
 GameState* Game::getGameState()
@@ -54,6 +68,36 @@ const SoundManager* Game::getSoundManager() const {
 	return &soundManager;
 }
 
+
+void Game::initShaders()
+{
+	Shader vShader, fShader;
+
+	vShader.initFromFile(VERTEX_SHADER, "shaders/texture.vert");
+	if (!vShader.isCompiled())
+	{
+		cout << "Vertex Shader Error" << endl;
+		cout << "" << vShader.log() << endl << endl;
+	}
+	fShader.initFromFile(FRAGMENT_SHADER, "shaders/texture.frag");
+	if (!fShader.isCompiled())
+	{
+		cout << "Fragment Shader Error" << endl;
+		cout << "" << fShader.log() << endl << endl;
+	}
+	texProgram.init();
+	texProgram.addShader(vShader);
+	texProgram.addShader(fShader);
+	texProgram.link();
+	if (!texProgram.isLinked())
+	{
+		cout << "Shader Linking Error" << endl;
+		cout << "" << texProgram.log() << endl << endl;
+	}
+	texProgram.bindFragmentOutput("outColor");
+	vShader.free();
+	fShader.free();
+}
 
 /*void Game::keyPressed(int key)
 {
