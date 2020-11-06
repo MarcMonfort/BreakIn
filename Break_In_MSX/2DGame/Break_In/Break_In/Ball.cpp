@@ -164,7 +164,7 @@ void Ball::update(int deltaTime, glm::vec2 posPlayer)
 			}
 		}
 
-		if (collisionPlayer(posPlayer)) {
+		else if (collisionPlayer(posPlayer)) {
 			velocity.y = -abs(velocity.y);
 		}
 
