@@ -93,7 +93,7 @@ void PlayGameState::update(int deltaTime)
 			upDownTime -= deltaTime;
 		}
 
-		player->update(deltaTime);
+		player->update(deltaTime, ball->getPosition());
 		glm::vec2 posPlayer = player->getPosition();
 		ball->update(deltaTime, posPlayer);
 	}

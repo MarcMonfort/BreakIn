@@ -23,7 +23,6 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayGameState.h" />
     <ClInclude Include="Ring.h" />
-    <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="SoundManager.h" />
@@ -45,7 +44,6 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayGameState.cpp" />
     <ClCompile Include="Ring.cpp" />
-    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="SoundManager.cpp" />

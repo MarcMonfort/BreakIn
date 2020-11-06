@@ -2,7 +2,6 @@
 #include <iostream>
 #include <GL/glew.h>
 #include <GL/glut.h>
-#include "Scene.h"
 #include "NumDisplay.h"
 
 
