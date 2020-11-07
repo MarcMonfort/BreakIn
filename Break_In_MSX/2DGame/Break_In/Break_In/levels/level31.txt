@@ -14,8 +14,8 @@ C                      C
 C                      C
 C                      C
 C                      C
-C         IJ           C
-C         YZ           C
+C         IR           C
+C         RR           C
 C                      C
 C                      C
 C                      C
@@ -27,4 +27,4 @@ C                      C
 C                      C
 C                      C
 C                      C
-CCCCCCCCCCCCCCCCCCCCCCCC
+CCCCCCCCDDDDDDDDCCCCCCCC

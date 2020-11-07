@@ -200,6 +200,11 @@ bool TileMap::alarmOn()
 	return bAlarm;
 }
 
+void TileMap::setAlarm(bool alarm)
+{
+	bAlarm = alarm;
+}
+
 // Collision tests for axis aligned bounding boxes.
 // Method collisionMoveDown also corrects Y coordinate if the box is
 // already intersecting a tile below.
@@ -317,7 +322,8 @@ int TileMap::checkBlock(int block)
 		return arrow;
 	else if (block == 23 || block == 24 || block == 39 || block == 40)
 		return key;
-	else if (block == 25 || block == 26 || block == 41 || block == 42)
+	else if (block == 34 || block == 25)
+	//else if (block == 25 || block == 26 || block == 41 || block == 42)
 		return ring;
 	else if (block == 31 || block == 32 || block == 47 || block == 48)
 		return bag;
@@ -466,7 +472,7 @@ bool TileMap::treatCollision(int pos)
 	else if (block == ring)
 	{
 		bAlarm = true;
-		if (map[pos] == 25) {
+		/*if (map[pos] == 25) {
 			map[pos + 1] = 33;
 			map[pos + mapSize.x] = 43;
 			map[pos + mapSize.x + 1] = 33;
@@ -489,7 +495,7 @@ bool TileMap::treatCollision(int pos)
 			map[pos - mapSize.x] = 33;
 			map[pos - mapSize.x - 1] = 27;
 			map[pos] = 33;
-		}
+		}*/
 	}
 	prepareArrays(a, b);
 	return true;

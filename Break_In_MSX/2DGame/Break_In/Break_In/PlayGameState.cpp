@@ -5,6 +5,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "Game.h"
 #include <GL\freeglut_std.h>
+#include "GameOverGameState.h"
 
 
 #define SCREEN_X 32
@@ -78,6 +79,12 @@ void PlayGameState::init()
 	animation = new Animation();
 	animation->init();
 
+	started = false;
+	isDead = false;
+	bAnim = false;
+	ALL_DEAD = false;
+
+	resetKeys();
 }
 
 void PlayGameState::update(int deltaTime)
@@ -94,8 +101,11 @@ void PlayGameState::update(int deltaTime)
 		}
 
 		player->update(deltaTime, ball->getPosition());
-		glm::vec2 posPlayer = player->getPosition();
-		ball->update(deltaTime, posPlayer);
+
+		if (!isDead) {
+			glm::vec2 posPlayer = player->getPosition();
+			ball->update(deltaTime, posPlayer);
+		}
 	}
 	else 
 	{
@@ -107,6 +117,13 @@ void PlayGameState::update(int deltaTime)
 	livesDisplay->displayNum(lives);
 	bankDisplay->displayNum(bank);
 	roomDisplay->displayNum(room);
+
+	if (ALL_DEAD) {
+		deleteAll();
+		Game::instance().popGameState();
+		GameOverGameState::instance().init();
+		Game::instance().pushGameState(&GameOverGameState::instance());
+	}
 }
 
 void PlayGameState::render()
@@ -146,6 +163,7 @@ void PlayGameState::render()
 
 void PlayGameState::deleteLevels() {
 	for (int i = 0; i < levels.size(); ++i) {
+		levels[i]->deleteALL();
 		delete levels[i];
 	}
 	levels.clear();
@@ -155,17 +173,20 @@ void PlayGameState::nextMap()
 {
 	levels[currentMap]->setTransition(3);
 	levels[currentMap]->resetGuard();
+	levels[currentMap]->setMusic(false);
 	previousMap = currentMap;
 	upDownTime = 200;
 	currentMap += 1;
 	room += 1;
 	if (levels.size() <= currentMap)
 	{
-		Level* nextLevel = new Level();  //recordar liberar espacio delete()
-		nextLevel->createLevel(currentLevel, currentMap + 1);
-		levels.push_back(nextLevel);
+		Level* newMap = new Level();  //recordar liberar espacio delete()
+		newMap->createLevel(currentLevel, currentMap + 1);
+		levels.push_back(newMap);
 	}
 	levels[currentMap]->setTransition(0);
+	levels[currentMap]->setMusic(true);
+
 	player->setTileMap(levels[currentMap]->getMap());
 	ball->setPosition(glm::vec2(ball->getPosition().x, INIT_BALL_Y_TILES * levels[currentMap]->getMap()->getTileSize()));
 
@@ -180,42 +201,73 @@ void PlayGameState::lastMap()
 	if (currentMap > 0) {
 		levels[currentMap]->setTransition(2);
 		levels[currentMap]->resetGuard();
+		levels[currentMap]->setMusic(false);
 		previousMap = currentMap;
 		upDownTime = 200;
 		currentMap -= 1;
 		levels[currentMap]->setTransition(1);
+		levels[currentMap]->setMusic(true);
+
 		player->setTileMap(levels[currentMap]->getMap());
 		ball->setTileMap(levels[currentMap]->getMap());
-	}
-	room -= 1;
-	player->setTileMap(levels[currentMap]->getMap());
-	ball->setPosition(glm::vec2(ball->getPosition().x, 1.5 * levels[currentMap]->getMap()->getTileSize()));
 
-	glm::vec2 velocity = ball->getVelocity();
-	velocity.y = abs(velocity.y);
-	ball->setVelocity(velocity);
-	ball->setTileMap(levels[currentMap]->getMap());
+		room -= 1;
+		player->setTileMap(levels[currentMap]->getMap());
+		ball->setPosition(glm::vec2(ball->getPosition().x, 1.5 * levels[currentMap]->getMap()->getTileSize()));
+
+		glm::vec2 velocity = ball->getVelocity();
+		velocity.y = abs(velocity.y);
+		ball->setVelocity(velocity);
+		ball->setTileMap(levels[currentMap]->getMap());
+	}
+	else {
+		lost_life();
+	}
 }
 
 
 void PlayGameState::nextLevel() {
 	bAnim = true;
+	lives += 1;
 	animation->restart();
 	setLevel(currentLevel+1);
 }
 
 void PlayGameState::stopAnimation() {
 	bAnim = false;
+	animation->stopMusic();
 }
 
 void PlayGameState::lost_life() {
-	lives -= 1;
-	player->dead();
+	if (lives > 0) {
+		lives -= 1;
+		player->dead();
+		isDead = true;
+	}
+	else {
+		ALL_DEAD = true;
+	}
 }
 
+void PlayGameState::setIsDead(bool dead) {
+	this->isDead = dead;
+}
+
+void PlayGameState::deleteAll() {
+	deleteLevels();
+	delete ball;
+	delete player;
+	delete moneyDisplay;
+	delete pointsDisplay;
+	delete livesDisplay;
+	delete bankDisplay;
+	delete roomDisplay;
+	delete animation;
+}
 
 void PlayGameState::setLevel(int level) {
 	if (currentLevel != level) {
+		levels[currentMap]->setMusic(false);
 		deleteLevels();
 		currentLevel = level;
 		currentMap = 0;
@@ -233,11 +285,17 @@ void PlayGameState::setLevel(int level) {
 		ball->setPosition(glm::vec2(INIT_BALL_X_TILES * levels[currentMap]->getMap()->getTileSize(), INIT_BALL_Y_TILES * levels[currentMap]->getMap()->getTileSize()));
 		ball->setTileMap(levels[currentMap]->getMap());
 
+		started = false;
+
 	}
 }
 
 glm::vec2 PlayGameState::getPlayerPosition() {
 	return player->getPosition();
+}
+
+void PlayGameState::setAlarm(bool alarm) {
+	levels[currentMap]->setAlarm(alarm);
 }
 
 void PlayGameState::keyPressed(int key)
@@ -246,22 +304,15 @@ void PlayGameState::keyPressed(int key)
 	{
 		if (!bAnim)
 		{
-			deleteLevels();
-			delete ball;
-			delete player;
-			delete moneyDisplay;
-			delete pointsDisplay;
-			delete livesDisplay;
-			delete bankDisplay;
-			delete roomDisplay;
-			delete animation;
+			deleteAll();
 
 			MenuGameState::instance().init();
 			Game::instance().popGameState(); //or better push so we dont loose the state??
 			Game::instance().pushGameState(&MenuGameState::instance());
 		}
 		else {
-			bAnim = false;
+			stopAnimation();
+			//bAnim = false;
 		}
 	}
 	else if (key == 'n')
@@ -274,7 +325,8 @@ void PlayGameState::keyPressed(int key)
 				nextLevel();
 		}
 		else {
-			bAnim = false;
+			stopAnimation();
+			//bAnim = false;
 		}
 	}
 	else if (key == 'b')
@@ -284,7 +336,8 @@ void PlayGameState::keyPressed(int key)
 		else if (currentLevel > 1)
 			setLevel(currentLevel-1);
 		if (bAnim)
-			bAnim = false;
+			stopAnimation();
+			//bAnim = false;
 	}
 
 	else if (key == 'v')

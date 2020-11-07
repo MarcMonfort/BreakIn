@@ -21,6 +21,8 @@ public:
 	void render();
 	void restart();
 
+	void stopMusic();
+
 
 private:
 	void initShaders();

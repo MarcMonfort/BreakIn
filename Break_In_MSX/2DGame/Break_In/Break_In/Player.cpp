@@ -14,6 +14,9 @@
 #define SIZE_X_PLAYER 38
 #define SIZE_Y_PLAYER 52
 
+#define INIT_PLAYER_X 11
+#define INIT_PLAYER_Y 20.5
+
 #define PI 3.1415
 
 
@@ -130,6 +133,10 @@ void Player::update(int deltaTime, glm::vec2 posBall)
 			deadCounter += deltaTime;
 			if (deadCounter > 1700) {
 				isDead = false;
+				setPosition(glm::vec2(176, 328));
+				PlayGameState::instance().setStarted(false);
+				PlayGameState::instance().setIsDead(false);
+				PlayGameState::instance().setAlarm(false);
 			}
 		}
 
@@ -189,68 +196,69 @@ void Player::update(int deltaTime, glm::vec2 posBall)
 		else if (angle < 330) {
 			sprite->changeAnimation(DOWN_RIGHT);
 		}
-	}
 
 
-	// Esquerra o dreta
-	if(Game::instance().getGameState()->getSpecialKey(GLUT_KEY_LEFT))
-	{
-		posPlayer.x -= 4;
-		/*if(map->collisionMoveLeft(posPlayer, glm::ivec2(32, 32)))
+
+		// Esquerra o dreta
+		if (Game::instance().getGameState()->getSpecialKey(GLUT_KEY_LEFT))
 		{
-			posPlayer.x += 2;
-			sprite->changeAnimation(STAND_LEFT);
-		}*/
-	}
-	else if(Game::instance().getGameState()->getSpecialKey(GLUT_KEY_RIGHT))
-	{
-		posPlayer.x += 4;
-		/*if(map->collisionMoveRight(posPlayer, glm::ivec2(32, 32)))
+			posPlayer.x -= 4;
+			/*if(map->collisionMoveLeft(posPlayer, glm::ivec2(32, 32)))
+			{
+				posPlayer.x += 2;
+				sprite->changeAnimation(STAND_LEFT);
+			}*/
+		}
+		else if (Game::instance().getGameState()->getSpecialKey(GLUT_KEY_RIGHT))
 		{
-			posPlayer.x -= 2;
-			sprite->changeAnimation(STAND_RIGHT);
-		}*/
-	}
-	/*else
-	{
-		if(sprite->animation() == MOVE_LEFT)
-			sprite->changeAnimation(STAND_LEFT);
-		else if(sprite->animation() == MOVE_RIGHT)
-			sprite->changeAnimation(STAND_RIGHT);
-	}*/
-
-	// Amunt o avall
-	if (Game::instance().getGameState()->getSpecialKey(GLUT_KEY_UP))
-	{
-		PlayGameState::instance().setStarted(true);
-
-		posPlayer.y -= 4;
-		/*if (map->collisionMoveUp(posPlayer, glm::ivec2(32, 32)))
+			posPlayer.x += 4;
+			/*if(map->collisionMoveRight(posPlayer, glm::ivec2(32, 32)))
+			{
+				posPlayer.x -= 2;
+				sprite->changeAnimation(STAND_RIGHT);
+			}*/
+		}
+		/*else
 		{
-			posPlayer.y += 2;
-			sprite->changeAnimation(STAND_LEFT);
+			if(sprite->animation() == MOVE_LEFT)
+				sprite->changeAnimation(STAND_LEFT);
+			else if(sprite->animation() == MOVE_RIGHT)
+				sprite->changeAnimation(STAND_RIGHT);
 		}*/
-	}
-	else if (Game::instance().getGameState()->getSpecialKey(GLUT_KEY_DOWN))
-	{
-		PlayGameState::instance().setStarted(true);
 
-		posPlayer.y += 4;
-		/*if (map->collisionMoveDown(posPlayer, glm::ivec2(32, 32)))
+		// Amunt o avall
+		if (Game::instance().getGameState()->getSpecialKey(GLUT_KEY_UP))
 		{
-			posPlayer.y -= 2;
-			sprite->changeAnimation(STAND_RIGHT);
+			PlayGameState::instance().setStarted(true);
+
+			posPlayer.y -= 4;
+			/*if (map->collisionMoveUp(posPlayer, glm::ivec2(32, 32)))
+			{
+				posPlayer.y += 2;
+				sprite->changeAnimation(STAND_LEFT);
+			}*/
+		}
+		else if (Game::instance().getGameState()->getSpecialKey(GLUT_KEY_DOWN))
+		{
+			PlayGameState::instance().setStarted(true);
+
+			posPlayer.y += 4;
+			/*if (map->collisionMoveDown(posPlayer, glm::ivec2(32, 32)))
+			{
+				posPlayer.y -= 2;
+				sprite->changeAnimation(STAND_RIGHT);
+			}*/
+		}
+		/*else
+		{
+			if (sprite->animation() == MOVE_LEFT)
+				sprite->changeAnimation(STAND_LEFT);
+			else if (sprite->animation() == MOVE_RIGHT)
+				sprite->changeAnimation(STAND_RIGHT);
 		}*/
+
+		sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
 	}
-	/*else
-	{
-		if (sprite->animation() == MOVE_LEFT)
-			sprite->changeAnimation(STAND_LEFT);
-		else if (sprite->animation() == MOVE_RIGHT)
-			sprite->changeAnimation(STAND_RIGHT);
-	}*/
-	
-	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
 }
 
 void Player::render()

@@ -46,7 +46,7 @@ void Guard::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 	sprite->setAnimationSpeed(STAND_RIGHT, 8);
 	sprite->addKeyframe(STAND_RIGHT, glm::vec2(0.0f, 0.50));
 
-
+	isDead = false;
 
 	sprite->changeAnimation(MOVE_RIGHT);
 	tileMapDispl = tileMapPos;
@@ -57,47 +57,57 @@ void Guard::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 void Guard::update(int deltaTime)
 {
 	sprite->update(deltaTime);
-	counter += deltaTime;
-	counter2 += deltaTime;
 
-	if (sprite->animation() == MOVE_RIGHT && counter > 2000) {
-		sprite->changeAnimation(STAND_RIGHT);
-		counter = 0;
-		glm::vec2 posPlayer = PlayGameState::instance().getPlayerPosition();
-		goTo = glm::vec2((posPlayer.x+19) - posGuard.x, (posPlayer.y+15) - posGuard.y);
-		int aux;
-		cout << max(abs(goTo.x), abs(goTo.y)) << endl;
-		if (max(abs(goTo.x), abs(goTo.y)) > 200)
-			aux = 4;
-		else if (max(abs(goTo.x), abs(goTo.y)) > 100)
-			aux = 3;
-		else
-			aux = 2;
-		goTo = glm::normalize(goTo);
-		goTo.x *= aux;
-		goTo.y *= aux;
-		if (goTo.x > 0)
-			goTo.x = ceil(goTo.x);
-		else
-			goTo.x = floor(goTo.x);
-		if (goTo.y > 0)
-			goTo.y = ceil(goTo.y);
-		else
-			goTo.y = floor(goTo.y);
-	}
-	if (sprite->animation() == STAND_RIGHT && counter2 > 30) {
-		glm::vec2 posPlayer = PlayGameState::instance().getPlayerPosition();
+	if (!isDead) {
+		counter += deltaTime;
+		counter2 += deltaTime;
 
-		posGuard.x += goTo.x;
-		posGuard.y += goTo.y;
-		counter2 = 0;
-	}
-	if (sprite->animation() == STAND_RIGHT && counter > 2000) {
-		sprite->changeAnimation(MOVE_RIGHT);
-		counter = 0;
-	}
+		posPlayer = PlayGameState::instance().getPlayerPosition();
 
-	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posGuard.x), float(tileMapDispl.y + posGuard.y)));
+		if (sprite->animation() == MOVE_RIGHT && counter > 2000) {
+			sprite->changeAnimation(STAND_RIGHT);
+			counter = 0;
+			goTo = glm::vec2((posPlayer.x + 19) - (posGuard.x + 12), (posPlayer.y + 15) - (posGuard.y + 8));
+			int aux;
+			cout << max(abs(goTo.x), abs(goTo.y)) << endl;
+			if (max(abs(goTo.x), abs(goTo.y)) > 200)
+				aux = 4;
+			else if (max(abs(goTo.x), abs(goTo.y)) > 100)
+				aux = 3;
+			else
+				aux = 2;
+			goTo = glm::normalize(goTo);
+			goTo.x *= aux;
+			goTo.y *= aux;
+			if (goTo.x > 0)
+				goTo.x = ceil(goTo.x);
+			else
+				goTo.x = floor(goTo.x);
+			if (goTo.y > 0)
+				goTo.y = ceil(goTo.y);
+			else
+				goTo.y = floor(goTo.y);
+		}
+		if (sprite->animation() == STAND_RIGHT && counter2 > 30) {
+			posGuard.x += goTo.x;
+			posGuard.y += goTo.y;
+			counter2 = 0;
+		}
+		if (sprite->animation() == STAND_RIGHT && counter > 2000) {
+			sprite->changeAnimation(MOVE_RIGHT);
+			counter = 0;
+		}
+
+
+		if ((posGuard.x + 24) > posPlayer.x && (posPlayer.x + 38) > posGuard.x &&
+			(posGuard.y + 16) > posPlayer.y && (posPlayer.y + 52) > posGuard.y)
+		{
+			PlayGameState::instance().lost_life();
+			isDead = true;
+		}
+
+		sprite->setPosition(glm::vec2(float(tileMapDispl.x + posGuard.x), float(tileMapDispl.y + posGuard.y)));
+	}
 }
 
 void Guard::render()
@@ -108,6 +118,7 @@ void Guard::render()
 void Guard::reset() {
 	sprite->changeAnimation(MOVE_RIGHT);
 	counter = 0;
+	isDead = false;
 }
 
 

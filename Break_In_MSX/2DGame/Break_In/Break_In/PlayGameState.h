@@ -57,12 +57,16 @@ public:
 	glm::vec2 getPlayerPosition();
 
 	void lost_life();
+	void setIsDead(bool dead);
+
+	void setAlarm(bool alarm);
+
 
 private:
 	void initShaders();
 	void deleteLevels();
+	void deleteAll();
 	void setLevel(int level);
-
 	void setGodMode();
 
 private:
@@ -104,6 +108,9 @@ private:
 	bool bAnim = false;
 
 	bool started = false;
+	bool isDead = false;
+
+	bool ALL_DEAD = false;
 
 
 };

@@ -45,6 +45,11 @@ void Animation::restart()
 	channel = soundManager->playSound(music_player);
 }
 
+void Animation::stopMusic()
+{
+	channel->stop();
+}
+
 void Animation::update(int deltaTime)
 {
 	currentTime += deltaTime;

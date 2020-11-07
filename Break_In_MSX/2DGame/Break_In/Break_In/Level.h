@@ -10,6 +10,7 @@
 #include "Ball.h"
 #include "Ring.h"
 #include "Guard.h"
+#include "SoundManager.h"
 
 
 class Level
@@ -33,6 +34,10 @@ public:
 
 	void setTransition(int transition);
 	void resetGuard();
+	void setAlarm(bool alarm);
+	void setMusic(bool music);
+
+	void deleteALL();
 
 private:
 	void initShaders();
@@ -58,6 +63,12 @@ private:
 	bool bAlarm = false;
 
 	Guard* guard;
+
+	const SoundManager* soundManager;
+	FMOD::Sound* music_alarm;
+	FMOD::Channel* channel;
+
+	bool musicOn;
 
 };
 

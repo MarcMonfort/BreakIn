@@ -28,6 +28,11 @@ private:
 	int counter2 = 0;
 
 	glm::vec2 goTo;
+
+	glm::vec2 posPlayer;
+
+	bool isDead;
+
 };
 
 
