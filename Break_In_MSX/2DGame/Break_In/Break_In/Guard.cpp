@@ -69,7 +69,6 @@ void Guard::update(int deltaTime)
 			counter = 0;
 			goTo = glm::vec2((posPlayer.x + 19) - (posGuard.x + 12), (posPlayer.y + 15) - (posGuard.y + 8));
 			int aux;
-			cout << max(abs(goTo.x), abs(goTo.y)) << endl;
 			if (max(abs(goTo.x), abs(goTo.y)) > 200)
 				aux = 4;
 			else if (max(abs(goTo.x), abs(goTo.y)) > 100)
