@@ -208,6 +208,11 @@ void PlayGameState::stopAnimation() {
 	bAnim = false;
 }
 
+void PlayGameState::lost_life() {
+	lives -= 1;
+	player->dead();
+}
+
 
 void PlayGameState::setLevel(int level) {
 	if (currentLevel != level) {
@@ -305,6 +310,11 @@ void PlayGameState::keyPressed(int key)
 	else if (key == ' ')
 	{
 		started = true;
+	}
+
+	else if (key == 'd')
+	{
+		lost_life();
 	}
 	
 	keys[key] = true;

@@ -56,6 +56,8 @@ public:
 
 	glm::vec2 getPlayerPosition();
 
+	void lost_life();
+
 private:
 	void initShaders();
 	void deleteLevels();
