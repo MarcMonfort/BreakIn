@@ -8,16 +8,23 @@
 void NumDisplay::init(int nDigits, int y) {
 	initShaders();
 	createDigits(nDigits);
+	numDigits = nDigits;
 	setPosition(glm::vec2(0, y));
 }
 
 void NumDisplay::displayNum(int num) {
-	int i = 0;
+	/*int i = 0;
 	while (num > 0) {
 		int digit = num % 10;
 		num = num / 10;
 		digits[i]->changeAnimation(digit);
 		i += 1;
+	}*/
+
+	for (int i = 0; i < numDigits; ++i) {
+		int digit = num % 10;
+		num = num / 10;
+		digits[i]->changeAnimation(digit);
 	}
 }
 

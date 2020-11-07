@@ -37,10 +37,12 @@ void Level::createLevel(int numLevel, int numMap)
 		guard->setPosition(glm::vec2(SCREEN_X-8, SCREEN_Y + 312));
 	}
 
-
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
 
+	soundManager = Game::instance().getSoundManager();
+	music_alarm = soundManager->loadSound("sounds/alarm.mp3", FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
+	musicOn = false;
 }
 
 void Level::update(int deltaTime)
@@ -50,20 +52,22 @@ void Level::update(int deltaTime)
 		transTime -= deltaTime;
 
 	if (!bAlarm && bRing && map->alarmOn())
+	{
+		
 		bAlarm = true;
+		resetGuard();
+		setMusic(true);
+	}
 
 	if (bAlarm) {
 		ring->update(deltaTime);
 		guard->update(deltaTime);
+
 	}
-
-
 }
 
 void Level::render()
 {
-
-
 	glm::mat4 modelview;
 
 	texProgram.use();
@@ -103,14 +107,16 @@ void Level::render()
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	map->render();
 
-	if (bAlarm) {
+	if (bRing) {
 		ring->setPosition(glm::vec2(map->getRingPosition().x, map->getRingPosition().y + transY));
 		ring->render();
 
-		glm::vec2 aux = guard->getPosition();
-		guard->setPosition(glm::vec2(guard->getPosition().x, guard->getPosition().y + transY));
-		guard->render();
-		guard->setPosition(aux);
+		if (bAlarm) {
+			glm::vec2 aux = guard->getPosition();
+			guard->setPosition(glm::vec2(guard->getPosition().x, guard->getPosition().y + transY));
+			guard->render();
+			guard->setPosition(aux);
+		}
 	}
 }
 
@@ -122,12 +128,46 @@ void Level::resetGuard()
 	}
 }
 
+
+void Level::setMusic(bool music)
+{
+	if (bAlarm) {
+		if (music) {
+			channel = soundManager->playSound(music_alarm);
+		}
+		else {
+			channel->stop();
+		}
+	}
+}
+
+void Level::setAlarm(bool alarm)
+{
+	bAlarm = alarm;
+	map->setAlarm(alarm);
+	if (alarm == false) {
+		//setMusic(false);
+		channel->stop();
+	}
+}
+
 void Level::setTransition(int transition)
 {
 	this->transition = transition;
 	transTime = 200;
 }
 
+void Level::deleteALL()
+{
+	if (bRing) {
+		delete ring;
+		delete guard;
+		if (bAlarm) {
+			channel->stop();
+		}
+	}
+	
+}
 
 TileMap* Level::getMap()
 {

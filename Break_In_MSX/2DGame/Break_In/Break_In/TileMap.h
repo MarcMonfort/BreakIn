@@ -55,6 +55,7 @@ public:
 
 	bool hasRing();
 	bool alarmOn();
+	void setAlarm(bool alarm);
 	glm::vec2 getRingPosition();
 	
 	

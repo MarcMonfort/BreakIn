@@ -21,6 +21,7 @@ private:
 	void setPosition(glm::vec2 position);
 
 	vector<Sprite*> digits;
+	int numDigits;
 
 	Texture spritesheet;
 	ShaderProgram texProgram;
