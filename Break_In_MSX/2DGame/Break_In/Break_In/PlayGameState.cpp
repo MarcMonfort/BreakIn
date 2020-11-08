@@ -97,6 +97,13 @@ void PlayGameState::update(int deltaTime)
 {
 	currentTime += deltaTime;
 	
+	if (levels[currentMap]->getMap()->noMoneyLeft()) {
+		if (currentLevel < NUM_LEVELS)
+			nextLevel();
+		else
+			cout << "You won!!!" << endl;
+	}
+
 	if (!bAnim)
 	{
 		levels[currentMap]->update(deltaTime);
@@ -116,6 +123,11 @@ void PlayGameState::update(int deltaTime)
 	else 
 	{
 		animation->update(deltaTime);
+
+		if (points > 0) {
+			money += 1;
+			points -= 1;
+		}
 	}
 
 	moneyDisplay->displayNum(money);

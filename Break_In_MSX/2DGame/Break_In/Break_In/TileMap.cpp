@@ -100,6 +100,8 @@ bool TileMap::loadLevel(const string &levelFile)
 	sstream.str(line);
 	sstream >> tilesheetSize.x >> tilesheetSize.y;
 	tileTexSize = glm::vec2(1.f / tilesheetSize.x, 1.f / tilesheetSize.y);
+
+	money_items = 0;
 	
 	map = new int[mapSize.x * mapSize.y];
 	for(int j=0; j<mapSize.y; j++)
@@ -116,8 +118,10 @@ bool TileMap::loadLevel(const string &levelFile)
 					bRing = true;
 					ringPosition = glm::vec2(j * tileSize, i * tileSize);
 				}
+				else if (tile == 'O' || tile == 'a') {
+					money_items += 1;
+				}
 			}
-
 		}
 		fin.get(tile);
 #ifndef _WIN32
@@ -125,7 +129,10 @@ bool TileMap::loadLevel(const string &levelFile)
 #endif
 	}
 	fin.close();
-	
+
+	thereIsMoney = money_items != 0;
+	cout << money_items << " " << thereIsMoney << endl;
+		
 	return true;
 }
 
@@ -419,7 +426,6 @@ bool TileMap::treatCollision(int pos)
 			map[pos + 1] = 0;
 			map[pos + mapSize.x] = 0;
 			map[pos + mapSize.x + 1] = 0;
-
 		}
 		else if (map[pos] == 32) {
 			map[pos - 1] = 0;
@@ -440,6 +446,7 @@ bool TileMap::treatCollision(int pos)
 		channel = soundManager->playSound(music_bag);
 		channel->setVolume(1.0f);
 		PlayGameState::instance().addMoney(200);
+		money_items -= 1;
 	}
 	else if (block == coin)
 	{
@@ -468,6 +475,7 @@ bool TileMap::treatCollision(int pos)
 		channel = soundManager->playSound(music_wall_coin);
 		channel->setVolume(1.0f);
 		PlayGameState::instance().addMoney(100);
+		money_items -= 1;
 	}
 	else if (block == ring)
 	{
@@ -500,4 +508,8 @@ bool TileMap::treatCollision(int pos)
 	prepareArrays(a, b);
 	return true;
 
+}
+
+bool TileMap::noMoneyLeft() {
+	return (thereIsMoney && money_items == 0);
 }

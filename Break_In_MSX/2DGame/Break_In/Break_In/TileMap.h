@@ -55,6 +55,7 @@ public:
 
 	bool hasRing();
 	bool alarmOn();
+	bool noMoneyLeft();
 	void setAlarm(bool alarm);
 	glm::vec2 getRingPosition();
 	
@@ -74,6 +75,9 @@ private:
 	Texture tilesheet;
 	glm::vec2 tileTexSize;
 	int *map;
+
+	bool thereIsMoney;
+	int money_items;
 
 	//ShaderProgram b;
 
