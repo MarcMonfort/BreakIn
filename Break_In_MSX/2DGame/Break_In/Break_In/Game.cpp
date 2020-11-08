@@ -148,5 +148,6 @@ int Game::getBestBreakIn() {
 
 
 void Game::setBestBreakIn(int best) {
-	bestBreakIn = best;
+	if (best > bestBreakIn)
+		bestBreakIn = best;
 }
