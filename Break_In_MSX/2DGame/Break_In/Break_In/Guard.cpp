@@ -97,12 +97,13 @@ void Guard::update(int deltaTime)
 			counter = 0;
 		}
 
-
-		if ((posGuard.x + 24) > posPlayer.x && (posPlayer.x + 38) > posGuard.x &&
-			(posGuard.y + 16) > posPlayer.y && (posPlayer.y + 52) > posGuard.y)
-		{
-			PlayGameState::instance().lost_life();
-			isDead = true;
+		if (!PlayGameState::instance().getGodMode()) {
+			if ((posGuard.x + 24) > posPlayer.x && (posPlayer.x + 38) > posGuard.x &&
+				(posGuard.y + 16) > posPlayer.y && (posPlayer.y + 52) > posGuard.y)
+			{
+				PlayGameState::instance().lost_life();
+				isDead = true;
+			}
 		}
 
 		sprite->setPosition(glm::vec2(float(tileMapDispl.x + posGuard.x), float(tileMapDispl.y + posGuard.y)));
