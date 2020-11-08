@@ -61,13 +61,14 @@ public:
 
 	void setAlarm(bool alarm);
 
+	bool getGodMode();
+
 
 private:
 	void initShaders();
 	void deleteLevels();
 	void deleteAll();
 	void setLevel(int level);
-	void setGodMode();
 
 private:
 	//TileMap* map;
@@ -112,7 +113,10 @@ private:
 
 	bool ALL_DEAD = false;
 
+	bool godMode = false;
 
+	Texture godMode_spritesheet;
+	Sprite* godMode_sprite;
 };
 
 

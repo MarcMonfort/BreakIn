@@ -61,10 +61,9 @@ public:
 private:
 	void initShaders();
 
-	Sprite* fib_logo;
-	Sprite* upc_logo;
+	Sprite* upc_fib_logo;
 	Texture spritesheet;
-	Texture spritesheet2;
+
 	ShaderProgram texProgram;
 
 

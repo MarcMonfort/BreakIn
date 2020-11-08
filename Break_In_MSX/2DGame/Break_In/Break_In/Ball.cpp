@@ -234,16 +234,22 @@ bool Ball::collisionPlayer(const glm::ivec2& posPlayer)
 
 		if (center.y + radi >= py && center.y + radi <= py + 10) {
 			if (center.x >= pxmin && center.x <= pxmax) {
-				float moveX = (abs(pxcenter - center.x) / (playerWidth / 2)) * 0.9;  // %%% 
-				float moveY = 1.f - moveX;
+				if (!PlayGameState::instance().getGodMode()) {
+					float moveX = (abs(pxcenter - center.x) / (playerWidth / 2)) * 0.9;  // %%% 
+					float moveY = 1.f - moveX;
 
-				if (center.x < pxcenter) {
-					velocity.x = -moveX * movement;
-					velocity.y = moveY * movement;
-				}
-				else if (center.x > pxcenter) {
-					velocity.x = moveX * movement;
-					velocity.y = moveY * movement;
+					if (center.x < pxcenter) {
+						velocity.x = -moveX * movement;
+						velocity.y = moveY * movement;
+					}
+					else if (center.x > pxcenter) {
+						velocity.x = moveX * movement;
+						velocity.y = moveY * movement;
+					}
+					else {
+						velocity.x = 0;
+						velocity.y = movement;
+					}
 				}
 				else {
 					velocity.x = 0;
@@ -256,16 +262,22 @@ bool Ball::collisionPlayer(const glm::ivec2& posPlayer)
 
 		if (center.y + longSide >= py && center.y + longSide <= py + 10) {
 			if (center.x + shortSide >= pxmin && center.x + shortSide <= pxmax) {
-				float moveX = (abs(pxcenter - (center.x + shortSide)) / (playerWidth / 2)) * 0.9;  // %%% 
-				float moveY = 1.f - moveX;
+				if (!PlayGameState::instance().getGodMode()) {
+					float moveX = (abs(pxcenter - (center.x + shortSide)) / (playerWidth / 2)) * 0.9;  // %%% 
+					float moveY = 1.f - moveX;
 
-				if (center.x < pxcenter) {
-					velocity.x = -moveX * movement;
-					velocity.y = moveY * movement;
-				}
-				else if (center.x > pxcenter) {
-					velocity.x = moveX * movement;
-					velocity.y = moveY * movement;
+					if (center.x < pxcenter) {
+						velocity.x = -moveX * movement;
+						velocity.y = moveY * movement;
+					}
+					else if (center.x > pxcenter) {
+						velocity.x = moveX * movement;
+						velocity.y = moveY * movement;
+					}
+					else {
+						velocity.x = 0;
+						velocity.y = movement;
+					}
 				}
 				else {
 					velocity.x = 0;
@@ -275,16 +287,22 @@ bool Ball::collisionPlayer(const glm::ivec2& posPlayer)
 				return true;
 			}
 			else if (center.x - shortSide >= pxmin && center.x - shortSide <= pxmax) {
-				float moveX = (abs(pxcenter - (center.x - shortSide)) / (playerWidth / 2)) * 0.9;  // %%% 
-				float moveY = 1.f - moveX;
+				if (!PlayGameState::instance().getGodMode()) {
+					float moveX = (abs(pxcenter - (center.x - shortSide)) / (playerWidth / 2)) * 0.9;  // %%% 
+					float moveY = 1.f - moveX;
 
-				if (center.x < pxcenter) {
-					velocity.x = -moveX * movement;
-					velocity.y = moveY * movement;
-				}
-				else if (center.x > pxcenter) {
-					velocity.x = moveX * movement;
-					velocity.y = moveY * movement;
+					if (center.x < pxcenter) {
+						velocity.x = -moveX * movement;
+						velocity.y = moveY * movement;
+					}
+					else if (center.x > pxcenter) {
+						velocity.x = moveX * movement;
+						velocity.y = moveY * movement;
+					}
+					else {
+						velocity.x = 0;
+						velocity.y = movement;
+					}
 				}
 				else {
 					velocity.x = 0;
@@ -297,16 +315,22 @@ bool Ball::collisionPlayer(const glm::ivec2& posPlayer)
 
 		if (center.y + shortSide >= py && center.y + shortSide <= py + 10) {
 			if (center.x + longSide >= pxmin && center.x + longSide <= pxmax) {
-				float moveX = (abs(pxcenter - (center.x + longSide)) / (playerWidth / 2)) * 0.9;  // %%% 
-				float moveY = 1.f - moveX;
+				if (!PlayGameState::instance().getGodMode()) {
+					float moveX = (abs(pxcenter - (center.x + longSide)) / (playerWidth / 2)) * 0.9;  // %%% 
+					float moveY = 1.f - moveX;
 
-				if (center.x < pxcenter) {
-					velocity.x = -moveX * movement;
-					velocity.y = moveY * movement;
-				}
-				else if (center.x > pxcenter) {
-					velocity.x = moveX * movement;
-					velocity.y = moveY * movement;
+					if (center.x < pxcenter) {
+						velocity.x = -moveX * movement;
+						velocity.y = moveY * movement;
+					}
+					else if (center.x > pxcenter) {
+						velocity.x = moveX * movement;
+						velocity.y = moveY * movement;
+					}
+					else {
+						velocity.x = 0;
+						velocity.y = movement;
+					}
 				}
 				else {
 					velocity.x = 0;
@@ -316,16 +340,22 @@ bool Ball::collisionPlayer(const glm::ivec2& posPlayer)
 				return true;
 			}
 			else if (center.x - longSide >= pxmin && center.x - longSide <= pxmax) {
-				float moveX = (abs(pxcenter - (center.x - longSide)) / (playerWidth / 2)) * 0.9;  // %%% 
-				float moveY = 1.f - moveX;
+				if (!PlayGameState::instance().getGodMode()) {
+					float moveX = (abs(pxcenter - (center.x - longSide)) / (playerWidth / 2)) * 0.9;  // %%% 
+					float moveY = 1.f - moveX;
 
-				if (center.x < pxcenter) {
-					velocity.x = -moveX * movement;
-					velocity.y = moveY * movement;
-				}
-				else if (center.x > pxcenter) {
-					velocity.x = moveX * movement;
-					velocity.y = moveY * movement;
+					if (center.x < pxcenter) {
+						velocity.x = -moveX * movement;
+						velocity.y = moveY * movement;
+					}
+					else if (center.x > pxcenter) {
+						velocity.x = moveX * movement;
+						velocity.y = moveY * movement;
+					}
+					else {
+						velocity.x = 0;
+						velocity.y = movement;
+					}
 				}
 				else {
 					velocity.x = 0;

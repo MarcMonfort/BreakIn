@@ -7,13 +7,10 @@
 void Game::init()
 {
 	initShaders();
-	spritesheet.loadFromFile("images/fib_logo.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	fib_logo = Sprite::createSprite(glm::ivec2(43, 16), glm::vec2(1.f, 1.f), &spritesheet, &texProgram);
-	fib_logo->setPosition(glm::vec2(55, 450));
+	spritesheet.loadFromFile("images/upc_fib_logo.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	upc_fib_logo = Sprite::createSprite(glm::ivec2(96, 24), glm::vec2(1.f, 1.f), &spritesheet, &texProgram);
+	upc_fib_logo->setPosition(glm::vec2(15, 445));
 
-	spritesheet2.loadFromFile("images/upc_logo.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	upc_logo = Sprite::createSprite(glm::ivec2(24, 24), glm::vec2(1.f, 1.f), &spritesheet2, &texProgram);
-	upc_logo->setPosition(glm::vec2(15, 445));
 
 	bPlay = true;
 	//glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
@@ -38,8 +35,7 @@ void Game::render()
 	//scene.render();
 	states.top()->render();
 
-	fib_logo->render();
-	upc_logo->render();
+	upc_fib_logo->render();
 
 }
 
