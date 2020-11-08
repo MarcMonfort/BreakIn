@@ -125,8 +125,10 @@ void PlayGameState::update(int deltaTime)
 		animation->update(deltaTime);
 
 		if (points > 0) {
-			money += 1;
-			points -= 1;
+			money += 2;
+			points -= 2;
+			if (points < 0)
+				points = 0;
 		}
 	}
 
@@ -483,4 +485,9 @@ bool PlayGameState::getStarted() {
 
 void PlayGameState::setStarted(bool b) {
 	started = b;
+}
+
+void PlayGameState::endPointMoneyTransition() {
+	money += points;
+	points = 0;
 }

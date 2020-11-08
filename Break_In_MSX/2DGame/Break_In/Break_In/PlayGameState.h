@@ -63,6 +63,8 @@ public:
 
 	bool getGodMode();
 
+	void endPointMoneyTransition();
+
 
 private:
 	void initShaders();
