@@ -115,6 +115,9 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite->changeAnimation(DOWN_CENTER);
 	tileMapDispl = tileMapPos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
+
+	velocity.x = 6;
+	velocity.y = 4;
 }
 
 void Player::update(int deltaTime, glm::vec2 posBall)
@@ -202,21 +205,26 @@ void Player::update(int deltaTime, glm::vec2 posBall)
 		// Esquerra o dreta
 		if (Game::instance().getGameState()->getSpecialKey(GLUT_KEY_LEFT))
 		{
-			posPlayer.x -= 4;
-			/*if(map->collisionMoveLeft(posPlayer, glm::ivec2(32, 32)))
+			posPlayer.x -= velocity.x;
+			if (posPlayer.x < 16)
 			{
-				posPlayer.x += 2;
-				sprite->changeAnimation(STAND_LEFT);
-			}*/
+				if (posPlayer.x + (velocity.x-1) >= 16) 
+					posPlayer.x += (velocity.x-1);
+				else
+					posPlayer.x += velocity.x;
+
+			}
 		}
 		else if (Game::instance().getGameState()->getSpecialKey(GLUT_KEY_RIGHT))
 		{
-			posPlayer.x += 4;
-			/*if(map->collisionMoveRight(posPlayer, glm::ivec2(32, 32)))
+			posPlayer.x += velocity.x;
+			if (posPlayer.x > 330)
 			{
-				posPlayer.x -= 2;
-				sprite->changeAnimation(STAND_RIGHT);
-			}*/
+				if (posPlayer.x - (velocity.x - 1) <= 330)
+					posPlayer.x -= (velocity.x - 1);
+				else
+					posPlayer.x -= velocity.x;
+			}
 		}
 		/*else
 		{
@@ -230,24 +238,28 @@ void Player::update(int deltaTime, glm::vec2 posBall)
 		if (Game::instance().getGameState()->getSpecialKey(GLUT_KEY_UP))
 		{
 			PlayGameState::instance().setStarted(true);
-
-			posPlayer.y -= 4;
-			/*if (map->collisionMoveUp(posPlayer, glm::ivec2(32, 32)))
+			posPlayer.y -= velocity.y;
+			if (posPlayer.y < 16)
 			{
-				posPlayer.y += 2;
-				sprite->changeAnimation(STAND_LEFT);
-			}*/
+				if (posPlayer.y + (velocity.y - 1) >= 16)
+					posPlayer.y += (velocity.y - 1);
+				else
+					posPlayer.y += velocity.y;
+			}
 		}
 		else if (Game::instance().getGameState()->getSpecialKey(GLUT_KEY_DOWN))
 		{
 			PlayGameState::instance().setStarted(true);
 
-			posPlayer.y += 4;
-			/*if (map->collisionMoveDown(posPlayer, glm::ivec2(32, 32)))
+			posPlayer.y += velocity.y;
+			if (posPlayer.y > 332)
 			{
-				posPlayer.y -= 2;
-				sprite->changeAnimation(STAND_RIGHT);
-			}*/
+				if (posPlayer.y - (velocity.y-1) <= 332)
+					posPlayer.y -= (velocity.y-1);
+				else
+					posPlayer.y -= velocity.y;
+			}
+
 		}
 		/*else
 		{
@@ -285,4 +297,11 @@ void Player::setPosition(const glm::vec2 &pos)
 {
 	posPlayer = pos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
+}
+
+
+void Player::addVelocity(float increase)
+{
+	velocity.x *= increase;
+	velocity.y *= increase;
 }

@@ -24,12 +24,16 @@ public:
 	void setPosition(const glm::vec2 &pos);
 
 	void dead();
+
+	void addVelocity(float increase);
 	
 private:
 	glm::ivec2 tileMapDispl, posPlayer;
 	Texture spritesheet;
 	Sprite *sprite;
 	TileMap *map;
+
+	glm::fvec2 velocity;
 
 	bool isDead;
 	int deadCounter;

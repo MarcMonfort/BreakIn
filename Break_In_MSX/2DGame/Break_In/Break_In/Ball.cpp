@@ -13,7 +13,7 @@ void Ball::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 	tileMapDispl = tileMapPos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posBall.x), float(tileMapDispl.y + posBall.y)));
 
-	velocity.x = 0; //4
+	velocity.x = 1;
 	velocity.y = 5;
 
 	radi = 11;
@@ -172,8 +172,15 @@ void Ball::update(int deltaTime, glm::vec2 posPlayer)
 
 	}
 	else {
-		velocity.x = 0; //4
-		velocity.y = 5;
+		
+		if (!PlayGameState::instance().getGodMode()) {
+			velocity.x = 1;
+			velocity.y = 5;
+		}
+		else {
+			velocity.x = 0;
+			velocity.y = 6;
+		}
 		posBall = posPlayer + glm::vec2(8, -22); //Posicio inicial de la pilota sobre la barra del jugador
 	}
 	

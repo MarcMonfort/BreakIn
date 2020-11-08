@@ -86,6 +86,8 @@ void PlayGameState::init()
 	animation->init();
 
 	started = false;
+	countStarted = 0;
+
 	isDead = false;
 	bAnim = false;
 	ALL_DEAD = false;
@@ -97,6 +99,8 @@ void PlayGameState::init()
 void PlayGameState::update(int deltaTime)
 {
 	currentTime += deltaTime;
+
+	
 	
 	if (levels[currentMap]->getMap()->noMoneyLeft()) {
 		if (currentLevel < NUM_LEVELS)
@@ -107,6 +111,13 @@ void PlayGameState::update(int deltaTime)
 
 	if (!bAnim)
 	{
+		if (!started) {
+			countStarted += deltaTime;
+			if (countStarted > 3000) {
+				started = true;
+			}
+		}
+
 		levels[currentMap]->update(deltaTime);
 
 		if (upDownTime > 0) {
@@ -321,6 +332,7 @@ void PlayGameState::setLevel(int level) {
 		ball->setTileMap(levels[currentMap]->getMap());
 
 		started = false;
+		countStarted = 0;
 
 	}
 }
@@ -377,7 +389,7 @@ void PlayGameState::keyPressed(int key)
 
 	else if (key == 'v')
 	{
-		ball->addVelocity(1.5);
+		ball->addVelocity(1.25);
 	}
 	else if (key == 'f')
 	{
@@ -397,8 +409,14 @@ void PlayGameState::keyPressed(int key)
 
 	else if (key == 'd')
 	{
-		lost_life();
+		player->addVelocity(0.8);
 	}
+
+	else if (key == 'c')
+	{
+		player->addVelocity(1.25);
+	}
+
 	else if (key == 'g' || key == 'G')
 	{
 		godMode = !godMode;
@@ -485,6 +503,8 @@ bool PlayGameState::getStarted() {
 
 void PlayGameState::setStarted(bool b) {
 	started = b;
+	if (!started)
+		countStarted = 0;
 }
 
 void PlayGameState::endPointMoneyTransition() {

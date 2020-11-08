@@ -417,8 +417,11 @@ bool TileMap::treatCollision(int pos)
 	}
 	else if (block == lose)
 	{
-		PlayGameState::instance().lastMap();
-		return false;
+		if (!PlayGameState::instance().getGodMode())
+		{
+			PlayGameState::instance().lastMap();
+			return false;
+		}
 	}
 	else if (block == bag)
 	{
