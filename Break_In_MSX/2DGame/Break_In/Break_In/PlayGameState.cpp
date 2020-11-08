@@ -378,14 +378,6 @@ void PlayGameState::keyPressed(int key)
 	{
 		ball->addVelocity(0.8);
 	}
-	else if (key == 'm')
-	{
-		money += 1;
-	}
-	else if (key == 'a')
-	{
-		nextLevel();
-	}
 	else if (key == '1' || key == '2' || key == '3')
 	{
 		setLevel(key-'0');
