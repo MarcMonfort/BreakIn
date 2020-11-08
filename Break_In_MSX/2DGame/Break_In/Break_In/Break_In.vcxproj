@@ -14,10 +14,12 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimKeyframes.h" />
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="CreditsGameState.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameOverGameState.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Guard.h" />
+    <ClInclude Include="InstructionsGameState.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="MenuGameState.h" />
     <ClInclude Include="NumDisplay.h" />
@@ -35,10 +37,12 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="CreditsGameState.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameOverGameState.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Guard.cpp" />
+    <ClCompile Include="InstructionsGameState.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuGameState.cpp" />

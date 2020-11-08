@@ -3,8 +3,8 @@
 #include <glm\gtc\matrix_transform.hpp>
 #include "Game.h"
 #include "PlayGameState.h"
-
-
+#include "InstructionsGameState.h"
+#include "CreditsGameState.h"
 
 
 
@@ -14,7 +14,7 @@ void MenuGameState::init()
 
 	initShaders();
 
-	spritesheet.loadFromFile("images/menuBackground.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet.loadFromFile("images/menuBackground_v8.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	background = Sprite::createSprite(glm::ivec2(SCREEN_WIDTH, SCREEN_HEIGHT), glm::vec2(1.f, 1.f), &spritesheet, &texProgram);
 	background->setPosition(glm::vec2(0, 0));
 
@@ -58,6 +58,16 @@ void MenuGameState::keyPressed(int key)
 		PlayGameState::instance().init();
 		Game::instance().popGameState(); //or better push so we dont loose the state??
 		Game::instance().pushGameState(&PlayGameState::instance());
+	}
+	else if (key == 'i') {
+		InstructionsGameState::instance().init();
+		Game::instance().popGameState(); //or better push so we dont loose the state??
+		Game::instance().pushGameState(&InstructionsGameState::instance());
+	}
+	else if (key == 'c') {
+		CreditsGameState::instance().init();
+		Game::instance().popGameState(); //or better push so we dont loose the state??
+		Game::instance().pushGameState(&CreditsGameState::instance());
 	}
 
 	keys[key] = true;
