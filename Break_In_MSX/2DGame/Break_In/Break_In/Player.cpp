@@ -202,21 +202,26 @@ void Player::update(int deltaTime, glm::vec2 posBall)
 		// Esquerra o dreta
 		if (Game::instance().getGameState()->getSpecialKey(GLUT_KEY_LEFT))
 		{
-			posPlayer.x -= 4;
-			/*if(map->collisionMoveLeft(posPlayer, glm::ivec2(32, 32)))
+			posPlayer.x -= 6;
+			if (posPlayer.x < 16)
 			{
-				posPlayer.x += 2;
-				sprite->changeAnimation(STAND_LEFT);
-			}*/
+				if (posPlayer.x + 5 >= 16) 
+					posPlayer.x += 5;
+				else
+					posPlayer.x += 6;
+
+			}
 		}
 		else if (Game::instance().getGameState()->getSpecialKey(GLUT_KEY_RIGHT))
 		{
-			posPlayer.x += 4;
-			/*if(map->collisionMoveRight(posPlayer, glm::ivec2(32, 32)))
+			posPlayer.x += 6;
+			if (posPlayer.x > 330)
 			{
-				posPlayer.x -= 2;
-				sprite->changeAnimation(STAND_RIGHT);
-			}*/
+				if (posPlayer.x - 5 <= 330)
+					posPlayer.x -= 5;
+				else
+					posPlayer.x -= 6;
+			}
 		}
 		/*else
 		{
@@ -230,24 +235,28 @@ void Player::update(int deltaTime, glm::vec2 posBall)
 		if (Game::instance().getGameState()->getSpecialKey(GLUT_KEY_UP))
 		{
 			PlayGameState::instance().setStarted(true);
-
-			posPlayer.y -= 4;
-			/*if (map->collisionMoveUp(posPlayer, glm::ivec2(32, 32)))
+			posPlayer.y -= 6;
+			if (posPlayer.y < 16)
 			{
-				posPlayer.y += 2;
-				sprite->changeAnimation(STAND_LEFT);
-			}*/
+				if (posPlayer.y + 5 >= 16)
+					posPlayer.y += 5;
+				else
+					posPlayer.y += 6;
+			}
 		}
 		else if (Game::instance().getGameState()->getSpecialKey(GLUT_KEY_DOWN))
 		{
 			PlayGameState::instance().setStarted(true);
 
-			posPlayer.y += 4;
-			/*if (map->collisionMoveDown(posPlayer, glm::ivec2(32, 32)))
+			posPlayer.y += 6;
+			if (posPlayer.y > 332)
 			{
-				posPlayer.y -= 2;
-				sprite->changeAnimation(STAND_RIGHT);
-			}*/
+				if (posPlayer.y - 5 <= 332)
+					posPlayer.y -= 5;
+				else
+					posPlayer.y -= 6;
+			}
+
 		}
 		/*else
 		{
