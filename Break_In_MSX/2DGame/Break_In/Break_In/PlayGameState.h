@@ -111,6 +111,8 @@ private:
 	bool bAnim = false;
 
 	bool started = false;
+	int countStarted;
+
 	bool isDead = false;
 
 	bool ALL_DEAD = false;
