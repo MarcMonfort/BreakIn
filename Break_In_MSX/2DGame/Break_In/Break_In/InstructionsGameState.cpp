@@ -8,7 +8,7 @@ void InstructionsGameState::init()
 {
 	initShaders();
 
-	spritesheet.loadFromFile("images/Instructions8.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet.loadFromFile("images/Instructions9.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	background = Sprite::createSprite(glm::ivec2(SCREEN_WIDTH, SCREEN_HEIGHT), glm::vec2(1.f, 1.f), &spritesheet, &texProgram);
 	background->setPosition(glm::vec2(0, 0));
 
