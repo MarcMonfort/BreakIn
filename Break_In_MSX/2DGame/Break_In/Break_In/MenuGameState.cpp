@@ -14,7 +14,7 @@ void MenuGameState::init()
 
 	initShaders();
 
-	spritesheet.loadFromFile("images/menuBackground_v8.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	spritesheet.loadFromFile("images/menuBackground_v9.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	background = Sprite::createSprite(glm::ivec2(SCREEN_WIDTH, SCREEN_HEIGHT), glm::vec2(1.f, 1.f), &spritesheet, &texProgram);
 	background->setPosition(glm::vec2(0, 0));
 
@@ -24,11 +24,14 @@ void MenuGameState::init()
 	music = soundManager->loadSound("sounds/main_theme.mp3", FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
 	channel = soundManager->playSound(music);
 	channel->setVolume(1.0f);
+
+	bestBreakInDisplay = new NumDisplay();
+	bestBreakInDisplay->init(7, 510, 369, 1); //num. digits, coord x, coord y, tipus
 }
 
 void MenuGameState::update(int deltaTime)
 { 
-
+	bestBreakInDisplay->displayNum(Game::instance().getBestBreakIn());
 }
 
 void MenuGameState::render()
@@ -41,8 +44,9 @@ void MenuGameState::render()
 	modelview = glm::mat4(1.0f);
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
-	background->render();
 
+	background->render();
+	bestBreakInDisplay->render();
 }
 
 

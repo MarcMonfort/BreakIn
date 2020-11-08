@@ -9,9 +9,6 @@
 #include "SoundManager.h"
 
 
-
-
-
 #define SCREEN_WIDTH 640  //640
 #define SCREEN_HEIGHT 480  //480
 
@@ -45,6 +42,9 @@ public:
 	
 	
 	const SoundManager* getSoundManager() const;
+
+	int getBestBreakIn();
+	void setBestBreakIn(int best);
 	
 	// Input callback methods
 	/*void keyPressed(int key);
@@ -66,6 +66,7 @@ private:
 
 	ShaderProgram texProgram;
 
+	int bestBreakIn;
 
 	bool bPlay;                       // Continue to play game?
 

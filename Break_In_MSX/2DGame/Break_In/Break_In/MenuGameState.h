@@ -5,6 +5,7 @@
 #include "ShaderProgram.h"
 #include "Sprite.h"
 #include "SoundManager.h"
+#include "NumDisplay.h"
 
 
 
@@ -40,6 +41,7 @@ private:
 	Sprite* background;
 	Texture spritesheet;
 
+	NumDisplay* bestBreakInDisplay;
 
 	ShaderProgram texProgram;
 	float currentTime;
