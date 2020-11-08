@@ -6,25 +6,25 @@ images/tileset.png 	-- Tilesheet
 16 16 								-- Number of tiles in tilesheet
 CCCCCCCCCCCCCCCCCCCCCCCC
 C                      C
+C   GH                 C
+C   WX                 C
+C                      C
+C 787878        787878 C
+C ?@?@?@        ?@?@?@ C
+C 787878        787878 C
+C ?@?@?@   IR   ?@?@?@ C
+C 787878   RR   787878 C
+C ?@?@?@        ?@?@?@ C
+C 787878        787878 C
+C ?@?@?@        ?@?@?@ C
+C 787878        787878 C
+C ?@?@?@        ?@?@?@ C
+C 787878        787878 C
+C ?@?@?@        ?@?@?@ C
+C 787878        787878 C
 C                      C
 C                      C
-C        ?@  ?@        C
-C        ?@  ?@        C
-C        ?@  ?@        C
-C        ?@?@?@        C
-C                      C
-C                      C
-C        ?@?@?@        C
-C        ?@  ?@        C
-C        ?@?@?@        C
-C        ?@            C
-C                      C
-C                      C
-C        ?@?@?@        C
-C        ?@            C
-C        ?@            C
-C        ?@?@?@        C
 C                      C
 C                      C
 C                      C
-CCCCCCCCCCCCCCCCCCCCCCCC
+CCDDDDDDCCCCCCCCDDDDDDCC
