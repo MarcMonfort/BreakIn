@@ -5,20 +5,19 @@ images/back_3.png    -- Background
 images/tileset.png 	-- Tilesheet
 16 16 								-- Number of tiles in tilesheet
 CCCCCCCCCCCCCCCCCCCCCCCC
-C                      C
-C                      C
-C                      C
+C OP  ab OPabab   abOP C
+C _`  qr _`qrqr   qr_` C
 C ?@  ?@ ?@?@?@ ?@?@?@ C
-C ?@  ?@ ?@  ?@ ?@     C
-C ?@  ?@ ?@?@?@ ?@     C
+C ?@  ?@ ?@  ?@ ?@ab   C
+C ?@  ?@ ?@?@?@ ?@qr   C
 C ?@?@?@ ?@     ?@?@?@ C
-C                      C
-C        OP            C
-C        _`            C
+C    ab  OP   ab       C
+C    qr  _`   qr       C
 C    ?@  ?@   ?@?@     C
 C    ?@  ?@     ?@     C
 C     ?@?@  ?@  ?@     C
 C      ?@   ?@?@?@     C
+C                      C
 C                      C
 C  ?@?@?@  ?@  ?@?@?@  C
 C  ?@      ?@  ?@  ?@  C
@@ -27,4 +26,5 @@ C  ?@      ?@  ?@  ?@  C
 C  ?@      ?@  ?@?@?@  C
 C                      C
 C                      C
-CCCCCCCCCCCCCCCCCCCCCCCC
+C                      C
+CDDDDCCCCCCCCCCCCCCDDDDC

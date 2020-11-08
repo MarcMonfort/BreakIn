@@ -116,7 +116,7 @@ bool TileMap::loadLevel(const string &levelFile)
 				
 				if (tile == 'I') {
 					bRing = true;
-					ringPosition = glm::vec2(j * tileSize, i * tileSize);
+					ringPosition = glm::vec2(i * tileSize, j * tileSize);
 				}
 				else if (tile == 'O' || tile == 'a') {
 					money_items += 1;
