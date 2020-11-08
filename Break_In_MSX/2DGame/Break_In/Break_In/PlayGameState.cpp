@@ -54,32 +54,33 @@ void PlayGameState::init()
 	ball->setPosition(glm::vec2(INIT_BALL_X_TILES * levels[currentMap]->getMap()->getTileSize(), INIT_BALL_Y_TILES * levels[currentMap]->getMap()->getTileSize()));
 	ball->setTileMap(levels[currentMap]->getMap());
 
+	int x = 450 + 124 + 2; //mida camp de joc + mida imatge counters + offset
 	int y = 0;
 
 	money = 0;
 	y += 65;
 	moneyDisplay = new NumDisplay();
-	moneyDisplay->init(7, y); //nombre de digits, coordenada y
+	moneyDisplay->init(7, x, y, 0); //nombre de digits, coordenada x, coordenada y, tipus
 
 	points = 0;
 	y += 80;
 	pointsDisplay = new NumDisplay();
-	pointsDisplay->init(7, y);
+	pointsDisplay->init(7, x, y, 0);
 
 	lives = 4;
 	y += 96;
 	livesDisplay = new NumDisplay();
-	livesDisplay->init(2, y);
+	livesDisplay->init(2, x, y, 0);
 
 	bank = 1;
 	y += 64;
 	bankDisplay = new NumDisplay();
-	bankDisplay->init(2, y);
+	bankDisplay->init(2, x, y, 0);
 
 	room = 1;
 	y += 112;
 	roomDisplay = new NumDisplay();
-	roomDisplay->init(2, y);
+	roomDisplay->init(2, x, y, 0);
 
 	animation = new Animation();
 	animation->init();
@@ -143,6 +144,8 @@ void PlayGameState::update(int deltaTime)
 		Game::instance().popGameState();
 		GameOverGameState::instance().init();
 		Game::instance().pushGameState(&GameOverGameState::instance());
+
+		Game::instance().setBestBreakIn(money);
 	}
 
 	if (godMode)

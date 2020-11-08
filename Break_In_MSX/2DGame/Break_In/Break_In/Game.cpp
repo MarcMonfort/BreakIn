@@ -18,6 +18,8 @@ void Game::init()
 	states.push(&MenuGameState::instance());
 	states.top()->init();
 	//scene.init();
+
+	bestBreakIn = 0;
 }
 
 bool Game::update(int deltaTime)
@@ -140,6 +142,11 @@ bool Game::getSpecialKey(int key) const
 }*/
 
 
+int Game::getBestBreakIn() {
+	return bestBreakIn;
+}
 
 
-
+void Game::setBestBreakIn(int best) {
+	bestBreakIn = best;
+}

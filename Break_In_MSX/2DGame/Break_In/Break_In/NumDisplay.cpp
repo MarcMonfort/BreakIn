@@ -5,11 +5,11 @@
 #include "NumDisplay.h"
 
 
-void NumDisplay::init(int nDigits, int y) {
+void NumDisplay::init(int nDigits, int x, int y, int type) {
 	initShaders();
-	createDigits(nDigits);
+	createDigits(nDigits, type);
 	numDigits = nDigits;
-	setPosition(glm::vec2(0, y));
+	setPosition(glm::vec2(x, y), type);
 }
 
 void NumDisplay::displayNum(int num) {
@@ -36,33 +36,52 @@ void NumDisplay::render()
 	}
 }
 
-void NumDisplay::createDigits(int nDigits)
+void NumDisplay::createDigits(int nDigits, int type)
 {
 	for (int i = 0; i < nDigits; ++i) {
-		digits.push_back(createDigit());
+		digits.push_back(createDigit(type));
 	}
 }
 
-Sprite* NumDisplay::createDigit()
+Sprite* NumDisplay::createDigit(int type)
 {
-	spritesheet.loadFromFile("images/numbers.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	Sprite* digitSprite = Sprite::createSprite(glm::ivec2(14, 14), glm::vec2(16. / 128., 16. / 128.), &spritesheet, &texProgram);
+	glm::vec2 quadSize;
+	glm::vec2 sizeInSpritesheet;
 
+	if (type == 0) {
+		spritesheet.loadFromFile("images/numbers.png", TEXTURE_PIXEL_FORMAT_RGBA);
+		quadSize = glm::vec2(14, 14);
+		sizeInSpritesheet = glm::vec2(16. / 128., 16. / 128.);
+	}
+	else {
+		spritesheet.loadFromFile("images/numbers2.png", TEXTURE_PIXEL_FORMAT_RGBA);
+		quadSize = glm::vec2(16, 16);
+		sizeInSpritesheet = glm::vec2(16. / 128., 16. / 128.);
+	}
+
+	Sprite* digitSprite = Sprite::createSprite(quadSize, sizeInSpritesheet, &spritesheet, &texProgram);
 	digitSprite->setNumberAnimations(10);
 	for (int i = 0; i < 10; ++i) {
-		digitSprite->addKeyframe(i, numPositions[i]);
+		if (type == 0)
+			digitSprite->addKeyframe(i, numPositions[i]);
+		else
+			digitSprite->addKeyframe(i, numPositions2[i]);
 	}
 	digitSprite->changeAnimation(0);
 
 	return digitSprite;
 }
 
-void NumDisplay::setPosition(glm::vec2 position) //es podria passar nomes la y
+void NumDisplay::setPosition(glm::vec2 position, int type)
 {
 	int nDigits = digits.size();
 	for (int i = 0; i < nDigits; ++i) {
-		float x = 450 + 124 + 2 - 14 * (i + 1) - 2 * i; //mida camp de joc + mida imatge counters + offset - mida_digit*(i-1) - separacio_entre_digits*i
-		digits[i]->setPosition(position + glm::vec2(x, 0.0));
+		float dx;
+		if (type == 0)
+			dx = -14 * (i + 1) - 2 * i; //- mida_digit*(i-1) - separacio_entre_digits*i
+		else
+			dx = -16 * (i + 1) - 2 * i; //- mida_digit*(i-1) - separacio_entre_digits*i
+		digits[i]->setPosition(position + glm::vec2(dx, 0.0));
 	}
 }
 
