@@ -124,11 +124,12 @@ void PlayGameState::update(int deltaTime)
 	{
 		animation->update(deltaTime);
 
-		if (points > 0) {
-			money += 2;
-			points -= 2;
-			if (points < 0)
-				points = 0;
+		if (points >= 9) {
+			money += 9;
+			points -= 9;
+		}
+		else if (points > 0) {
+			endPointMoneyTransition();
 		}
 	}
 
@@ -265,6 +266,7 @@ void PlayGameState::nextLevel() {
 void PlayGameState::stopAnimation() {
 	bAnim = false;
 	animation->stopMusic();
+	endPointMoneyTransition();
 }
 
 void PlayGameState::lost_life() {
@@ -384,7 +386,10 @@ void PlayGameState::keyPressed(int key)
 	}
 	else if (key == ' ')
 	{
-		started = true;
+		if (bAnim)
+			stopAnimation();
+		else
+			started = true;
 	}
 
 	else if (key == 'd')

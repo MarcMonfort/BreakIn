@@ -55,9 +55,8 @@ void Animation::update(int deltaTime)
 	currentTime += deltaTime;
 	thief->update(deltaTime);
 
-	if (thief->getPosition().x >= 325 || Game::instance().getGameState()->getKey(32)) {
+	if (thief->getPosition().x >= 325) {
 		PlayGameState::instance().stopAnimation();
-		PlayGameState::instance().endPointMoneyTransition();
 	}
 
 
