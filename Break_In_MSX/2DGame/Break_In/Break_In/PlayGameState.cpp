@@ -39,6 +39,11 @@ void PlayGameState::init()
 	counters = Sprite::createSprite(glm::ivec2(2*62, 2*192), glm::vec2(1.f, 1.f), &spritesheet, &texProgram);
 	counters->setPosition(glm::vec2(450, 48));  //Nombre arbitrari (a ojo), potser caldria calcular-lo
 
+	godMode_spritesheet.loadFromFile("images/godmode.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	godMode_sprite = Sprite::createSprite(glm::ivec2(128, 16), glm::vec2(1.f, 1.f), &godMode_spritesheet, &texProgram);
+	godMode_sprite->setPosition(glm::vec2(160, 445));
+
+
 	player = new Player();
 	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	player->setPosition(glm::vec2(INIT_PLAYER_X_TILES * levels[currentMap]->getMap()->getTileSize(), INIT_PLAYER_Y_TILES * levels[currentMap]->getMap()->getTileSize()));
@@ -83,6 +88,7 @@ void PlayGameState::init()
 	isDead = false;
 	bAnim = false;
 	ALL_DEAD = false;
+	godMode = false;
 
 	resetKeys();
 }
@@ -124,6 +130,11 @@ void PlayGameState::update(int deltaTime)
 		GameOverGameState::instance().init();
 		Game::instance().pushGameState(&GameOverGameState::instance());
 	}
+
+	if (godMode)
+	{
+		godMode_sprite->update(deltaTime);
+	}
 }
 
 void PlayGameState::render()
@@ -159,6 +170,10 @@ void PlayGameState::render()
 	livesDisplay->render();
 	bankDisplay->render();
 	roomDisplay->render();
+
+	if (godMode) {
+		godMode_sprite->render();
+	}
 }
 
 void PlayGameState::deleteLevels() {
@@ -240,7 +255,8 @@ void PlayGameState::stopAnimation() {
 
 void PlayGameState::lost_life() {
 	if (lives > 0) {
-		lives -= 1;
+		if (!godMode)
+			lives -= 1;
 		player->dead();
 		isDead = true;
 	}
@@ -315,7 +331,7 @@ void PlayGameState::keyPressed(int key)
 			//bAnim = false;
 		}
 	}
-	else if (key == 'n')
+	else if (key == 'n' || key == 'N')
 	{
 		if (!bAnim)
 		{
@@ -329,7 +345,7 @@ void PlayGameState::keyPressed(int key)
 			//bAnim = false;
 		}
 	}
-	else if (key == 'b')
+	else if (key == 'b' || key == 'B')
 	{
 		if (currentMap > 0)
 			lastMap();
@@ -369,8 +385,17 @@ void PlayGameState::keyPressed(int key)
 	{
 		lost_life();
 	}
+	else if (key == 'g' || key == 'G')
+	{
+		godMode = !godMode;
+	}
 	
 	keys[key] = true;
+}
+
+bool PlayGameState::getGodMode()
+{
+	return godMode;
 }
 
 void PlayGameState::keyReleased(int key)
