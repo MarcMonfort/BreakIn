@@ -377,7 +377,7 @@ void PlayGameState::keyPressed(int key)
 
 	else if (key == 'v')
 	{
-		ball->addVelocity(1.5);
+		ball->addVelocity(1.25);
 	}
 	else if (key == 'f')
 	{
@@ -397,8 +397,14 @@ void PlayGameState::keyPressed(int key)
 
 	else if (key == 'd')
 	{
-		lost_life();
+		player->addVelocity(0.8);
 	}
+
+	else if (key == 'c')
+	{
+		player->addVelocity(1.25);
+	}
+
 	else if (key == 'g' || key == 'G')
 	{
 		godMode = !godMode;
