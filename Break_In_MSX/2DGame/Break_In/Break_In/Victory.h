@@ -33,6 +33,9 @@ private:
 	Sprite* car;
 	Texture spritesheet2;
 
+	Sprite* victory;
+	Texture spritesheet3;
+
 	int counter;
 	bool bCar = false;
 	bool bDoor = false;

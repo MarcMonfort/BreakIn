@@ -32,6 +32,16 @@ void Victory::init()
 	car = Sprite::createSprite(glm::ivec2(745/4, 281/4), glm::vec2(1.f, 1.f), &spritesheet2, &texProgram);
 	car->setPosition(glm::vec2(225, 300));
 
+	spritesheet3.loadFromFile("images/victory.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	victory = Sprite::createSprite(glm::ivec2(236, 34), glm::vec2(236.0/256.0, 34.0/256.0), &spritesheet3, &texProgram);
+	victory->setPosition(glm::vec2(110, 400));
+
+	victory->setNumberAnimations(1);
+	victory->setAnimationSpeed(0, 1);
+	victory->addKeyframe(0, glm::vec2(1.0/256.0, 1.0/256.0));
+	victory->addKeyframe(0, glm::vec2(0.0, 0.5));
+	victory->changeAnimation(0);
+
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
 
@@ -54,11 +64,15 @@ void Victory::restart()
 void Victory::stopMusic()
 {
 	channel->stop();
+	channel2->stop();
+	channel3->stop();
 }
 
 void Victory::update(int deltaTime)
 {
 	currentTime += deltaTime;
+
+	victory->update(deltaTime);
 	
 	glm::vec2 carPos = car->getPosition();
 	glm::vec2 thiefPos = thief->getPosition();
@@ -114,6 +128,7 @@ void Victory::render()
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 
 	background->render();
+	victory->render();
 	thief->render();
 	car->render();
 }
