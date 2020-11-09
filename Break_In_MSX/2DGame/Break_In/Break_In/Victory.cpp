@@ -94,11 +94,11 @@ void Victory::update(int deltaTime)
 			bDoor = true;
 		}
 		
-		if (counter > 2000) {
+		if (counter > 3500) {
 			thief->setPosition(thiefPos + glm::vec2(2, 0));
 			car->setPosition(carPos + glm::vec2(2, 0));
 		}
-		else if (counter > 1000) {
+		else if (counter > 2500) {
 			if (!bEngine) {
 				channel2 = soundManager->playSound(car_engine);
 				channel2->setVolume(0.5);
