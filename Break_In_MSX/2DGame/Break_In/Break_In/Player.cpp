@@ -239,9 +239,9 @@ void Player::update(int deltaTime, glm::vec2 posBall)
 		{
 			PlayGameState::instance().setStarted(true);
 			posPlayer.y -= velocity.y;
-			if (posPlayer.y < 16)
+			if (posPlayer.y < 40)
 			{
-				if (posPlayer.y + (velocity.y - 1) >= 16)
+				if (posPlayer.y + (velocity.y - 1) >= 40)
 					posPlayer.y += (velocity.y - 1);
 				else
 					posPlayer.y += velocity.y;
