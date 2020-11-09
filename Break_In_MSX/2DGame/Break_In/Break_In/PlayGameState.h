@@ -12,6 +12,7 @@
 #include "Level.h"
 #include "NumDisplay.h"
 #include "Animation.h"
+#include "Victory.h"
 
 
 // PlayGameState contains all the entities of our game.
@@ -66,6 +67,8 @@ public:
 
 	void endPointMoneyTransition();
 
+	void winGame();
+
 
 private:
 	void initShaders();
@@ -110,6 +113,9 @@ private:
 
 	Animation* animation;
 	bool bAnim = false;
+
+	Victory* victory;
+	bool bVict = false;
 
 	bool started = false;
 	int countStarted;

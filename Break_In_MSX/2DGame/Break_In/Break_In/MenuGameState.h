@@ -41,6 +41,9 @@ private:
 	Sprite* background;
 	Texture spritesheet;
 
+	Sprite* press_fire;
+	Texture spritesheet2;
+
 	NumDisplay* bestBreakInDisplay;
 
 	ShaderProgram texProgram;

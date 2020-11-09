@@ -66,7 +66,7 @@ private:
 
 	ShaderProgram texProgram;
 
-	int bestBreakIn;
+	int bestBreakIn = 0;
 
 	bool bPlay;                       // Continue to play game?
 

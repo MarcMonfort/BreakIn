@@ -18,6 +18,16 @@ void MenuGameState::init()
 	background = Sprite::createSprite(glm::ivec2(SCREEN_WIDTH, SCREEN_HEIGHT), glm::vec2(1.f, 1.f), &spritesheet, &texProgram);
 	background->setPosition(glm::vec2(0, 0));
 
+	spritesheet2.loadFromFile("images/press_fire.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	press_fire = Sprite::createSprite(glm::ivec2(SCREEN_WIDTH, (76/2)* SCREEN_HEIGHT/1050), glm::vec2(1.f, 0.5f), &spritesheet2, &texProgram);
+	press_fire->setPosition(glm::vec2(0, 875* SCREEN_HEIGHT/1050));
+
+	press_fire->setNumberAnimations(1);
+	press_fire->setAnimationSpeed(0, 2);
+	press_fire->addKeyframe(0, glm::vec2(0.0, 0.0));
+	press_fire->addKeyframe(0, glm::vec2(0.0, 0.5));
+	press_fire->changeAnimation(0);
+
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 
 	soundManager = Game::instance().getSoundManager();
@@ -26,11 +36,12 @@ void MenuGameState::init()
 	channel->setVolume(1.0f);
 
 	bestBreakInDisplay = new NumDisplay();
-	bestBreakInDisplay->init(7, 510, 369, 1); //num. digits, coord x, coord y, tipus
+	bestBreakInDisplay->init(7, 525, 369, 1); //num. digits, coord x, coord y, tipus
 }
 
 void MenuGameState::update(int deltaTime)
 { 
+	press_fire->update(deltaTime);
 	bestBreakInDisplay->displayNum(Game::instance().getBestBreakIn());
 }
 
@@ -47,6 +58,7 @@ void MenuGameState::render()
 
 	background->render();
 	bestBreakInDisplay->render();
+	press_fire->render();
 }
 
 
