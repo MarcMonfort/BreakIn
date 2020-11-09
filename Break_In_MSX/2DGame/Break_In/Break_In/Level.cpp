@@ -43,6 +43,20 @@ void Level::createLevel(int numLevel, int numMap)
 	soundManager = Game::instance().getSoundManager();
 	music_alarm = soundManager->loadSound("sounds/alarm.mp3", FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
 	musicOn = false;
+
+	//drop = new Drop(); //usar punteros?
+	//drop->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+	//drop->setPosition(glm::vec2(INIT_BALL_X_TILES * map->getTileSize(), INIT_BALL_Y_TILES * map->getTileSize()));
+	//drop->setTileMap(map);
+
+	for (int i = 0; i < 10; ++i) {
+		Drop* drop = new Drop(); //usar punteros?
+		drop->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+		int posX = (rand() % 21)+1;
+		drop->setPosition(glm::vec2(posX * map->getTileSize(), 50));
+		drop->setTileMap(map);
+		drops.push_back(drop);
+	}
 }
 
 void Level::update(int deltaTime)
@@ -63,6 +77,12 @@ void Level::update(int deltaTime)
 		ring->update(deltaTime);
 		guard->update(deltaTime);
 
+	}
+
+
+	//drop->update(deltaTime, glm::vec2(50, 50));
+	for (int i = 0; i < 10; ++i) {
+		drops[i]->update(deltaTime, glm::vec2(50, 50));
 	}
 }
 
@@ -117,6 +137,13 @@ void Level::render()
 			guard->render();
 			guard->setPosition(aux);
 		}
+	}
+
+
+
+	//drop->render();
+	for (int i = 0; i < 10; ++i) {
+		drops[i]->render();
 	}
 }
 

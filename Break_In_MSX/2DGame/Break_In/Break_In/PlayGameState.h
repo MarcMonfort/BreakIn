@@ -8,6 +8,7 @@
 #include "TileMap.h"
 #include "Sprite.h"
 #include "Player.h"
+#include "Ball.h"
 #include "Level.h"
 #include "NumDisplay.h"
 #include "Animation.h"

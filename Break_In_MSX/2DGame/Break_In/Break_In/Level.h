@@ -8,6 +8,7 @@
 #include "TileMap.h"
 #include "Player.h"
 #include "Ball.h"
+#include "Drop.h"
 #include "Ring.h"
 #include "Guard.h"
 #include "SoundManager.h"
@@ -69,6 +70,11 @@ private:
 	FMOD::Channel* channel;
 
 	bool musicOn;
+
+
+
+	Drop* drop;
+	vector<Drop*> drops;
 
 };
 

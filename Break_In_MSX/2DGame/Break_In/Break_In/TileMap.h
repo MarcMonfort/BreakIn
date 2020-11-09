@@ -29,12 +29,12 @@ public:
 	
 	int getTileSize() const { return tileSize; }
 
-	bool collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) ;	//why was const???
-	bool collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) ;
-	bool collisionMoveUp(const glm::ivec2& pos, const glm::ivec2& size) ;
-	bool collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size) ;
+	//bool collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) ;	//why was const???
+	//bool collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) ;
+	//bool collisionMoveUp(const glm::ivec2& pos, const glm::ivec2& size) ;
+	//bool collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size) ;
 
-	bool collisionPoint(const glm::ivec2& pos);
+	bool collisionPoint(const glm::ivec2& pos, int type);
 	bool checkCollision(const glm::ivec2& pos);
 
 
@@ -64,7 +64,7 @@ private:
 	bool loadLevel(const string &levelFile);
 	void prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program);
 	int checkBlock(int block);
-	bool treatCollision(int pos);
+	bool treatCollision(int pos, int type);
 
 private:
 	GLuint vao;
@@ -94,6 +94,8 @@ private:
 	FMOD::Sound* music_wall_coin;
 	FMOD::Sound* music_bag;
 	FMOD::Sound* music_basic_block;
+	FMOD::Sound* drop_block1;
+	FMOD::Sound* drop_block2;
 	FMOD::Channel* channel;
 };
 
