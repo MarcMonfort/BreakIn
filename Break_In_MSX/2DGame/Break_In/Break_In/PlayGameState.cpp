@@ -103,15 +103,14 @@ void PlayGameState::init()
 void PlayGameState::update(int deltaTime)
 {
 	currentTime += deltaTime;
-
-	
 	
 	if (levels[currentMap]->getMap()->noMoneyLeft()) {
 		if (currentLevel < NUM_LEVELS)
 			nextLevel();
-		else
+		else {
 			bAnim = true;
 			bVict = true;
+		}
 	}
 
 	if (!bAnim)
@@ -379,7 +378,7 @@ void PlayGameState::keyPressed(int key)
 			MenuGameState::instance().init();
 			Game::instance().popGameState();
 			Game::instance().pushGameState(&MenuGameState::instance());
-		}			
+		}
 	}
 	else if (key == 'n' || key == 'N')
 	{
