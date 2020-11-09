@@ -22,6 +22,7 @@
     <ClInclude Include="Guard.h" />
     <ClInclude Include="InstructionsGameState.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="Lightning.h" />
     <ClInclude Include="MenuGameState.h" />
     <ClInclude Include="NumDisplay.h" />
     <ClInclude Include="Player.h" />
@@ -46,6 +47,7 @@
     <ClCompile Include="Guard.cpp" />
     <ClCompile Include="InstructionsGameState.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="Lightning.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuGameState.cpp" />
     <ClCompile Include="NumDisplay.cpp" />

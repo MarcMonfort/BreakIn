@@ -57,6 +57,10 @@ void Level::createLevel(int numLevel, int numMap)
 		drop->setTileMap(map);
 		drops.push_back(drop);
 	}
+
+	lightning = new Lightning();
+	lightning->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+	lightning->setPosition(glm::vec2(50, 16));
 }
 
 void Level::update(int deltaTime)
@@ -84,6 +88,8 @@ void Level::update(int deltaTime)
 	for (int i = 0; i < 10; ++i) {
 		drops[i]->update(deltaTime, glm::vec2(50, 50));
 	}
+
+	lightning->update(deltaTime);
 }
 
 void Level::render()
@@ -145,6 +151,8 @@ void Level::render()
 	for (int i = 0; i < 10; ++i) {
 		drops[i]->render();
 	}
+
+	lightning->render();
 }
 
 void Level::resetGuard()
