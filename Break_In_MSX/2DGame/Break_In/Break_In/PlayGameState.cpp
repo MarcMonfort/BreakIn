@@ -361,24 +361,28 @@ void PlayGameState::keyPressed(int key)
 {
 	if (key == 27) // Escape code
 	{
-		if (!bAnim)
-		{
-			deleteAll();
-
-			MenuGameState::instance().init();
-			Game::instance().popGameState(); //or better push so we dont loose the state??
-			Game::instance().pushGameState(&MenuGameState::instance());
-		}
-		else {
+		if (bVict)
+			winGame();
+		else if (bAnim)
 			stopAnimation();
-			//bAnim = false;
-		}
+		else
+		{
+			endPointMoneyTransition();
+			Game::instance().setBestBreakIn(money);
+
+			deleteAll();
+			MenuGameState::instance().init();
+			Game::instance().popGameState();
+			Game::instance().pushGameState(&MenuGameState::instance());
+		}			
 	}
 	else if (key == 'n' || key == 'N')
 	{
 		if (bVict)
 			winGame();
-		else if (!bAnim)
+		else if (bAnim)
+			stopAnimation();
+		else
 		{
 			if (currentMap < NUM_MAPS - 1)
 				nextMap();
@@ -390,10 +394,6 @@ void PlayGameState::keyPressed(int key)
 				victory->restart();
 			}
 		}
-		else {
-			stopAnimation();
-			//bAnim = false;
-		}
 	}
 	else if (key == 'b' || key == 'B')
 	{
@@ -401,9 +401,14 @@ void PlayGameState::keyPressed(int key)
 			lastMap();
 		else if (currentLevel > 1)
 			setLevel(currentLevel-1);
-		if (bAnim)
+
+		if (bAnim) {
 			stopAnimation();
-			//bAnim = false;
+			if (bVict) {
+				bVict = false;
+				victory->stopMusic();
+			}
+		}
 	}
 
 	else if (key == 'v')
@@ -420,7 +425,9 @@ void PlayGameState::keyPressed(int key)
 	}
 	else if (key == ' ')
 	{
-		if (bAnim)
+		if (bVict)
+			winGame();
+		else if (bAnim)
 			stopAnimation();
 		else
 			started = true;
