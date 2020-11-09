@@ -159,18 +159,24 @@ void PlayGameState::update(int deltaTime)
 	bankDisplay->displayNum(bank);
 	roomDisplay->displayNum(room);
 
-	if (ALL_DEAD) {
-		deleteAll();
-		Game::instance().popGameState();
-		GameOverGameState::instance().init();
-		Game::instance().pushGameState(&GameOverGameState::instance());
-
-		Game::instance().setBestBreakIn(money);
-	}
-
 	if (godMode)
 	{
 		godMode_sprite->update(deltaTime);
+	}
+
+	if (GAME_END) {
+		deleteAll();
+		MenuGameState::instance().init();
+		Game::instance().popGameState();
+		Game::instance().pushGameState(&MenuGameState::instance());
+		Game::instance().setBestBreakIn(money);
+	}
+	else if (ALL_DEAD) {
+		deleteAll();
+		GameOverGameState::instance().init();
+		Game::instance().popGameState();
+		Game::instance().pushGameState(&GameOverGameState::instance());
+		Game::instance().setBestBreakIn(money);
 	}
 }
 
@@ -543,10 +549,5 @@ void PlayGameState::winGame() {
 	bVict = false;
 	victory->stopMusic();
 	endPointMoneyTransition();
-	Game::instance().setBestBreakIn(money);
-
-	deleteAll();
-	MenuGameState::instance().init();
-	Game::instance().popGameState();
-	Game::instance().pushGameState(&MenuGameState::instance());
+	GAME_END = true;
 }

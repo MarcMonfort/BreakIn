@@ -44,7 +44,7 @@ private:
 	Sprite* press_fire;
 	Texture spritesheet2;
 
-	NumDisplay* bestBreakInDisplay;
+	NumDisplay* bestBreakInDisplay = new NumDisplay();
 
 	ShaderProgram texProgram;
 	float currentTime;

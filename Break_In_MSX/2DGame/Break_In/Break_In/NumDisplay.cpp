@@ -38,6 +38,7 @@ void NumDisplay::render()
 
 void NumDisplay::createDigits(int nDigits, int type)
 {
+	digits = vector<Sprite*>(0);
 	for (int i = 0; i < nDigits; ++i) {
 		digits.push_back(createDigit(type));
 	}

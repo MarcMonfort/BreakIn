@@ -124,6 +124,8 @@ private:
 
 	bool ALL_DEAD = false;
 
+	bool GAME_END = false;
+
 	bool godMode = false;
 
 	Texture godMode_spritesheet;

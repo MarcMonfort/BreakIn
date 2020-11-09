@@ -35,7 +35,7 @@ void MenuGameState::init()
 	channel = soundManager->playSound(music);
 	channel->setVolume(1.0f);
 
-	bestBreakInDisplay = new NumDisplay();
+	//bestBreakInDisplay = new NumDisplay();
 	bestBreakInDisplay->init(7, 525, 369, 1); //num. digits, coord x, coord y, tipus
 }
 
