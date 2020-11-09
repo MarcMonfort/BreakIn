@@ -29,6 +29,8 @@ TileMap::TileMap(const string &levelFile, const glm::vec2 &minCoords, ShaderProg
 	music_wall_coin = soundManager->loadSound("sounds/wall_coin.mp3", FMOD_DEFAULT);
 	music_basic_block = soundManager->loadSound("sounds/basic_block.mp3", FMOD_DEFAULT);
 	music_bag = soundManager->loadSound("sounds/bag.mp3", FMOD_DEFAULT);
+	drop_block1 = soundManager->loadSound("sounds/drop_down.mp3", FMOD_DEFAULT);
+	drop_block2 = soundManager->loadSound("sounds/drop_block2.mp3", FMOD_DEFAULT);
 
 	/*music = soundManager->loadSound("sounds/main_theme.mp3", FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
 	channel = soundManager->playSound(music);
@@ -229,91 +231,91 @@ bool TileMap::checkCollision(const glm::ivec2& pos)
 	return false;
 }
 
-bool TileMap::collisionPoint(const glm::ivec2& pos)
+bool TileMap::collisionPoint(const glm::ivec2& pos, int type)
 {
 	int x, y;
 
 	x = pos.x / tileSize;
 	y = pos.y / tileSize;
 	if (map[y * mapSize.x + x] != 0)
-		return treatCollision(y * mapSize.x + x);
+		return treatCollision(y * mapSize.x + x, type);
 
 	return false;
 }
 
 
-bool TileMap::collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size)
-{
-	int x, y0, y1;
-	
-	x = pos.x / tileSize;
-	y0 = pos.y / tileSize;
-	y1 = (pos.y + size.y - 1) / tileSize;
-	for(int y=y0; y<=y1; y++)
-	{
-		if (map[y * mapSize.x + x] != 0)
-		{
-			return treatCollision(y * mapSize.x + x);
-		}
-	}
-	
-	return false;
-}
-
-bool TileMap::collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size)
-{
-	int x, y0, y1;
-	
-	x = (pos.x + size.x - 1) / tileSize;
-	y0 = pos.y / tileSize;
-	y1 = (pos.y + size.y - 1) / tileSize;
-	for(int y=y0; y<=y1; y++)
-	{
-		if (map[y * mapSize.x + x] != 0)
-		{
-			return treatCollision(y * mapSize.x + x);
-		}
-	}
-	
-	return false;
-}
-
-bool TileMap::collisionMoveUp(const glm::ivec2& pos, const glm::ivec2& size)
-{
-	int x0, x1, y;
-
-	x0 = pos.x / tileSize;
-	x1 = (pos.x + size.x - 1) / tileSize;
-	y = pos.y / tileSize;
-	for (int x = x0; x <= x1; x++)
-	{
-		//if (map[y * mapSize.x + x] == 'A' - int('0'))
-		if (map[y * mapSize.x + x] != 0)
-		{
-			return treatCollision(y * mapSize.x + x);
-		}
-	}
-
-	return false;
-}
-
-bool TileMap::collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size)
-{
-	int x0, x1, y;
-	
-	x0 = pos.x / tileSize;
-	x1 = (pos.x + size.x - 1) / tileSize;
-	y = (pos.y + size.y - 1) / tileSize;
-	for(int x=x0; x<=x1; x++)
-	{
-		if (map[y * mapSize.x + x] != 0)
-		{
-			return treatCollision(y * mapSize.x + x);
-		}
-	}
-	
-	return false;
-}
+//bool TileMap::collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size)
+//{
+//	int x, y0, y1;
+//	
+//	x = pos.x / tileSize;
+//	y0 = pos.y / tileSize;
+//	y1 = (pos.y + size.y - 1) / tileSize;
+//	for(int y=y0; y<=y1; y++)
+//	{
+//		if (map[y * mapSize.x + x] != 0)
+//		{
+//			return treatCollision(y * mapSize.x + x);
+//		}
+//	}
+//	
+//	return false;
+//}
+//
+//bool TileMap::collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size)
+//{
+//	int x, y0, y1;
+//	
+//	x = (pos.x + size.x - 1) / tileSize;
+//	y0 = pos.y / tileSize;
+//	y1 = (pos.y + size.y - 1) / tileSize;
+//	for(int y=y0; y<=y1; y++)
+//	{
+//		if (map[y * mapSize.x + x] != 0)
+//		{
+//			return treatCollision(y * mapSize.x + x);
+//		}
+//	}
+//	
+//	return false;
+//}
+//
+//bool TileMap::collisionMoveUp(const glm::ivec2& pos, const glm::ivec2& size)
+//{
+//	int x0, x1, y;
+//
+//	x0 = pos.x / tileSize;
+//	x1 = (pos.x + size.x - 1) / tileSize;
+//	y = pos.y / tileSize;
+//	for (int x = x0; x <= x1; x++)
+//	{
+//		//if (map[y * mapSize.x + x] == 'A' - int('0'))
+//		if (map[y * mapSize.x + x] != 0)
+//		{
+//			return treatCollision(y * mapSize.x + x);
+//		}
+//	}
+//
+//	return false;
+//}
+//
+//bool TileMap::collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size)
+//{
+//	int x0, x1, y;
+//	
+//	x0 = pos.x / tileSize;
+//	x1 = (pos.x + size.x - 1) / tileSize;
+//	y = (pos.y + size.y - 1) / tileSize;
+//	for(int x=x0; x<=x1; x++)
+//	{
+//		if (map[y * mapSize.x + x] != 0)
+//		{
+//			return treatCollision(y * mapSize.x + x);
+//		}
+//	}
+//	
+//	return false;
+//}
 
 int TileMap::checkBlock(int block)
 {
@@ -338,7 +340,7 @@ int TileMap::checkBlock(int block)
 		return coin;
 }
 
-bool TileMap::treatCollision(int pos)
+bool TileMap::treatCollision(int pos, int type)
 {
 	int block = checkBlock(map[pos]);
 	
@@ -350,13 +352,25 @@ bool TileMap::treatCollision(int pos)
 			map[pos + 1] = 0;
 		map[pos] = 0;
 		//channel->stop();
-		channel = soundManager->playSound(music_basic_block);
+		if (type == 0)
+			channel = soundManager->playSound(music_basic_block);
+		else {
+			channel = soundManager->playSound(drop_block2);
+			channel->setVolume(0.3f);
+		}
+
 		//channel->setVolume(1.0f);
 		PlayGameState::instance().addPoints(100);
 	}
 	else if (block == wall) {
 		//channel->stop();
-		channel = soundManager->playSound(music_wall_coin);
+		if (type == 0)
+			channel = soundManager->playSound(music_wall_coin);
+		else {
+			channel = soundManager->playSound(drop_block2);
+			channel->setVolume(0.3f);
+		}
+
 		//channel->setVolume(1.0f);
 	}
 	else if (block == strong)
@@ -370,7 +384,13 @@ bool TileMap::treatCollision(int pos)
 			map[pos + 1] = 14;
 		}
 		//channel->stop();
-		channel = soundManager->playSound(music_basic_block);
+		if (type == 0)
+			channel = soundManager->playSound(music_basic_block);
+		else {
+			channel = soundManager->playSound(drop_block2);
+			channel->setVolume(0.3f);
+		}
+
 		//channel->setVolume(1.0f);
 		PlayGameState::instance().addPoints(100);
 	}
@@ -407,20 +427,31 @@ bool TileMap::treatCollision(int pos)
 		map[14] = 21;
 		map[15] = 22;
 		map[pos] = 0;
-		channel = soundManager->playSound(music_wall_coin);
+
+		if (type == 0)
+			channel = soundManager->playSound(music_wall_coin);
+		else {
+			channel = soundManager->playSound(drop_block2);
+			channel->setVolume(0.3f);
+		}
+
 		//channel->setVolume(1.0f);
 	}
 	else if (block == arrow)
 	{
-		PlayGameState::instance().nextMap();
-		return false;
+		if (type == 0) {
+			PlayGameState::instance().nextMap();
+			return false;
+		}
 	}
 	else if (block == lose)
 	{
-		if (!PlayGameState::instance().getGodMode())
-		{
-			PlayGameState::instance().lastMap();
-			return false;
+		if (type == 0) {
+			if (!PlayGameState::instance().getGodMode())
+			{
+				PlayGameState::instance().lastMap();
+				return false;
+			}
 		}
 	}
 	else if (block == bag)
@@ -446,8 +477,13 @@ bool TileMap::treatCollision(int pos)
 			map[pos - mapSize.x - 1] = 0;
 		}
 		map[pos] = 0;
-		channel = soundManager->playSound(music_bag);
-		channel->setVolume(1.0f);
+		if (type == 0)	
+			channel = soundManager->playSound(music_bag);
+		else {
+			channel = soundManager->playSound(drop_block2);
+			channel->setVolume(0.3f);
+		}
+
 		PlayGameState::instance().addMoney(200);
 		money_items -= 1;
 	}
@@ -475,14 +511,20 @@ bool TileMap::treatCollision(int pos)
 			map[pos - mapSize.x - 1] = 0;
 		}
 		map[pos] = 0;
-		channel = soundManager->playSound(music_wall_coin);
-		channel->setVolume(1.0f);
+		if (type == 0)
+			channel = soundManager->playSound(music_wall_coin);
+		else {
+			channel = soundManager->playSound(drop_block2);
+			channel->setVolume(0.3f);
+		}
+
 		PlayGameState::instance().addMoney(100);
 		money_items -= 1;
 	}
 	else if (block == ring)
 	{
-		bAlarm = true;
+		if (type == 0)
+			bAlarm = true;
 		/*if (map[pos] == 25) {
 			map[pos + 1] = 33;
 			map[pos + mapSize.x] = 43;
