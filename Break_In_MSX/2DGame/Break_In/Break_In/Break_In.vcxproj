@@ -33,6 +33,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="Thief.h" />
     <ClInclude Include="TileMap.h" />
+    <ClInclude Include="Victory.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
@@ -57,6 +58,7 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Thief.cpp" />
     <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="Victory.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5BE6CA2A-E5A8-40CC-9015-047CE0C78036}</ProjectGuid>

@@ -36,8 +36,8 @@ void PlayGameState::init()
 	levels[currentMap]->setTransition(0);
 
 	spritesheet.loadFromFile("images/counters.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	counters = Sprite::createSprite(glm::ivec2(2*62, 2*192), glm::vec2(1.f, 1.f), &spritesheet, &texProgram);
-	counters->setPosition(glm::vec2(450, 48));  //Nombre arbitrari (a ojo), potser caldria calcular-lo
+	counters = Sprite::createSprite(glm::ivec2(384, 384), glm::vec2(1.f, 1.f), &spritesheet, &texProgram);
+	counters->setPosition(glm::vec2(450 - 33, 48 + 20));  //Nombre arbitrari (a ojo), potser caldria calcular-lo
 
 	godMode_spritesheet.loadFromFile("images/godmode.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	godMode_sprite = Sprite::createSprite(glm::ivec2(128, 16), glm::vec2(1.f, 1.f), &godMode_spritesheet, &texProgram);
@@ -58,38 +58,42 @@ void PlayGameState::init()
 	int y = 0;
 
 	money = 0;
-	y += 65;
+	y += 65 + 20;
 	moneyDisplay = new NumDisplay();
 	moneyDisplay->init(7, x, y, 0); //nombre de digits, coordenada x, coordenada y, tipus
 
 	points = 0;
-	y += 80;
+	y += 78;
 	pointsDisplay = new NumDisplay();
 	pointsDisplay->init(7, x, y, 0);
 
 	lives = 4;
-	y += 96;
+	y += 78;
 	livesDisplay = new NumDisplay();
 	livesDisplay->init(2, x, y, 0);
 
 	bank = 1;
-	y += 64;
+	y += 78;
 	bankDisplay = new NumDisplay();
 	bankDisplay->init(2, x, y, 0);
 
 	room = 1;
-	y += 112;
+	y += 78;
 	roomDisplay = new NumDisplay();
 	roomDisplay->init(2, x, y, 0);
 
 	animation = new Animation();
 	animation->init();
 
+	victory = new Victory();
+	victory->init();
+
 	started = false;
 	countStarted = 0;
 
 	isDead = false;
 	bAnim = false;
+	bVict = false;
 	ALL_DEAD = false;
 	godMode = false;
 
@@ -106,6 +110,8 @@ void PlayGameState::update(int deltaTime)
 		if (currentLevel < NUM_LEVELS)
 			nextLevel();
 		else
+			bAnim = true;
+			bVict = true;
 			cout << "You won!!!" << endl;
 	}
 
@@ -134,7 +140,10 @@ void PlayGameState::update(int deltaTime)
 	}
 	else 
 	{
-		animation->update(deltaTime);
+		if (!bVict)
+			animation->update(deltaTime);
+		else
+			victory->update(deltaTime);
 
 		if (points >= 9) {
 			money += 9;
@@ -188,9 +197,11 @@ void PlayGameState::render()
 		player->render(); //creo que es mejor que este render lo haga el Level
 		ball->render();		//con una funcion setPlayer(Player* player)
 	}
-	else
-	{
-		animation->render();
+	else {
+		if (!bVict)
+			animation->render();
+		else
+			victory->render();
 	}
 
 	counters->render();
@@ -309,6 +320,7 @@ void PlayGameState::deleteAll() {
 	delete bankDisplay;
 	delete roomDisplay;
 	delete animation;
+	delete victory;
 }
 
 void PlayGameState::setLevel(int level) {
@@ -364,12 +376,19 @@ void PlayGameState::keyPressed(int key)
 	}
 	else if (key == 'n' || key == 'N')
 	{
-		if (!bAnim)
+		if (bVict)
+			winGame();
+		else if (!bAnim)
 		{
-			if (currentMap < NUM_MAPS-1)
+			if (currentMap < NUM_MAPS - 1)
 				nextMap();
 			else if (currentLevel < NUM_LEVELS)
 				nextLevel();
+			else {
+				bAnim = true;
+				bVict = true;
+				victory->restart();
+			}
 		}
 		else {
 			stopAnimation();
@@ -510,4 +529,18 @@ void PlayGameState::setStarted(bool b) {
 void PlayGameState::endPointMoneyTransition() {
 	money += points;
 	points = 0;
+}
+
+void PlayGameState::winGame() {
+
+	bAnim = false;
+	bVict = false;
+	victory->stopMusic();
+	endPointMoneyTransition();
+	Game::instance().setBestBreakIn(money);
+
+	deleteAll();
+	MenuGameState::instance().init();
+	Game::instance().popGameState();
+	Game::instance().pushGameState(&MenuGameState::instance());
 }
