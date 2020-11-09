@@ -407,13 +407,8 @@ void PlayGameState::keyPressed(int key)
 		else if (currentLevel > 1)
 			setLevel(currentLevel-1);
 
-		if (bAnim) {
+		if (bAnim && !bVict)
 			stopAnimation();
-			if (bVict) {
-				bVict = false;
-				victory->stopMusic();
-			}
-		}
 	}
 
 	else if (key == 'v')
