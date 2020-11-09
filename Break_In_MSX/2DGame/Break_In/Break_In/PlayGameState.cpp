@@ -112,7 +112,6 @@ void PlayGameState::update(int deltaTime)
 		else
 			bAnim = true;
 			bVict = true;
-			cout << "You won!!!" << endl;
 	}
 
 	if (!bAnim)

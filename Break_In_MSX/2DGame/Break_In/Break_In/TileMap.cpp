@@ -133,7 +133,6 @@ bool TileMap::loadLevel(const string &levelFile)
 	fin.close();
 
 	thereIsMoney = money_items != 0;
-	cout << money_items << " " << thereIsMoney << endl;
 		
 	return true;
 }
