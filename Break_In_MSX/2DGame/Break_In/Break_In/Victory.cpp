@@ -67,6 +67,7 @@ void Victory::stopMusic()
 	channel->stop();
 	channel2->stop();
 	channel3->stop();
+	channel4->stop();
 }
 
 void Victory::update(int deltaTime)
@@ -79,7 +80,7 @@ void Victory::update(int deltaTime)
 	glm::vec2 thiefPos = thief->getPosition();
 
 	if (carPos.x >= 500) {
-		if (counter > 7500) {
+		if (counter > 8000) {
 			stopMusic();
 			PlayGameState::instance().winGame();
 		}
@@ -90,7 +91,8 @@ void Victory::update(int deltaTime)
 	else if (thiefPos.x >= 230) {
 
 		if (!bDoor) {
-			channel = soundManager->playSound(car_door);
+			channel4 = soundManager->playSound(car_door);
+			channel4->setVolume(1.5);
 			bDoor = true;
 		}
 		

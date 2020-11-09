@@ -55,6 +55,7 @@ private:
 	FMOD::Channel* channel;
 	FMOD::Channel* channel2;
 	FMOD::Channel* channel3;
+	FMOD::Channel* channel4;
 };
 
 #endif
