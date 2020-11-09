@@ -59,6 +59,7 @@ void Victory::restart()
 	thief->setPosition(glm::vec2(60, 258));
 	channel = soundManager->playSound(music_player);
 	channel3 = soundManager->playSound(coins);
+	channel3->setVolume(0.6);
 }
 
 void Victory::stopMusic()
