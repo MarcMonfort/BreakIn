@@ -94,6 +94,7 @@ void PlayGameState::init()
 	isDead = false;
 	bAnim = false;
 	bVict = false;
+	GAME_END = false;
 	ALL_DEAD = false;
 	godMode = false;
 
