@@ -61,6 +61,15 @@ void Level::createLevel(int numLevel, int numMap)
 	lightning = new Lightning();
 	lightning->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
 	lightning->setPosition(glm::vec2(50, 16));
+
+	if (map->hasCloud())
+	{
+		bCloud = false;
+		bStorm = false;
+		cloudCounter = 0;
+		cloud = new Cloud();
+		cloud->init();
+	}
 }
 
 void Level::update(int deltaTime)
@@ -81,6 +90,20 @@ void Level::update(int deltaTime)
 		ring->update(deltaTime);
 		guard->update(deltaTime);
 
+	}
+
+	if (map->hasCloud())
+	{
+		if (bCloud) {
+			cloud->update(deltaTime);
+		}
+		else {
+			cloudCounter += deltaTime;
+			if (cloudCounter > 5000) {
+				bCloud = true;
+				cloudCounter = 0;
+			}
+		}
 	}
 
 
@@ -145,14 +168,16 @@ void Level::render()
 		}
 	}
 
-
-
 	//drop->render();
 	for (int i = 0; i < 10; ++i) {
 		drops[i]->render();
 	}
 
 	lightning->render();
+
+	if (map->hasCloud() && bCloud) {
+		cloud->render();
+	}
 }
 
 void Level::resetGuard()
@@ -237,4 +262,10 @@ void Level::initShaders()
 	texProgram.bindFragmentOutput("outColor");
 	vShader.free();
 	fShader.free();
+}
+
+void Level::cloud_taken() {
+	bCloud = false;
+	bStorm = true;
+	cloud->reinitCloud();
 }

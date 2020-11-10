@@ -13,6 +13,7 @@
 #include "Ring.h"
 #include "Guard.h"
 #include "SoundManager.h"
+#include "Cloud.h"
 
 
 class Level
@@ -40,6 +41,8 @@ public:
 	void setMusic(bool music);
 
 	void deleteALL();
+
+	void cloud_taken();
 
 private:
 	void initShaders();
@@ -79,7 +82,12 @@ private:
 
 	Lightning* lightning;
 
+	Cloud* cloud;
 
+	bool bCloud = false;
+	bool bStorm = false;
+
+	int cloudCounter = 0;
 };
 
 

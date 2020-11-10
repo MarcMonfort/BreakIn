@@ -4,6 +4,7 @@ TILEMAP
 images/cross.png    -- Background
 images/tileset.png 	-- Tilesheet
 16 16 								-- Number of tiles in tilesheet
+0
 AAAAAAAAAAAAAAAAAAAAAAAA
 A                      A
 A                      A

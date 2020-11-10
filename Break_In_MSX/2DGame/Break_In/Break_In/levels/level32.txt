@@ -4,6 +4,7 @@ TILEMAP
 images/back_3.png    -- Background
 images/tileset.png 	-- Tilesheet
 16 16 								-- Number of tiles in tilesheet
+0
 CCCCCCCCCCCCCCCCCCCCCCCC
 C                      C
 C   GH                 C

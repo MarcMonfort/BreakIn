@@ -102,6 +102,9 @@ bool TileMap::loadLevel(const string &levelFile)
 	sstream.str(line);
 	sstream >> tilesheetSize.x >> tilesheetSize.y;
 	tileTexSize = glm::vec2(1.f / tilesheetSize.x, 1.f / tilesheetSize.y);
+	getline(fin, line);
+	sstream.str(line);
+	sstream >> bCloud;
 
 	money_items = 0;
 	
@@ -196,6 +199,11 @@ string TileMap::getBackgroundFile()
 bool TileMap::hasRing()
 {
 	return bRing;
+}
+
+bool TileMap::hasCloud()
+{
+	return bCloud;
 }
 
 glm::vec2 TileMap::getRingPosition()
