@@ -13,6 +13,7 @@
 #include "Ring.h"
 #include "Guard.h"
 #include "SoundManager.h"
+#include "Storm.h"
 
 
 class Level
@@ -40,6 +41,9 @@ public:
 	void setMusic(bool music);
 
 	void deleteALL();
+
+	void createStorm();
+
 
 private:
 	void initShaders();
@@ -74,10 +78,14 @@ private:
 
 
 
+	bool isStorm;
+
 	Drop* drop;
 	vector<Drop*> drops;
 
 	Lightning* lightning;
+
+	Storm* storm;
 
 
 };
