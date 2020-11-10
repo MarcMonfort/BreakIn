@@ -300,19 +300,29 @@ void PlayGameState::stopAnimation() {
 }
 
 void PlayGameState::lost_life() {
-	if (lives > 0) {
-		if (!godMode)
-			lives -= 1;
-		player->dead();
-		isDead = true;
-	}
-	else {
-		ALL_DEAD = true;
-	}
+	player->dead();
+	isDead = true;
+}
+
+bool PlayGameState::getIsDead() 
+{
+	return isDead;
 }
 
 void PlayGameState::setIsDead(bool dead) {
 	this->isDead = dead;
+}
+
+void PlayGameState::lessLife() {
+	if (!godMode)
+	{
+		if (lives > 0) {
+			lives -= 1;
+		}
+		else {
+			ALL_DEAD = true;
+		}
+	}
 }
 
 void PlayGameState::deleteAll() {

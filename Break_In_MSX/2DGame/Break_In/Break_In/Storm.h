@@ -22,6 +22,16 @@ private:
 	Lightning* lightning;
 
 	int currentTime;
+
+
+	Texture spritesheet;
+	Sprite* cloud1;
+	Sprite* cloud2;
+
+	glm::vec2 posC1;
+	glm::vec2 posC2;
+
+	bool started;
 };
 
 #endif

@@ -11,7 +11,7 @@ class Drop
 {
 
 public:
-	void init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram);
+	void init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram, float startVelocity);
 	void update(int deltaTime, glm::vec2 posPlayer);
 	void render();
 
@@ -25,6 +25,8 @@ public:
 
 	void setVelocity(glm::vec2 velocity);
 	glm::vec2 getVelocity();
+
+	void setStartVelocity(float v);
 
 private:
 	glm::fvec2 posDrop;
@@ -54,9 +56,13 @@ private:
 
 	int timeToFall;
 
+	bool isSplash;
+
 	const SoundManager* soundManager;
 	FMOD::Sound* music_player;
 	FMOD::Channel* channel;
+
+	float startVelocity;
 };
 
 

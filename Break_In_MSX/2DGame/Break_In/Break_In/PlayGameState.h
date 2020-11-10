@@ -69,6 +69,10 @@ public:
 
 	void winGame();
 
+	bool getIsDead();
+
+	void lessLife();
+
 
 private:
 	void initShaders();
