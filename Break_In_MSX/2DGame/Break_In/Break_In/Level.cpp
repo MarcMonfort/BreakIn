@@ -183,7 +183,8 @@ void Level::render()
 	lightning->render();
 
 	if (map->hasCloud() && bCloud) {
-		cloud->render();
+		if (transY == 0)
+			cloud->render();
 	}
 }
 
