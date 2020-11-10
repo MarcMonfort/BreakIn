@@ -4,7 +4,6 @@
 
 using namespace std;
 
-
 Texture::Texture()
 {
 	wrapS = GL_REPEAT;
@@ -12,7 +11,6 @@ Texture::Texture()
 	minFilter = GL_LINEAR_MIPMAP_LINEAR;
 	magFilter = GL_LINEAR_MIPMAP_LINEAR;
 }
-
 
 bool Texture::loadFromFile(const string &filename, PixelFormat format)
 {
@@ -109,5 +107,3 @@ void Texture::use() const
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, magFilter);
 }
-
-
