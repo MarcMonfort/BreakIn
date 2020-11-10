@@ -12,15 +12,8 @@ void NumDisplay::init(int nDigits, int x, int y, int type) {
 	setPosition(glm::vec2(x, y), type);
 }
 
-void NumDisplay::displayNum(int num) {
-	/*int i = 0;
-	while (num > 0) {
-		int digit = num % 10;
-		num = num / 10;
-		digits[i]->changeAnimation(digit);
-		i += 1;
-	}*/
-
+void NumDisplay::displayNum(int num)
+{
 	for (int i = 0; i < numDigits; ++i) {
 		int digit = num % 10;
 		num = num / 10;
