@@ -17,12 +17,10 @@ void InstructionsGameState::init()
 
 void InstructionsGameState::update(int deltaTime)
 {
-
 }
 
 void InstructionsGameState::render()
 {
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glm::mat4 modelview;
 	texProgram.use();
 	texProgram.setUniformMatrix4f("projection", projection);
@@ -31,19 +29,15 @@ void InstructionsGameState::render()
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	background->render();
-
 }
-
 
 void InstructionsGameState::keyPressed(int key)
 {
 	if (key == 27) // Escape code
 	{
-		//MenuGameState::instance().init();
-		Game::instance().popGameState(); //or better push so we dont loose the state??
+		Game::instance().popGameState();
 		Game::instance().pushGameState(&MenuGameState::instance());
 	}
-
 	keys[key] = true;
 }
 
@@ -73,8 +67,6 @@ void InstructionsGameState::mousePress(int button)
 void InstructionsGameState::mouseRelease(int button)
 {
 }
-
-
 
 void InstructionsGameState::initShaders()
 {
