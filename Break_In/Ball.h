@@ -1,7 +1,6 @@
 #ifndef _BALL_INCLUDE
 #define _BALL_INCLUDE
 
-
 #include "Sprite.h"
 #include "TileMap.h"
 #include "SoundManager.h"
@@ -36,10 +35,6 @@ private:
 	Sprite* sprite;
 	TileMap* map;
 
-	//float vX;
-	//float vY;
-
-
 	int radi;
 	int shortSide;
 	int longSide;
@@ -49,8 +44,4 @@ private:
 	FMOD::Channel* channel;
 };
 
-
-#endif // _BALL_INCLUDE
-
-
-
+#endif

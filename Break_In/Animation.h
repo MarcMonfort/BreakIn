@@ -1,7 +1,6 @@
 #ifndef _ANIMATION_INCLUDE
 #define _ANIMATION_INCLUDE
 
-
 #include <glm/glm.hpp>
 #include "GameState.h"
 #include "ShaderProgram.h"
@@ -20,16 +19,13 @@ public:
 	void update(int deltaTime);
 	void render();
 	void restart();
-
 	void stopMusic();
-
 
 private:
 	void initShaders();
 
 	Sprite* background;
 	Texture spritesheet;
-
 
 	ShaderProgram texProgram;
 	float currentTime;
@@ -40,7 +36,6 @@ private:
 	const SoundManager* soundManager;
 	FMOD::Sound* music_player;
 	FMOD::Channel* channel;
-
 };
 
 #endif

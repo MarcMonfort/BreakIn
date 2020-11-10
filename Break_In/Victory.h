@@ -1,7 +1,6 @@
 #ifndef _VICTORY_INCLUDE
 #define _VICTORY_INCLUDE
 
-
 #include <glm/glm.hpp>
 #include "GameState.h"
 #include "ShaderProgram.h"
@@ -20,9 +19,7 @@ public:
 	void update(int deltaTime);
 	void render();
 	void restart();
-
 	void stopMusic();
-
 
 private:
 	void initShaders();

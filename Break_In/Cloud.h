@@ -8,6 +8,7 @@
 #include "ShaderProgram.h"
 #include "Player.h"
 
+
 class Cloud
 {
 public:
@@ -37,4 +38,3 @@ private:
 };
 
 #endif
-

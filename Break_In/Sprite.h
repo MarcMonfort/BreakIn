@@ -1,7 +1,6 @@
 #ifndef _SPRITE_INCLUDE
 #define _SPRITE_INCLUDE
 
-
 #include <vector>
 #include <glm/glm.hpp>
 #include "Texture.h"
@@ -11,7 +10,6 @@
 
 // This class is derived from code seen earlier in TexturedQuad but it is also
 // able to manage animations stored as a spritesheet. 
-
 
 class Sprite
 {
@@ -46,9 +44,6 @@ private:
 	float timeAnimation;
 	glm::vec2 texCoordDispl;
 	vector<AnimKeyframes> animations;
-
 };
 
-
-#endif // _SPRITE_INCLUDE
-
+#endif

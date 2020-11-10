@@ -1,7 +1,6 @@
 #ifndef _TILE_MAP_INCLUDE
 #define _TILE_MAP_INCLUDE
 
-
 #include <glm/glm.hpp>
 #include "Texture.h"
 #include "ShaderProgram.h"
@@ -12,7 +11,6 @@
 // simple format (see level01.txt for an example). With this information
 // it builds a single VBO that contains all tiles. As a result the render
 // method draws the whole map independently of what is visible.
-
 
 class TileMap
 {
@@ -29,14 +27,10 @@ public:
 	
 	int getTileSize() const { return tileSize; }
 
-	bool collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) ;	//why was const???
-	//bool collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) ;
-	//bool collisionMoveUp(const glm::ivec2& pos, const glm::ivec2& size) ;
-	//bool collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size) ;
+	bool collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) ;
 
 	bool collisionPoint(const glm::ivec2& pos, int type);
 	bool checkCollision(const glm::ivec2& pos);
-
 
 	enum block
 	{
@@ -61,7 +55,6 @@ public:
 
 	bool hasCloud();
 	
-	
 private:
 	bool loadLevel(const string &levelFile);
 	void prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program);
@@ -80,8 +73,6 @@ private:
 
 	bool thereIsMoney;
 	int money_items;
-
-	//ShaderProgram b;
 
 	glm::vec2 a;
 	ShaderProgram b;
@@ -103,7 +94,4 @@ private:
 	bool bCloud = false;
 };
 
-
-#endif // _TILE_MAP_INCLUDE
-
-
+#endif

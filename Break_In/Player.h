@@ -1,7 +1,6 @@
 #ifndef _PLAYER_INCLUDE
 #define _PLAYER_INCLUDE
 
-
 #include "Sprite.h"
 #include "TileMap.h"
 #include "SoundManager.h"
@@ -9,7 +8,6 @@
 
 // Player is basically a Sprite that represents the player. As such it has
 // all properties it needs to track its movement, jumping, and collisions.
-
 
 class Player
 {
@@ -41,10 +39,6 @@ private:
 	const SoundManager* soundManager;
 	FMOD::Sound* music_dead;
 	FMOD::Channel* channel;
-
 };
 
-
-#endif // _PLAYER_INCLUDE
-
-
+#endif

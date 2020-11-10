@@ -9,7 +9,6 @@
 class Storm
 {
 
-
 public:
 	void init(TileMap* tileMap, ShaderProgram& shaderProgram);
 	void update(int deltaTime);
@@ -26,7 +25,6 @@ private:
 
 	int currentTime;
 
-
 	Texture spritesheet;
 	Sprite* cloud1;
 	Sprite* cloud2;
@@ -35,7 +33,6 @@ private:
 	glm::vec2 posC2;
 
 	bool started;
-
 
 	const SoundManager* soundManager;
 	FMOD::Sound* music_rain;

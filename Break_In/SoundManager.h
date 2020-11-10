@@ -4,6 +4,7 @@
 #include <fmod_studio.hpp>
 #include <string>
 
+
 class SoundManager {
 	FMOD::Studio::System* system;
 	FMOD::System* lowLevelSystem;

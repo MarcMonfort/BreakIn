@@ -1,7 +1,6 @@
 #ifndef _DROP_INCLUDE
 #define _DROP_INCLUDE
 
-
 #include "Sprite.h"
 #include "TileMap.h"
 #include "SoundManager.h"
@@ -38,9 +37,6 @@ private:
 	Sprite* sprite;
 	TileMap* map;
 
-	//float vX;
-	//float vY;
-
 	bool bJumping;
 	int jumpAngle, startY;
 
@@ -65,8 +61,4 @@ private:
 	float startVelocity;
 };
 
-
-#endif // _DROP_INCLUDE
-
-
-
+#endif

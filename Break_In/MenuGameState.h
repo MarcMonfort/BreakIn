@@ -8,7 +8,6 @@
 #include "NumDisplay.h"
 
 
-
 class MenuGameState : public GameState
 {
 
@@ -16,7 +15,6 @@ public:
 	static MenuGameState& instance()
 	{
 		static MenuGameState M;
-
 		return M;
 	}
 
@@ -32,8 +30,6 @@ public:
 	void mouseMove(int x, int y);
 	void mousePress(int button);
 	void mouseRelease(int button);
-
-
 
 private:
 	void initShaders();
@@ -53,8 +49,6 @@ private:
 	const SoundManager* soundManager;
 	FMOD::Sound* music;
 	FMOD::Channel* channel;
-
 };
-
 
 #endif // _GAME_INCLUDE

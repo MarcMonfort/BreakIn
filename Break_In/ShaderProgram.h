@@ -1,7 +1,6 @@
 #ifndef _SHADER_PROGRAM_INCLUDE
 #define _SHADER_PROGRAM_INCLUDE
 
-
 #include <GL/glew.h>
 #include <GL/gl.h>
 #include <glm/glm.hpp>
@@ -11,7 +10,6 @@
 // Using the Shader class ShaderProgram can link a vertex and a fragment shader
 // together, bind input attributes to their corresponding vertex shader names, 
 // and bind the fragment output to a name from the fragment shader
-
 
 class ShaderProgram
 {
@@ -44,5 +42,4 @@ private:
 
 };
 
-
-#endif // _SHADER_PROGRAM_INCLUDE
+#endif

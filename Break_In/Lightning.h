@@ -4,6 +4,7 @@
 #include "Sprite.h"
 #include "TileMap.h"
 
+
 class Lightning
 {
 public:
@@ -19,7 +20,6 @@ public:
 	void stopMusic();
 
 	void setTileMap(TileMap* tileMap);
-
 
 private:
 	glm::ivec2 tileMapDispl, posLightning;
@@ -42,9 +42,6 @@ private:
 	FMOD::Channel* channel;
 
 	TileMap* map;
-
-
 };
-
 
 #endif

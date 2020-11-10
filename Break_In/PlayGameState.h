@@ -1,7 +1,6 @@
 #ifndef _PLAYGAMESTATE_INCLUDE
 #define _PLAYGAMESTATE_INCLUDE
 
-
 #include <glm/glm.hpp>
 #include "GameState.h"
 #include "ShaderProgram.h"
@@ -18,16 +17,13 @@
 // PlayGameState contains all the entities of our game.
 // It is responsible for updating and render them.
 
-
 class PlayGameState : public GameState
 {
 
 public:
-
 	static PlayGameState& instance()
 	{
 		static PlayGameState P;
-
 		return P;
 	}
 
@@ -74,7 +70,6 @@ public:
 
 	void lessLife();
 
-
 private:
 	void initShaders();
 	void deleteLevels();
@@ -82,7 +77,6 @@ private:
 	void setLevel(int level);
 
 private:
-	//TileMap* map;
 	Player* player;
 	Ball* ball;
 
@@ -108,8 +102,7 @@ private:
 	float currentTime;
 	glm::mat4 projection;
 
-	vector<Level*> levels;	// como conservar level?
-	//Level* level;
+	vector<Level*> levels;
 	int currentMap;
 	int previousMap;
 	int currentLevel;
@@ -137,7 +130,4 @@ private:
 	Sprite* godMode_sprite;
 };
 
-
-#endif // _SCENE_INCLUDE
-
-
+#endif

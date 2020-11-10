@@ -7,7 +7,6 @@
 #include "SoundManager.h"
 
 
-
 class InstructionsGameState : public GameState
 {
 
@@ -15,7 +14,6 @@ public:
 	static InstructionsGameState& instance()
 	{
 		static InstructionsGameState M;
-
 		return M;
 	}
 
@@ -32,19 +30,15 @@ public:
 	void mousePress(int button);
 	void mouseRelease(int button);
 
-
-
 private:
 	void initShaders();
 
 	Sprite* background;
 	Texture spritesheet;
 
-
 	ShaderProgram texProgram;
 	float currentTime;
 	glm::mat4 projection;
 };
-
 
 #endif

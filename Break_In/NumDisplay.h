@@ -6,6 +6,7 @@
 #include "Sprite.h"
 #include "ShaderProgram.h"
 
+
 class NumDisplay
 {
 
@@ -53,4 +54,4 @@ private:
 	};
 };
 
-#endif // _NUMDISPLAY_INCLUDE
+#endif

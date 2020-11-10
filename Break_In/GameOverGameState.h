@@ -7,7 +7,6 @@
 #include "SoundManager.h"
 
 
-
 class GameOverGameState : public GameState
 {
 
@@ -15,7 +14,6 @@ public:
 	static GameOverGameState& instance()
 	{
 		static GameOverGameState G;
-
 		return G;
 	}
 
@@ -32,14 +30,11 @@ public:
 	void mousePress(int button);
 	void mouseRelease(int button);
 
-
-
 private:
 	void initShaders();
 
 	Sprite* background;
 	Texture spritesheet;
-
 
 	ShaderProgram texProgram;
 	float currentTime;
@@ -48,8 +43,6 @@ private:
 	const SoundManager* soundManager;
 	FMOD::Sound* music;
 	FMOD::Channel* channel;
-
 };
-
 
 #endif // _GAME_INCLUDE

@@ -1,11 +1,11 @@
 #pragma once
 
-
 #ifndef _GUARD_INCLUDE
 #define _GUARD_INCLUDE
 
 #include "Sprite.h"
 #include "TileMap.h"
+
 
 class Guard
 {
@@ -32,8 +32,6 @@ private:
 	glm::vec2 posPlayer;
 
 	bool isDead;
-
 };
-
 
 #endif

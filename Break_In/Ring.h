@@ -4,6 +4,7 @@
 #include "Sprite.h"
 #include "TileMap.h"
 
+
 class Ring
 {
 public:
@@ -21,6 +22,5 @@ private:
 
 	int counter = 0;
 };
-
 
 #endif

@@ -6,7 +6,6 @@ class GameState
 {
 
 public:
-
 	virtual void init() = 0;
 	virtual void update(int deltaTime) = 0;
 	virtual void render() = 0;
@@ -25,9 +24,7 @@ public:
 
 protected:
 	bool keys[256], specialKeys[256]; // Store key states so that 
-
 	void resetKeys();
-
 };
 
-#endif // _GAME_INCLUDE
+#endif

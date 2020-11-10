@@ -1,7 +1,6 @@
 #ifndef _LEVEL_INCLUDE
 #define _LEVEL_INCLUDE
 
-
 #include <glm/glm.hpp>
 #include "GameState.h"
 #include "ShaderProgram.h"
@@ -27,7 +26,6 @@ public:
 
 	TileMap* getMap();
 
-
 	enum transitions
 	{
 		upCenter,
@@ -47,14 +45,11 @@ public:
 	void cloud_taken();
 	void createStorm();
 
-
 private:
 	void initShaders();
 
 private:
 	TileMap* map;
-	//Player* player;
-	//Ball* ball;
 	ShaderProgram texProgram;
 	float currentTime;
 	glm::mat4 projection;
@@ -96,6 +91,5 @@ private:
 	int cloudCounter = 0;
 	int cloudCounterLimit;
 };
-
 
 #endif
