@@ -8,7 +8,6 @@ ShaderProgram::ShaderProgram()
 	linked = false;
 }
 
-
 void ShaderProgram::init()
 {
 	programId = glCreateProgram();
@@ -97,4 +96,3 @@ void ShaderProgram::setUniformMatrix4f(const string &uniformName, glm::mat4 &mat
 	if(location != -1)
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(mat));
 }
-
