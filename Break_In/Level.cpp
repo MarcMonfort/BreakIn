@@ -5,8 +5,7 @@
 #include "Game.h"
 
 
-
-#define SCREEN_X 32 //tiene que se igual al de PlayGameState.cpp
+#define SCREEN_X 32
 #define SCREEN_Y 48
 
 #define INIT_PLAYER_X_TILES 4
@@ -70,7 +69,6 @@ void Level::update(int deltaTime)
 
 	if (!bAlarm && bRing && map->alarmOn())
 	{
-		
 		bAlarm = true;
 		resetGuard();
 		setMusic(true);
@@ -106,10 +104,8 @@ void Level::render()
 	glm::mat4 modelview;
 
 	texProgram.use();
-
 	texProgram.setUniformMatrix4f("projection", projection);
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
-
 
 	modelview = glm::mat4(1.0f);
 	float transY = 0;
@@ -168,7 +164,6 @@ void Level::render()
 	}
 }
 
-
 void Level::createStorm()
 {
 	if (!bStorm)
@@ -202,7 +197,6 @@ void Level::resetStorm()
 	}
 }
 
-
 void Level::setMusic(bool music)
 {
 	if (bAlarm) {
@@ -223,7 +217,6 @@ void Level::setAlarm(bool alarm)
 	bAlarm = alarm;
 	map->setAlarm(alarm);
 	if (alarm == false) {
-		//setMusic(false);
 		channel->stop();
 	}
 }
@@ -244,7 +237,6 @@ void Level::deleteALL()
 			channel->stop();
 		}
 	}
-	
 }
 
 TileMap* Level::getMap()
