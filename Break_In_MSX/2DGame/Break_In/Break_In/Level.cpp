@@ -193,6 +193,10 @@ void Level::resetGuard()
 		guard->setPosition(glm::vec2(SCREEN_X - 8, SCREEN_Y + 312));
 		guard->reset();
 	}
+}
+
+void Level::resetStorm()
+{
 	if (bStorm) {
 		storm->reset();
 	}

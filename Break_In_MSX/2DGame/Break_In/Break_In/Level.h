@@ -38,6 +38,7 @@ public:
 
 	void setTransition(int transition);
 	void resetGuard();
+	void resetStorm();
 	void setAlarm(bool alarm);
 	void setMusic(bool music);
 

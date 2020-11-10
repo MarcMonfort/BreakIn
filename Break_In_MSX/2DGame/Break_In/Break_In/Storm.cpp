@@ -101,7 +101,7 @@ void Storm::render()
 void Storm::setMusic(bool b) {
 	if (b) {
 		channel = soundManager->playSound(music_rain);
-		channel->setVolume(0.5f);
+		channel->setVolume(0.2f);
 	}
 	else {
 		channel->stop();

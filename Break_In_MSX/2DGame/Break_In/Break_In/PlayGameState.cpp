@@ -233,6 +233,7 @@ void PlayGameState::nextMap()
 {
 	levels[currentMap]->setTransition(3);
 	levels[currentMap]->resetGuard();
+	levels[currentMap]->resetStorm();
 	levels[currentMap]->setMusic(false);
 	previousMap = currentMap;
 	upDownTime = 200;
@@ -261,6 +262,7 @@ void PlayGameState::lastMap()
 	if (currentMap > 0) {
 		levels[currentMap]->setTransition(2);
 		levels[currentMap]->resetGuard();
+		levels[currentMap]->resetStorm();
 		levels[currentMap]->setMusic(false);
 		previousMap = currentMap;
 		upDownTime = 200;
