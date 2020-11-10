@@ -1,7 +1,6 @@
 #include <fstream>
 #include "Shader.h"
 
-
 using namespace std;
 
 
@@ -10,7 +9,6 @@ Shader::Shader()
 	shaderId = 0;
 	compiled = false;
 }
-
 
 void Shader::initFromSource(const ShaderType type, const string &source)
 {
@@ -81,4 +79,3 @@ bool Shader::loadShaderSource(const string &filename, string &shaderSource)
 
 	return true;
 }
-
