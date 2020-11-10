@@ -11,34 +11,25 @@ void Game::init()
 	upc_fib_logo = Sprite::createSprite(glm::ivec2(96, 24), glm::vec2(1.f, 1.f), &spritesheet, &texProgram);
 	upc_fib_logo->setPosition(glm::vec2(15, 445));
 
-
 	bPlay = true;
-	//glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 	glClearColor(0.f, 0.f, 0.f, 1.0f);
 	states.push(&MenuGameState::instance());
 	states.top()->init();
-	//scene.init();
 
 	bestBreakIn = 0;
 }
 
 bool Game::update(int deltaTime)
 {
-	//scene.update(deltaTime);
-
 	states.top()->update(deltaTime);
-	
 	return bPlay;
 }
 
 void Game::render()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//scene.render();
 	states.top()->render();
-
 	upc_fib_logo->render();
-
 }
 
 GameState* Game::getGameState()
@@ -56,7 +47,6 @@ void Game::pushGameState(GameState* state)
 	states.push(state);
 }
 
-
 void Game::setBplay(bool b)
 {
 	bPlay = b;
@@ -65,7 +55,6 @@ void Game::setBplay(bool b)
 const SoundManager* Game::getSoundManager() const {
 	return &soundManager;
 }
-
 
 void Game::initShaders()
 {
@@ -97,57 +86,13 @@ void Game::initShaders()
 	fShader.free();
 }
 
-/*void Game::keyPressed(int key)
+int Game::getBestBreakIn()
 {
-	if(key == 27) // Escape code
-		bPlay = false;
-	keys[key] = true;
-}
-
-void Game::keyReleased(int key)
-{
-	keys[key] = false;
-}
-
-void Game::specialKeyPressed(int key)
-{
-	specialKeys[key] = true;
-}
-
-void Game::specialKeyReleased(int key)
-{
-	specialKeys[key] = false;
-}
-
-void Game::mouseMove(int x, int y)
-{
-}
-
-void Game::mousePress(int button)
-{
-}
-
-void Game::mouseRelease(int button)
-{
-}*/
-
-/*bool Game::getKey(int key) const
-{
-	return keys[key];
-}
-
-bool Game::getSpecialKey(int key) const
-{
-	return specialKeys[key];
-}*/
-
-
-int Game::getBestBreakIn() {
 	return bestBreakIn;
 }
 
-
-void Game::setBestBreakIn(int best) {
+void Game::setBestBreakIn(int best)
+{
 	if (best > bestBreakIn)
 		bestBreakIn = best;
 }
