@@ -8,17 +8,11 @@
 #include <GL/glut.h>
 
 
-
-#define SCREEN_X 32 //tiene que se igual al de PlayGameState.cpp
+#define SCREEN_X 32
 #define SCREEN_Y 48
-
-#define INIT_PLAYER_X_TILES 4
-#define INIT_PLAYER_Y_TILES 25
 
 void Animation::init()
 {
-	//glClearColor(1.f, 0.0f, 0.0f, 1.0f);
-
 	initShaders();
 
 	spritesheet.loadFromFile("images/animationBackground.png", TEXTURE_PIXEL_FORMAT_RGBA);
@@ -35,8 +29,6 @@ void Animation::init()
 
 	soundManager = Game::instance().getSoundManager();
 	music_player = soundManager->loadSound("sounds/thief.mp3", FMOD_DEFAULT);
-	
-
 }
 
 void Animation::restart()
@@ -58,8 +50,6 @@ void Animation::update(int deltaTime)
 	if (thief->getPosition().x >= 325) {
 		PlayGameState::instance().stopAnimation();
 	}
-
-
 }
 
 void Animation::render()
