@@ -7,7 +7,6 @@
 #include "PlayGameState.h"
 
 
-
 enum PlayerAnims
 {
 	STRIKE
@@ -15,7 +14,6 @@ enum PlayerAnims
 
 void Lightning::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 {
-
 	posLightning.y = 0;
 	posLightning.x = (rand() % 310) - 40;
 
@@ -41,7 +39,6 @@ void Lightning::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 	tileMapDispl = tileMapPos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posLightning.x), float(tileMapDispl.y + posLightning.y)));
 
-
 	spritesheet2.loadFromFile("images/start_lightning.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	electric_ball = Sprite::createSprite(glm::ivec2(40, 40), glm::vec2(0.5, 0.5), &spritesheet2, &shaderProgram);
 	electric_ball->setNumberAnimations(1);
@@ -54,43 +51,19 @@ void Lightning::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 	electric_ball->setPosition(glm::vec2(float(tileMapDispl.x + 50), float(tileMapDispl.y + 50)));
 	electric_ball->changeAnimation(STRIKE);
 
-
 	counter_restart = rand() % 3000;
 	eBall = false;
 	isStrike = false;
 
-
 	soundManager = Game::instance().getSoundManager();
 	music_shotgun = soundManager->loadSound("sounds/shotgun.mp3", FMOD_DEFAULT);
 	music_eBall = soundManager->loadSound("sounds/eBall.mp3", FMOD_DEFAULT);
-
-
 }
 
 void Lightning::update(int deltaTime)
 {
-	//counter += deltaTime;
-	//if (counter > 580) {
-	//	posLightning.x = (rand() % 310) -40;
-	//	posLightning.x = 50;
-	//	sprite->changeAnimation(STRIKE);
-	//	counter = 0;
-	//}
-
-	//if (counter < 250 && !PlayGameState::instance().getGodMode() && !PlayGameState::instance().getIsDead()) {
-
-	//	glm::vec2 posPlayer = PlayGameState::instance().getPlayerPosition();
-	//	if ((posLightning.x + 91) > posPlayer.x && (posPlayer.x + 38) > (posLightning.x + 75))
-	//	{
-	//		PlayGameState::instance().lost_life();
-	//		//isDead = true;
-	//	}
-	//}
-
-
 	if (PlayGameState::instance().getStarted())
 	{
-
 		if (isStrike)
 		{
 			counter_strike -= deltaTime;
@@ -106,12 +79,9 @@ void Lightning::update(int deltaTime)
 				if ((posLightning.x + 91) > posPlayer.x && (posPlayer.x + 38) > (posLightning.x + 75))
 				{
 					PlayGameState::instance().lost_life();
-					//isDead = true;
 				}
 			}
 		}
-
-
 		else if (eBall)
 		{
 			counter_ball -= deltaTime;
@@ -127,29 +97,24 @@ void Lightning::update(int deltaTime)
 				channel->setVolume(0.5f);
 
 				map->collisionMoveLeft(glm::vec2(posLightning.x + 83, 16), glm::vec2(1, 352));
-
 			}
 		}
-
 		else if (counter_restart <= 0) {
 			eBall = true;
 			counter_ball = 2000;
 			channel = soundManager->playSound(music_eBall);
 
 		}
-
 		else
 		{
 			counter_restart -= deltaTime;
 		}
-
 
 		sprite->update(deltaTime);
 		sprite->setPosition(glm::vec2(float(tileMapDispl.x + posLightning.x), float(tileMapDispl.y + posLightning.y)));
 
 		electric_ball->update(deltaTime);
 		electric_ball->setPosition(glm::vec2(float(tileMapDispl.x + posLightning.x + 64), float(tileMapDispl.y - 32)));
-
 	}
 	else {
 		channel->stop();
@@ -158,7 +123,6 @@ void Lightning::update(int deltaTime)
 		eBall = false;
 		isStrike = false;
 	}
-
 }
 
 void Lightning::render()
@@ -171,14 +135,12 @@ void Lightning::render()
 	{
 		electric_ball->render();
 	}
-
 }
 
 void Lightning::setTileMap(TileMap* tileMap)
 {
 	map = tileMap;
 }
-
 
 void Lightning::setPosition(const glm::vec2& pos)
 {
