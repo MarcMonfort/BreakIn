@@ -19,7 +19,16 @@ private:
 	Texture spritesheet;
 	Sprite* sprite;
 
-	int counter = 0;
+	Texture spritesheet2;
+	Sprite* electric_ball;
+
+	int counter_strike = 0;
+	int counter_ball = 0;
+	int counter_restart = 0;
+
+	bool eBall;
+	bool isStrike;
+
 };
 
 

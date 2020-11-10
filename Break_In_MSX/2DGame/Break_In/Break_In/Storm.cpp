@@ -29,7 +29,7 @@ void Storm::init(TileMap* tileMap, ShaderProgram& shaderProgram)
 
 	lightning = new Lightning();
 	lightning->init(glm::ivec2(SCREEN_X, SCREEN_Y), shaderProgram);
-	lightning->setPosition(glm::vec2(50, 0));
+	//lightning->setPosition(glm::vec2(50, 0));
 
 	currentTime = 0;
 	started = false;
@@ -77,6 +77,8 @@ void Storm::update(int deltaTime)
 
 void Storm::render()
 {
+	cloud1->render();
+	cloud2->render();
 
 	if (started)
 	{
@@ -87,6 +89,4 @@ void Storm::render()
 		lightning->render();
 	}
 
-	cloud1->render();
-	cloud2->render();
 }
