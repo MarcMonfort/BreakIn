@@ -249,23 +249,23 @@ bool TileMap::collisionPoint(const glm::ivec2& pos, int type)
 }
 
 
-//bool TileMap::collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size)
-//{
-//	int x, y0, y1;
-//	
-//	x = pos.x / tileSize;
-//	y0 = pos.y / tileSize;
-//	y1 = (pos.y + size.y - 1) / tileSize;
-//	for(int y=y0; y<=y1; y++)
-//	{
-//		if (map[y * mapSize.x + x] != 0)
-//		{
-//			return treatCollision(y * mapSize.x + x);
-//		}
-//	}
-//	
-//	return false;
-//}
+bool TileMap::collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size)
+{
+	int x, y0, y1;
+	
+	x = pos.x / tileSize;
+	y0 = pos.y / tileSize;
+	y1 = (pos.y + size.y - 1) / tileSize;
+	for(int y=y0; y<=y1; y++)
+	{
+		if (map[y * mapSize.x + x] != 0)
+		{
+			treatCollision(y * mapSize.x + x, 0);
+		}
+	}
+	
+	return false;
+}
 //
 //bool TileMap::collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size)
 //{

@@ -29,7 +29,7 @@ public:
 	
 	int getTileSize() const { return tileSize; }
 
-	//bool collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) ;	//why was const???
+	bool collisionMoveLeft(const glm::ivec2 &pos, const glm::ivec2 &size) ;	//why was const???
 	//bool collisionMoveRight(const glm::ivec2 &pos, const glm::ivec2 &size) ;
 	//bool collisionMoveUp(const glm::ivec2& pos, const glm::ivec2& size) ;
 	//bool collisionMoveDown(const glm::ivec2 &pos, const glm::ivec2 &size) ;

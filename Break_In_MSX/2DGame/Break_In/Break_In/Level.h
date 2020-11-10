@@ -87,6 +87,8 @@ private:
 
 	bool bCloud = false;
 	bool bStorm = false;
+
+	bool bHasCloud = false;
 	Storm* storm;
 
 

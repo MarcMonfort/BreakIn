@@ -30,6 +30,7 @@ void Storm::init(TileMap* tileMap, ShaderProgram& shaderProgram)
 
 	lightning = new Lightning();
 	lightning->init(glm::ivec2(SCREEN_X, SCREEN_Y), shaderProgram);
+	lightning->setTileMap(tileMap);
 	//lightning->setPosition(glm::vec2(50, 0));
 
 	currentTime = 0;
@@ -104,6 +105,7 @@ void Storm::setMusic(bool b) {
 	}
 	else {
 		channel->stop();
+		lightning->stopMusic();
 	}
 }
 

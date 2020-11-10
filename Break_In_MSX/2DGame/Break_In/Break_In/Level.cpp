@@ -46,6 +46,7 @@ void Level::createLevel(int numLevel, int numMap)
 
 	if (map->hasCloud())
 	{
+		bHasCloud = true;
 		bCloud = false;
 		bStorm = false;
 		cloudCounter = 0;
@@ -80,7 +81,7 @@ void Level::update(int deltaTime)
 		guard->update(deltaTime);
 	}
 
-	if (map->hasCloud())
+	if (bHasCloud)
 	{
 		if (bStorm) {
 			storm->update(deltaTime);
@@ -153,7 +154,7 @@ void Level::render()
 		}
 	}
   
-	if (map->hasCloud()) {
+	if (bHasCloud) {
 		if (bStorm) {
 			storm->render();
 		}
@@ -177,6 +178,13 @@ void Level::createStorm()
 
 		bStorm = true;
 	}
+	if (!bHasCloud)
+	{
+		bHasCloud = true;
+		cloudCounter = 0;
+		cloud = new Cloud();
+		cloud->init();
+	}
 }
 
 void Level::resetGuard()
@@ -184,6 +192,9 @@ void Level::resetGuard()
 	if (bAlarm) {
 		guard->setPosition(glm::vec2(SCREEN_X - 8, SCREEN_Y + 312));
 		guard->reset();
+	}
+	if (bStorm) {
+		storm->reset();
 	}
 }
 

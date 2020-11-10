@@ -31,10 +31,9 @@ void Ball::update(int deltaTime, glm::vec2 posPlayer)
 
 	if (PlayGameState::instance().getStarted()) {
 
-		glm::fvec2 center_0 = glm::fvec2(posBall.x + radi, posBall.y + radi);
 		posBall.y += velocity.y;
 		posBall.x += velocity.x;
-		center = glm::fvec2(center_0.x + velocity.x, center_0.y + velocity.y);
+		center = glm::fvec2(posBall.x + radi + velocity.x, posBall.y + radi + velocity.y);
 
 
 		if (map->checkCollision(glm::ivec2(center.x, center.y - radi))) {

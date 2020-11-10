@@ -100,7 +100,7 @@ void Lightning::update(int deltaTime)
 				counter_restart = rand() % 3000;
 				posLightning.x = (rand() % 310) - 40;
 			}
-			else if (!PlayGameState::instance().getGodMode() && !PlayGameState::instance().getIsDead())
+			else if (!PlayGameState::instance().getGodMode() && !PlayGameState::instance().getIsDead() && counter_strike > 350)
 			{
 				glm::vec2 posPlayer = PlayGameState::instance().getPlayerPosition();
 				if ((posLightning.x + 91) > posPlayer.x && (posPlayer.x + 38) > (posLightning.x + 75))
@@ -124,6 +124,8 @@ void Lightning::update(int deltaTime)
 				sprite->changeAnimation(STRIKE);
 				channel->stop();
 				channel = soundManager->playSound(music_shotgun);
+
+				map->collisionMoveLeft(glm::vec2(posLightning.x + 83, 16), glm::vec2(1, 352));
 
 			}
 		}
@@ -149,6 +151,7 @@ void Lightning::update(int deltaTime)
 
 	}
 	else {
+		channel->stop();
 		counter_restart = rand() % 3000;
 		posLightning.x = (rand() % 310) - 40;
 		eBall = false;
@@ -170,6 +173,11 @@ void Lightning::render()
 
 }
 
+void Lightning::setTileMap(TileMap* tileMap)
+{
+	map = tileMap;
+}
+
 
 void Lightning::setPosition(const glm::vec2& pos)
 {
@@ -188,4 +196,11 @@ void Lightning::reset()
 
 	eBall = false;
 	isStrike = false;
+
+	channel->stop();
+}
+
+void Lightning::stopMusic()
+{
+	channel->stop();
 }

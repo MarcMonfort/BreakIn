@@ -16,6 +16,11 @@ public:
 
 	void reset();
 
+	void stopMusic();
+
+	void setTileMap(TileMap* tileMap);
+
+
 private:
 	glm::ivec2 tileMapDispl, posLightning;
 	Texture spritesheet;
@@ -35,6 +40,9 @@ private:
 	FMOD::Sound* music_shotgun;
 	FMOD::Sound* music_eBall;
 	FMOD::Channel* channel;
+
+	TileMap* map;
+
 
 };
 
