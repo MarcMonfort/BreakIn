@@ -1,5 +1,0 @@
-﻿  Circle.cpp
-C:\Users\Marc\Desktop\New folder\OpenGL\02-primitives\02-primitives\Circle.cpp(31,29): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\Marc\Desktop\New folder\OpenGL\02-primitives\02-primitives\Circle.cpp(42,26): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\Marc\Desktop\New folder\OpenGL\02-primitives\02-primitives\Circle.cpp(43,26): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  02-primitives.vcxproj -> C:\Users\Marc\Desktop\New folder\OpenGL\02-primitives\Debug\02-primitives.exe

@@ -1,10 +1,9 @@
 **/.vs
-VJ-exercicis/
 *.log
 *.obj
-Break_In_MSX/2DGame/Break_In/Break_In/Debug/
-Break_In_MSX/2DGame/Break_In/Debug/Break_In.exe
-Break_In_MSX/2DGame/Break_In/Debug/Break_In.ilk
-Break_In_MSX/2DGame/Break_In/Debug/Break_In.pdb
+Break_In/Debug/
+Debug/Break_In.exe
+Debug/Break_In.ilk
+Debug/Break_In.pdb
 
 
