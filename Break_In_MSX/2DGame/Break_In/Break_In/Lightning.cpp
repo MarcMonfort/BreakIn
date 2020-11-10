@@ -124,6 +124,7 @@ void Lightning::update(int deltaTime)
 				sprite->changeAnimation(STRIKE);
 				channel->stop();
 				channel = soundManager->playSound(music_shotgun);
+				channel->setVolume(0.5f);
 
 				map->collisionMoveLeft(glm::vec2(posLightning.x + 83, 16), glm::vec2(1, 352));
 

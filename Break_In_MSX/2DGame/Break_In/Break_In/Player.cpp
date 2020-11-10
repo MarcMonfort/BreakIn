@@ -130,7 +130,7 @@ void Player::update(int deltaTime, glm::vec2 posBall)
 			sprite->changeAnimation(DEAD);
 			deadCounter = 0;
 			channel = soundManager->playSound(music_dead);
-			channel->setVolume(10);
+			channel->setVolume(5);
 
 		}
 		else {
