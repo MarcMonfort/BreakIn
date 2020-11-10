@@ -30,7 +30,6 @@ void Thief::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 	sprite->changeAnimation(MOVE_RIGHT);
 	tileMapDispl = tileMapPos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
-
 }
 
 void Thief::update(int deltaTime)
@@ -50,7 +49,6 @@ void Thief::render()
 {
 	sprite->render();
 }
-
 
 void Thief::setPosition(const glm::vec2& pos)
 {
