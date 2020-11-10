@@ -8,7 +8,7 @@
 #include <GL/glut.h>
 
 
-#define SCREEN_X 32 //tiene que se igual al de PlayGameState.cpp
+#define SCREEN_X 32
 #define SCREEN_Y 48
 
 #define INIT_PLAYER_X_TILES 4
@@ -16,8 +16,6 @@
 
 void Victory::init()
 {
-	//glClearColor(1.f, 0.0f, 0.0f, 1.0f);
-
 	initShaders();
 
 	spritesheet.loadFromFile("images/victoryBackground.png", TEXTURE_PIXEL_FORMAT_RGBA);
@@ -128,7 +126,6 @@ void Victory::update(int deltaTime)
 
 void Victory::render()
 {
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glm::mat4 modelview;
 	texProgram.use();
 	texProgram.setUniformMatrix4f("projection", projection);
