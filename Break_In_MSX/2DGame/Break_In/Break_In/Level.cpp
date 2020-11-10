@@ -49,6 +49,23 @@ void Level::createLevel(int numLevel, int numMap)
 	//drop->setPosition(glm::vec2(INIT_BALL_X_TILES * map->getTileSize(), INIT_BALL_Y_TILES * map->getTileSize()));
 	//drop->setTileMap(map);
 
+
+
+	if (map->hasCloud())
+	{
+		bCloud = false;
+		bStorm = false;
+		cloudCounter = 0;
+		cloud = new Cloud();
+		cloud->init();
+
+		int minCounterLimit = 15000; //15s
+		int maxCounterLimit = 60000; //60s
+		std::random_device rand_dev;
+		std::mt19937 generator(rand_dev());
+		std::uniform_int_distribution<int> distr(minCounterLimit, maxCounterLimit);
+		cloudCounterLimit = distr(generator);
+	}
 	isStorm = false;
 
 	
@@ -72,6 +89,20 @@ void Level::update(int deltaTime)
 		ring->update(deltaTime);
 		guard->update(deltaTime);
 
+	}
+
+	if (map->hasCloud())
+	{
+		if (bCloud) {
+			cloud->update(deltaTime);
+		}
+		else {
+			cloudCounter += deltaTime;
+			if (cloudCounter > cloudCounterLimit) {
+				bCloud = true;
+				cloudCounter = 0;
+			}
+		}
 	}
 
 
@@ -140,6 +171,8 @@ void Level::render()
 	}
 
 
+
+
 	if (isStorm)
 	{
 		/*for (int i = 0; i < 10; ++i) {
@@ -150,7 +183,13 @@ void Level::render()
 
 		storm->render();
 	}
+  
+  if (map->hasCloud() && bCloud) {
+		if (transY == 0)
+			cloud->render();
+  }
 }
+
 
 void Level::createStorm()
 {
@@ -263,4 +302,10 @@ void Level::initShaders()
 	texProgram.bindFragmentOutput("outColor");
 	vShader.free();
 	fShader.free();
+}
+
+void Level::cloud_taken() {
+	bCloud = false;
+	bStorm = true;
+	cloud->reinitCloud();
 }

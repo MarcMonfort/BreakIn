@@ -14,6 +14,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimKeyframes.h" />
     <ClInclude Include="Ball.h" />
+    <ClInclude Include="Cloud.h" />
     <ClInclude Include="CreditsGameState.h" />
     <ClInclude Include="Drop.h" />
     <ClInclude Include="Game.h" />
@@ -41,6 +42,7 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Ball.cpp" />
+    <ClCompile Include="Cloud.cpp" />
     <ClCompile Include="CreditsGameState.cpp" />
     <ClCompile Include="Drop.cpp" />
     <ClCompile Include="Game.cpp" />

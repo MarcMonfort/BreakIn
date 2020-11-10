@@ -69,6 +69,7 @@ public:
 
 	void winGame();
 
+	void cloud_taken();
 	bool getIsDead();
 
 	void lessLife();

@@ -58,6 +58,8 @@ public:
 	bool noMoneyLeft();
 	void setAlarm(bool alarm);
 	glm::vec2 getRingPosition();
+
+	bool hasCloud();
 	
 	
 private:
@@ -97,6 +99,8 @@ private:
 	FMOD::Sound* drop_block1;
 	FMOD::Sound* drop_block2;
 	FMOD::Channel* channel;
+
+	bool bCloud = false;
 };
 
 

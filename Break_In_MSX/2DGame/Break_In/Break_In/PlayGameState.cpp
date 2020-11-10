@@ -561,3 +561,7 @@ void PlayGameState::winGame() {
 	endPointMoneyTransition();
 	GAME_END = true;
 }
+
+void PlayGameState::cloud_taken() {
+	levels[currentMap]->cloud_taken();
+}
