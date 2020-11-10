@@ -60,6 +60,10 @@ void Lightning::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 	isStrike = false;
 
 
+	soundManager = Game::instance().getSoundManager();
+	music_shotgun = soundManager->loadSound("sounds/shotgun.mp3", FMOD_DEFAULT);
+	music_eBall = soundManager->loadSound("sounds/eBall.mp3", FMOD_DEFAULT);
+
 
 }
 
@@ -91,7 +95,7 @@ void Lightning::update(int deltaTime)
 		{
 			counter_strike -= deltaTime;
 
-			if (counter_strike <= 0 && !PlayGameState::instance().getIsDead()) {
+			if (counter_strike <= 0) { 
 				isStrike = false;
 				counter_restart = rand() % 3000;
 				posLightning.x = (rand() % 310) - 40;
@@ -118,12 +122,17 @@ void Lightning::update(int deltaTime)
 				isStrike = true;
 				counter_strike = 580;
 				sprite->changeAnimation(STRIKE);
+				channel->stop();
+				channel = soundManager->playSound(music_shotgun);
+
 			}
 		}
 
 		else if (counter_restart <= 0) {
 			eBall = true;
 			counter_ball = 2000;
+			channel = soundManager->playSound(music_eBall);
+
 		}
 
 		else
@@ -138,6 +147,12 @@ void Lightning::update(int deltaTime)
 		electric_ball->update(deltaTime);
 		electric_ball->setPosition(glm::vec2(float(tileMapDispl.x + posLightning.x + 64), float(tileMapDispl.y - 32)));
 
+	}
+	else {
+		counter_restart = rand() % 3000;
+		posLightning.x = (rand() % 310) - 40;
+		eBall = false;
+		isStrike = false;
 	}
 
 }
@@ -164,4 +179,13 @@ void Lightning::setPosition(const glm::vec2& pos)
 
 glm::vec2 Lightning::getPosition() {
 	return posLightning;
+}
+
+void Lightning::reset()
+{
+	counter_restart = rand() % 3000;
+	posLightning.x = (rand() % 310) - 40;
+
+	eBall = false;
+	isStrike = false;
 }

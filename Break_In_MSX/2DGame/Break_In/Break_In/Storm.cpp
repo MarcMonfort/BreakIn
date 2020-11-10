@@ -1,4 +1,6 @@
 #include "Storm.h"
+#include "Game.h"
+
 
 #define SCREEN_X 32 //tiene que se igual al de PlayGameState.cpp
 #define SCREEN_Y 48
@@ -33,6 +35,13 @@ void Storm::init(TileMap* tileMap, ShaderProgram& shaderProgram)
 
 	currentTime = 0;
 	started = false;
+
+	soundManager = Game::instance().getSoundManager();
+	music_rain = soundManager->loadSound("sounds/heavy_rain.mp3", FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
+	channel = soundManager->playSound(music_rain);
+	channel->setVolume(0.2f);
+
+
 }
 
 
@@ -89,4 +98,30 @@ void Storm::render()
 		lightning->render();
 	}
 
+}
+
+
+void Storm::setMusic(bool b) {
+	if (b) {
+		channel = soundManager->playSound(music_rain);
+		channel->setVolume(0.5f);
+	}
+	else {
+		channel->stop();
+	}
+}
+
+void Storm::reset() {
+	currentTime = 0;
+	started = false;
+
+
+	posC1 = glm::vec2(-70, -50);
+	//cloud1->setPosition(glm::vec2(40,-50));
+	cloud1->setPosition(posC1);
+
+	posC2 = glm::vec2(320, -50);
+	cloud2->setPosition(posC2);
+
+	lightning->reset();
 }

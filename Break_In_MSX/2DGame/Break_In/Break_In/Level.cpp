@@ -195,6 +195,10 @@ void Level::setMusic(bool music)
 			channel->stop();
 		}
 	}
+	if (isStorm) {
+		storm->setMusic(music);
+
+	}
 }
 
 void Level::setAlarm(bool alarm)
@@ -215,6 +219,7 @@ void Level::setTransition(int transition)
 
 void Level::deleteALL()
 {
+	setMusic(false);
 	if (bRing) {
 		delete ring;
 		delete guard;

@@ -15,6 +15,9 @@ public:
 	void update(int deltaTime);
 	void render();
 
+	void setMusic(bool b);
+	void reset();
+
 private:
 	Drop* drop;
 	vector<Drop*> drops;
@@ -32,6 +35,11 @@ private:
 	glm::vec2 posC2;
 
 	bool started;
+
+
+	const SoundManager* soundManager;
+	FMOD::Sound* music_rain;
+	FMOD::Channel* channel;
 };
 
 #endif

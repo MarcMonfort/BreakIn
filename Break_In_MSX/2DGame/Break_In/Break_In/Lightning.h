@@ -14,6 +14,8 @@ public:
 	void setPosition(const glm::vec2& pos);
 	glm::vec2 getPosition();
 
+	void reset();
+
 private:
 	glm::ivec2 tileMapDispl, posLightning;
 	Texture spritesheet;
@@ -28,6 +30,11 @@ private:
 
 	bool eBall;
 	bool isStrike;
+
+	const SoundManager* soundManager;
+	FMOD::Sound* music_shotgun;
+	FMOD::Sound* music_eBall;
+	FMOD::Channel* channel;
 
 };
 
