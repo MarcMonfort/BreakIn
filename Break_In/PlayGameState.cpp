@@ -1,5 +1,4 @@
 #include "PlayGameState.h"
-
 #include <iostream>
 #include <cmath>
 #include <glm/gtc/matrix_transform.hpp>
@@ -20,15 +19,13 @@
 #define INIT_BALL_X_TILES 11
 #define INIT_BALL_Y_TILES 21.5
 
-
-
 void PlayGameState::init()
 {
 	initShaders();
 
-	currentMap = 0; // = 0!!
+	currentMap = 0;
 	previousMap = 0;
-	currentLevel = 1; //se podria enviar por parametro en init()
+	currentLevel = 1;
 
 	Level* first = new Level();
 	first->createLevel(currentLevel, currentMap+1);
@@ -42,7 +39,6 @@ void PlayGameState::init()
 	godMode_spritesheet.loadFromFile("images/godmode.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	godMode_sprite = Sprite::createSprite(glm::ivec2(128, 16), glm::vec2(1.f, 1.f), &godMode_spritesheet, &texProgram);
 	godMode_sprite->setPosition(glm::vec2(160, 445));
-
 
 	player = new Player();
 	player->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
@@ -198,9 +194,8 @@ void PlayGameState::render()
 		}
 		levels[currentMap]->render();
 
-
-		player->render(); //creo que es mejor que este render lo haga el Level
-		ball->render();		//con una funcion setPlayer(Player* player)
+		player->render();
+		ball->render();
 	}
 	else {
 		if (!bVict)
@@ -241,7 +236,7 @@ void PlayGameState::nextMap()
 	room += 1;
 	if (levels.size() <= currentMap)
 	{
-		Level* newMap = new Level();  //recordar liberar espacio delete()
+		Level* newMap = new Level();
 		newMap->createLevel(currentLevel, currentMap + 1);
 		levels.push_back(newMap);
 	}
@@ -286,7 +281,6 @@ void PlayGameState::lastMap()
 		lost_life();
 	}
 }
-
 
 void PlayGameState::nextLevel() {
 	bAnim = true;
@@ -362,7 +356,6 @@ void PlayGameState::setLevel(int level) {
 
 		started = false;
 		countStarted = 0;
-
 	}
 }
 
@@ -540,23 +533,26 @@ void PlayGameState::addMoney(int addedMoney)
 	money += addedMoney;
 }
 
-bool PlayGameState::getStarted() {
+bool PlayGameState::getStarted()
+{
 	return started;
 }
 
-void PlayGameState::setStarted(bool b) {
+void PlayGameState::setStarted(bool b)
+{
 	started = b;
 	if (!started)
 		countStarted = 0;
 }
 
-void PlayGameState::endPointMoneyTransition() {
+void PlayGameState::endPointMoneyTransition()
+{
 	money += points;
 	points = 0;
 }
 
-void PlayGameState::winGame() {
-
+void PlayGameState::winGame()
+{
 	bAnim = false;
 	bVict = false;
 	victory->stopMusic();
@@ -564,6 +560,7 @@ void PlayGameState::winGame() {
 	GAME_END = true;
 }
 
-void PlayGameState::cloud_taken() {
+void PlayGameState::cloud_taken()
+{
 	levels[currentMap]->cloud_taken();
 }
