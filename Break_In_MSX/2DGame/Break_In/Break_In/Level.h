@@ -14,6 +14,7 @@
 #include "Guard.h"
 #include "SoundManager.h"
 #include "Cloud.h"
+#include "Storm.h"
 
 
 class Level
@@ -43,6 +44,8 @@ public:
 	void deleteALL();
 
 	void cloud_taken();
+	void createStorm();
+
 
 private:
 	void initShaders();
@@ -77,6 +80,8 @@ private:
 
 
 
+	bool isStorm;
+
 	Drop* drop;
 	vector<Drop*> drops;
 
@@ -86,6 +91,8 @@ private:
 
 	bool bCloud = false;
 	bool bStorm = false;
+	Storm* storm;
+
 
 	int cloudCounter = 0;
 	int cloudCounterLimit;

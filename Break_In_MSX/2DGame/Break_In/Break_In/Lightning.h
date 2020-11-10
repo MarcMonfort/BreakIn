@@ -14,12 +14,28 @@ public:
 	void setPosition(const glm::vec2& pos);
 	glm::vec2 getPosition();
 
+	void reset();
+
 private:
 	glm::ivec2 tileMapDispl, posLightning;
 	Texture spritesheet;
 	Sprite* sprite;
 
-	int counter = 0;
+	Texture spritesheet2;
+	Sprite* electric_ball;
+
+	int counter_strike = 0;
+	int counter_ball = 0;
+	int counter_restart = 0;
+
+	bool eBall;
+	bool isStrike;
+
+	const SoundManager* soundManager;
+	FMOD::Sound* music_shotgun;
+	FMOD::Sound* music_eBall;
+	FMOD::Channel* channel;
+
 };
 
 

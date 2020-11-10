@@ -136,29 +136,29 @@ bool TileMap::loadLevel(const string &levelFile)
 	fin.close();
 
 	thereIsMoney = money_items != 0;
-		
+
 	return true;
 }
 
-void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
+void TileMap::prepareArrays(const glm::vec2& minCoords, ShaderProgram& program)
 {
 	int tile, nTiles = 0;
 	glm::vec2 posTile, texCoordTile[2], halfTexel;
 	vector<float> vertices;
-	
+
 	halfTexel = glm::vec2(0.5f / tilesheet.width(), 0.5f / tilesheet.height());
-	for(int j=0; j<mapSize.y; j++)
+	for (int j = 0; j < mapSize.y; j++)
 	{
-		for(int i=0; i<mapSize.x; i++)
+		for (int i = 0; i < mapSize.x; i++)
 		{
 			tile = map[j * mapSize.x + i];
-			if(tile != 0)
+			if (tile != 0)
 			{
 				// Non-empty tile
 				nTiles++;
 				posTile = glm::vec2(minCoords.x + i * tileSize, minCoords.y + j * tileSize);
 				//texCoordTile[0] = glm::vec2(float((tile-1)%2) / tilesheetSize.x, float((tile-1)/2) / tilesheetSize.y);
-				texCoordTile[0] = glm::vec2(float((tile-1)%tilesheetSize.x) / tilesheetSize.x, float((tile-1)/tilesheetSize.y) / tilesheetSize.y); //NEW
+				texCoordTile[0] = glm::vec2(float((tile - 1) % tilesheetSize.x) / tilesheetSize.x, float((tile - 1) / tilesheetSize.y) / tilesheetSize.y); //NEW
 				texCoordTile[1] = texCoordTile[0] + tileTexSize;
 				//texCoordTile[0] += halfTexel;
 				texCoordTile[1] -= halfTexel;  //¿¿que es esto?
@@ -185,8 +185,8 @@ void TileMap::prepareArrays(const glm::vec2 &minCoords, ShaderProgram &program)
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER, 24 * nTiles * sizeof(float), &vertices[0], GL_STATIC_DRAW);
-	posLocation = program.bindVertexAttribute("position", 2, 4*sizeof(float), 0);
-	texCoordLocation = program.bindVertexAttribute("texCoord", 2, 4*sizeof(float), (void *)(2*sizeof(float)));
+	posLocation = program.bindVertexAttribute("position", 2, 4 * sizeof(float), 0);
+	texCoordLocation = program.bindVertexAttribute("texCoord", 2, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 }
 
 
@@ -228,24 +228,22 @@ void TileMap::setAlarm(bool alarm)
 
 bool TileMap::checkCollision(const glm::ivec2& pos)
 {
-	int x, y;
-
-	x = pos.x / tileSize;
-	y = pos.y / tileSize;
-	if (map[y * mapSize.x + x] != 0)
-		return true;
+	int posPoint = (pos.y / tileSize) * mapSize.x + (pos.x / tileSize);
+	if ((posPoint) < mapSize.x * mapSize.y) {
+		if (map[posPoint] != 0)
+			return true;
+	}
 
 	return false;
 }
 
 bool TileMap::collisionPoint(const glm::ivec2& pos, int type)
 {
-	int x, y;
-
-	x = pos.x / tileSize;
-	y = pos.y / tileSize;
-	if (map[y * mapSize.x + x] != 0)
-		return treatCollision(y * mapSize.x + x, type);
+	int posPoint = (pos.y / tileSize) * mapSize.x + (pos.x / tileSize);
+	if ((posPoint) < mapSize.x * mapSize.y) {
+		if (map[posPoint] != 0)
+			return treatCollision(posPoint, type);
+	}
 
 	return false;
 }

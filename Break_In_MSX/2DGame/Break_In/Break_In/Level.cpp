@@ -49,18 +49,7 @@ void Level::createLevel(int numLevel, int numMap)
 	//drop->setPosition(glm::vec2(INIT_BALL_X_TILES * map->getTileSize(), INIT_BALL_Y_TILES * map->getTileSize()));
 	//drop->setTileMap(map);
 
-	for (int i = 0; i < 10; ++i) {
-		Drop* drop = new Drop(); //usar punteros?
-		drop->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
-		int posX = (rand() % 21)+1;
-		drop->setPosition(glm::vec2(posX * map->getTileSize(), 50));
-		drop->setTileMap(map);
-		drops.push_back(drop);
-	}
 
-	lightning = new Lightning();
-	lightning->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
-	lightning->setPosition(glm::vec2(50, 16));
 
 	if (map->hasCloud())
 	{
@@ -77,6 +66,9 @@ void Level::createLevel(int numLevel, int numMap)
 		std::uniform_int_distribution<int> distr(minCounterLimit, maxCounterLimit);
 		cloudCounterLimit = distr(generator);
 	}
+	isStorm = false;
+
+	
 }
 
 void Level::update(int deltaTime)
@@ -114,12 +106,15 @@ void Level::update(int deltaTime)
 	}
 
 
-	//drop->update(deltaTime, glm::vec2(50, 50));
-	for (int i = 0; i < 10; ++i) {
-		drops[i]->update(deltaTime, glm::vec2(50, 50));
-	}
+	if (isStorm)
+	{
+		/*for (int i = 0; i < 10; ++i) {
+			drops[i]->update(deltaTime, glm::vec2(50, 50));
+		}
 
-	lightning->update(deltaTime);
+		lightning->update(deltaTime);*/
+		storm->update(deltaTime);
+	}
 }
 
 void Level::render()
@@ -175,16 +170,48 @@ void Level::render()
 		}
 	}
 
-	//drop->render();
-	for (int i = 0; i < 10; ++i) {
-		drops[i]->render();
+
+
+
+	if (isStorm)
+	{
+		/*for (int i = 0; i < 10; ++i) {
+			drops[i]->render();
+		}
+
+		lightning->render();*/
+
+		storm->render();
 	}
-
-	lightning->render();
-
-	if (map->hasCloud() && bCloud) {
+  
+  if (map->hasCloud() && bCloud) {
 		if (transY == 0)
 			cloud->render();
+  }
+}
+
+
+void Level::createStorm()
+{
+	if (!isStorm)
+	{
+		//for (int i = 0; i < 10; ++i) {
+		//	Drop* drop = new Drop(); //usar punteros?
+		//	drop->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+		//	int posX = (rand() % 21) + 1;
+		//	drop->setPosition(glm::vec2(posX * map->getTileSize(), 50));
+		//	drop->setTileMap(map);
+		//	drops.push_back(drop);
+		//}
+
+		//lightning = new Lightning();
+		//lightning->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
+		//lightning->setPosition(glm::vec2(50, 16));
+
+		storm = new Storm();
+		storm->init(map, texProgram);
+
+		isStorm = true;
 	}
 }
 
@@ -207,6 +234,10 @@ void Level::setMusic(bool music)
 			channel->stop();
 		}
 	}
+	if (isStorm) {
+		storm->setMusic(music);
+
+	}
 }
 
 void Level::setAlarm(bool alarm)
@@ -227,6 +258,7 @@ void Level::setTransition(int transition)
 
 void Level::deleteALL()
 {
+	setMusic(false);
 	if (bRing) {
 		delete ring;
 		delete guard;

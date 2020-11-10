@@ -137,6 +137,7 @@ void Player::update(int deltaTime, glm::vec2 posBall)
 			if (deadCounter > 1700) {
 				isDead = false;
 				setPosition(glm::vec2(176, 328));
+				PlayGameState::instance().lessLife();
 				PlayGameState::instance().setStarted(false);
 				PlayGameState::instance().setIsDead(false);
 				PlayGameState::instance().setAlarm(false);
