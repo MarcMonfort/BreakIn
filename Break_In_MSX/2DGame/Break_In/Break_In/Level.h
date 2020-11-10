@@ -88,6 +88,7 @@ private:
 	bool bStorm = false;
 
 	int cloudCounter = 0;
+	int cloudCounterLimit;
 };
 
 

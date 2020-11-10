@@ -69,6 +69,13 @@ void Level::createLevel(int numLevel, int numMap)
 		cloudCounter = 0;
 		cloud = new Cloud();
 		cloud->init();
+
+		int minCounterLimit = 15000; //15s
+		int maxCounterLimit = 60000; //60s
+		std::random_device rand_dev;
+		std::mt19937 generator(rand_dev());
+		std::uniform_int_distribution<int> distr(minCounterLimit, maxCounterLimit);
+		cloudCounterLimit = distr(generator);
 	}
 }
 
@@ -99,7 +106,7 @@ void Level::update(int deltaTime)
 		}
 		else {
 			cloudCounter += deltaTime;
-			if (cloudCounter > 5000) {
+			if (cloudCounter > cloudCounterLimit) {
 				bCloud = true;
 				cloudCounter = 0;
 			}
