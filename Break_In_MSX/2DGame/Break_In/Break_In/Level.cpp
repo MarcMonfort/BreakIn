@@ -59,16 +59,13 @@ void Level::createLevel(int numLevel, int numMap)
 		cloud = new Cloud();
 		cloud->init();
 
-		int minCounterLimit = 15000; //15s
-		int maxCounterLimit = 60000; //60s
+		int minCounterLimit = 00000; //15s
+		int maxCounterLimit = 10000; //60s
 		std::random_device rand_dev;
 		std::mt19937 generator(rand_dev());
 		std::uniform_int_distribution<int> distr(minCounterLimit, maxCounterLimit);
 		cloudCounterLimit = distr(generator);
-	}
-	isStorm = false;
-
-	
+	}	
 }
 
 void Level::update(int deltaTime)
@@ -103,17 +100,10 @@ void Level::update(int deltaTime)
 				cloudCounter = 0;
 			}
 		}
-	}
 
-
-	if (isStorm)
-	{
-		/*for (int i = 0; i < 10; ++i) {
-			drops[i]->update(deltaTime, glm::vec2(50, 50));
+		if (bStorm) {
+			storm->update(deltaTime);
 		}
-
-		lightning->update(deltaTime);*/
-		storm->update(deltaTime);
 	}
 }
 
@@ -169,49 +159,29 @@ void Level::render()
 			guard->setPosition(aux);
 		}
 	}
-
-
-
-
-	if (isStorm)
-	{
-		/*for (int i = 0; i < 10; ++i) {
-			drops[i]->render();
+  
+	if (map->hasCloud()) {
+		if (bCloud) {
+			if (transY == 0) {
+				cloud->render();
+			}
 		}
 
-		lightning->render();*/
-
-		storm->render();
+		if (bStorm) {
+			storm->render();
+		}
 	}
-  
-  if (map->hasCloud() && bCloud) {
-		if (transY == 0)
-			cloud->render();
-  }
 }
 
 
 void Level::createStorm()
 {
-	if (!isStorm)
+	if (!bStorm)
 	{
-		//for (int i = 0; i < 10; ++i) {
-		//	Drop* drop = new Drop(); //usar punteros?
-		//	drop->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
-		//	int posX = (rand() % 21) + 1;
-		//	drop->setPosition(glm::vec2(posX * map->getTileSize(), 50));
-		//	drop->setTileMap(map);
-		//	drops.push_back(drop);
-		//}
-
-		//lightning = new Lightning();
-		//lightning->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
-		//lightning->setPosition(glm::vec2(50, 16));
-
 		storm = new Storm();
 		storm->init(map, texProgram);
 
-		isStorm = true;
+		bStorm = true;
 	}
 }
 
@@ -234,9 +204,8 @@ void Level::setMusic(bool music)
 			channel->stop();
 		}
 	}
-	if (isStorm) {
+	if (bStorm) {
 		storm->setMusic(music);
-
 	}
 }
 
@@ -306,6 +275,6 @@ void Level::initShaders()
 
 void Level::cloud_taken() {
 	bCloud = false;
-	bStorm = true;
+	createStorm();
 	cloud->reinitCloud();
 }

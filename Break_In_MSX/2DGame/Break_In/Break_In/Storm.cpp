@@ -7,7 +7,6 @@
 
 void Storm::init(TileMap* tileMap, ShaderProgram& shaderProgram)
 {
-
 	spritesheet.loadFromFile("images/big_cloud.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	cloud1 = Sprite::createSprite(glm::ivec2(200, 150), glm::vec2(1, 1), &spritesheet, &shaderProgram);
 	posC1 = glm::vec2(-70, -50);
@@ -48,9 +47,6 @@ void Storm::init(TileMap* tileMap, ShaderProgram& shaderProgram)
 void Storm::update(int deltaTime)
 {
 	currentTime += deltaTime;
-
-	
-
 	
 	if (posC1.x < 30) {
 		posC1.x += 1;

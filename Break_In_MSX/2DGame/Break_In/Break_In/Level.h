@@ -78,10 +78,6 @@ private:
 
 	bool musicOn;
 
-
-
-	bool isStorm;
-
 	Drop* drop;
 	vector<Drop*> drops;
 
