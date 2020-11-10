@@ -5,7 +5,7 @@
 #include "Drop.h"
 #include "Game.h"
 #include "PlayGameState.h"
-#include <algorithm>    // std::max
+#include <algorithm>
 
 
 #define JUMP_ANGLE_STEP 4
@@ -14,13 +14,11 @@
 
 enum DropAnim
 {
-
 	DOWN,
 	LEFT,
 	RIGHT,
 	SPLASH_LEFT,
 	SPLASH_RIGHT,
-
 };
 
 void Drop::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram, float startVelocity)
@@ -50,7 +48,6 @@ void Drop::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram, floa
 	sprite->addKeyframe(SPLASH_RIGHT, glm::vec2(0.5, 0.5));
 	sprite->addKeyframe(SPLASH_RIGHT, glm::vec2(0.75, 0.5));
 
-
 	sprite->changeAnimation(DOWN);
 
 	posDrop.y = -16;
@@ -61,7 +58,6 @@ void Drop::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram, floa
 
 	this->startVelocity = startVelocity;
 	velocity.x = startVelocity;
-	//velocity.x = rand() % 3 - 1;
 	velocity.y = 1;
 
 	jumpAngle = 0;
@@ -75,7 +71,6 @@ void Drop::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram, floa
 	countAnim = 0;
 
 	timeToFall = rand() % 5000;
-	//timeToFall = 0;
 
 	isSplash = false;
 
@@ -87,8 +82,6 @@ void Drop::update(int deltaTime, glm::vec2 posPlayer)
 {
 	sprite->update(deltaTime);
 
-
-
 	if (PlayGameState::instance().getStarted()) {
 
 		if (timeToFall <= 0) {
@@ -96,7 +89,6 @@ void Drop::update(int deltaTime, glm::vec2 posPlayer)
 			isDead = false;
 
 			glm::fvec2 center_0 = glm::fvec2(posDrop.x + radi, posDrop.y + radi);
-			//posDrop.y += velocity.y;
 			posDrop.x += velocity.x;
 			if (posDrop.x > 352) {
 				velocity.x = -abs(velocity.x);
@@ -113,12 +105,6 @@ void Drop::update(int deltaTime, glm::vec2 posPlayer)
 				if (map->checkCollision(glm::ivec2(center.x, center.y + radi))) {
 					if (posDrop.y > 16) {
 						if (map->collisionPoint(glm::ivec2(center.x, center.y + radi), 1)) {	//down
-							//posDrop.y -= velocity.y;
-							if (map->checkCollision(glm::ivec2(center.x, center.y + radi - velocity.y))) {
-								//posDrop.x -= velocity.x;
-								//velocity.x = -velocity.x;
-							}
-							//velocity.y = -abs(velocity.y);
 							if (!bJumping) {
 								bJumping = true;
 								jumpAngle = 0;
@@ -133,9 +119,6 @@ void Drop::update(int deltaTime, glm::vec2 posPlayer)
 									sprite->changeAnimation(RIGHT);
 								else
 									sprite->changeAnimation(LEFT);
-
-
-
 							}
 						}
 					}
@@ -145,11 +128,9 @@ void Drop::update(int deltaTime, glm::vec2 posPlayer)
 			else {
 				if (countAnim > 200) { //restart drop
 					isDead = true;
-					//timeToFall = rand() % 2;
 					countAnim = 0;
 					energy = 1.f;
 					bJumping = false;
-					//velocity.x = rand() % 3 - 1;
 					velocity.x = startVelocity;
 					velocity.y = 1;
 					posDrop.y = -16;
@@ -167,27 +148,19 @@ void Drop::update(int deltaTime, glm::vec2 posPlayer)
 						sprite->changeAnimation(SPLASH_LEFT);
 						countAnim = 0;
 						isSplash = true;
-
 					}
 				}
 			}
 
 			if (!isSplash)
 			{
-
-				// else
 				if (map->checkCollision(glm::ivec2(center.x - 5, center.y))) {
 					if (posDrop.y > 16) {
 						if (map->collisionPoint(glm::ivec2(center.x - 5, center.y), 1)) {	//left
 							posDrop.x -= velocity.x;
-							/*if (map->checkCollision(glm::ivec2(center.x - radi - velocity.x, center.y))) {
-								posDrop.y -= velocity.y;
-								velocity.y = -velocity.y;
-							}*/
 							velocity.x = abs(velocity.x);
 							if (velocity.y < 0)
 								sprite->changeAnimation(RIGHT);
-
 						}
 					}
 				}
@@ -195,18 +168,12 @@ void Drop::update(int deltaTime, glm::vec2 posPlayer)
 					if (posDrop.y > 16) {
 						if (map->collisionPoint(glm::ivec2(center.x + 5, center.y), 1)) {	//right
 							posDrop.x -= velocity.x;
-							/*if (map->checkCollision(glm::ivec2(center.x + radi - velocity.x, center.y))) {
-								posDrop.y -= velocity.y;
-								velocity.y = -velocity.y;
-							}*/
 							velocity.x = -abs(velocity.x);
 							if (velocity.y < 0)
 								sprite->changeAnimation(LEFT);
-
 						}
 					}
 				}
-
 
 				if (bJumping)
 				{
@@ -222,7 +189,6 @@ void Drop::update(int deltaTime, glm::vec2 posPlayer)
 							bJumping = false;
 							velocity.y = 0;
 							sprite->changeAnimation(DOWN);
-
 						}
 					}
 				}
@@ -233,47 +199,27 @@ void Drop::update(int deltaTime, glm::vec2 posPlayer)
 				}
 			}
 			else {
-
 				countAnim += deltaTime;
-
 				velocity.x = 0;
 				velocity.y = 0;
 			}
-			
-			
-
 		}
 		else {
-		timeToFall -= deltaTime;
-
+			timeToFall -= deltaTime;
 		}
-
-
 	}
-	else {
-
-		/*velocity.x = 0;
-		velocity.y = 0;
-		jumpAngle = 0;
-		startY = posDrop.y;*/
-		//posDrop = posPlayer + glm::vec2(8, -22); //Posicio inicial de la pilota sobre la barra del jugador
-	}
-
-	
-	
-
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posDrop.x), float(tileMapDispl.y + posDrop.y)));
 }
 
 void Drop::render()
 {
 	if (!isDead) {
-
 		sprite->render();
 	}
 }
 
-void Drop::setStartVelocity(float v) {
+void Drop::setStartVelocity(float v)
+{
 	startVelocity = v;
 }
 
@@ -355,7 +301,7 @@ bool Drop::collisionPlayer(const glm::ivec2& posPlayer)
 		if (center.y + longSide >= py && center.y + longSide <= py + 10) {
 			if (center.x + shortSide >= pxmin && center.x + shortSide <= pxmax) {
 				if (!PlayGameState::instance().getGodMode()) {
-					float moveX = (abs(pxcenter - (center.x + shortSide)) / (playerWidth / 2)) * 0.9;  // %%% 
+					float moveX = (abs(pxcenter - (center.x + shortSide)) / (playerWidth / 2)) * 0.9;
 					float moveY = 1.f - moveX;
 
 					if (center.x < pxcenter) {
@@ -380,7 +326,7 @@ bool Drop::collisionPlayer(const glm::ivec2& posPlayer)
 			}
 			else if (center.x - shortSide >= pxmin && center.x - shortSide <= pxmax) {
 				if (!PlayGameState::instance().getGodMode()) {
-					float moveX = (abs(pxcenter - (center.x - shortSide)) / (playerWidth / 2)) * 0.9;  // %%% 
+					float moveX = (abs(pxcenter - (center.x - shortSide)) / (playerWidth / 2)) * 0.9;
 					float moveY = 1.f - moveX;
 
 					if (center.x < pxcenter) {
@@ -408,7 +354,7 @@ bool Drop::collisionPlayer(const glm::ivec2& posPlayer)
 		if (center.y + shortSide >= py && center.y + shortSide <= py + 10) {
 			if (center.x + longSide >= pxmin && center.x + longSide <= pxmax) {
 				if (!PlayGameState::instance().getGodMode()) {
-					float moveX = (abs(pxcenter - (center.x + longSide)) / (playerWidth / 2)) * 0.9;  // %%% 
+					float moveX = (abs(pxcenter - (center.x + longSide)) / (playerWidth / 2)) * 0.9;
 					float moveY = 1.f - moveX;
 
 					if (center.x < pxcenter) {
@@ -433,7 +379,7 @@ bool Drop::collisionPlayer(const glm::ivec2& posPlayer)
 			}
 			else if (center.x - longSide >= pxmin && center.x - longSide <= pxmax) {
 				if (!PlayGameState::instance().getGodMode()) {
-					float moveX = (abs(pxcenter - (center.x - longSide)) / (playerWidth / 2)) * 0.9;  // %%% 
+					float moveX = (abs(pxcenter - (center.x - longSide)) / (playerWidth / 2)) * 0.9; 
 					float moveY = 1.f - moveX;
 
 					if (center.x < pxcenter) {
@@ -461,6 +407,3 @@ bool Drop::collisionPlayer(const glm::ivec2& posPlayer)
 
 	return false;
 }
-
-
-
