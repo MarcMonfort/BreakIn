@@ -44,13 +44,6 @@ void Level::createLevel(int numLevel, int numMap)
 	music_alarm = soundManager->loadSound("sounds/alarm.mp3", FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
 	musicOn = false;
 
-	//drop = new Drop(); //usar punteros?
-	//drop->init(glm::ivec2(SCREEN_X, SCREEN_Y), texProgram);
-	//drop->setPosition(glm::vec2(INIT_BALL_X_TILES * map->getTileSize(), INIT_BALL_Y_TILES * map->getTileSize()));
-	//drop->setTileMap(map);
-
-
-
 	if (map->hasCloud())
 	{
 		bCloud = false;
@@ -85,24 +78,24 @@ void Level::update(int deltaTime)
 	if (bAlarm) {
 		ring->update(deltaTime);
 		guard->update(deltaTime);
-
 	}
 
 	if (map->hasCloud())
 	{
-		if (bCloud) {
-			cloud->update(deltaTime);
-		}
-		else {
-			cloudCounter += deltaTime;
-			if (cloudCounter > cloudCounterLimit) {
-				bCloud = true;
-				cloudCounter = 0;
-			}
-		}
-
 		if (bStorm) {
 			storm->update(deltaTime);
+		}
+		else {
+			if (bCloud) {
+				cloud->update(deltaTime);
+			}
+			else {
+				cloudCounter += deltaTime;
+				if (cloudCounter > cloudCounterLimit) {
+					bCloud = true;
+					cloudCounter = 0;
+				}
+			}
 		}
 	}
 }
@@ -161,14 +154,15 @@ void Level::render()
 	}
   
 	if (map->hasCloud()) {
-		if (bCloud) {
-			if (transY == 0) {
-				cloud->render();
-			}
-		}
-
 		if (bStorm) {
 			storm->render();
+		}
+		else {
+			if (bCloud) {
+				if (transY == 0) {
+					cloud->render();
+				}
+			}
 		}
 	}
 }
