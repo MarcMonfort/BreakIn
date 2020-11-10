@@ -1,27 +1,30 @@
 #include "SoundManager.h"
-
-
 #include <stdio.h>
 #include <fmod_errors.h>
 
-FMOD::Sound* SoundManager::loadSound(const std::string& file, FMOD_MODE mode) const {
+
+FMOD::Sound* SoundManager::loadSound(const std::string& file, FMOD_MODE mode) const
+{
 	FMOD::Sound* pSound;
 	lowLevelSystem->createSound(file.c_str(), mode, nullptr, &pSound);
 	return pSound;
 }
 
-FMOD::Channel* SoundManager::playSound(FMOD::Sound* sound) const {
+FMOD::Channel* SoundManager::playSound(FMOD::Sound* sound) const
+{
 	FMOD::Channel* channel;
 	lowLevelSystem->playSound(sound, nullptr, false, &channel);
 	return channel;
 }
 
-void SoundManager::update() {
+void SoundManager::update()
+{
 	system->update();
 	lowLevelSystem->update();
 }
 
-SoundManager::SoundManager() : system(NULL) {
+SoundManager::SoundManager() : system(NULL)
+{
 	FMOD_RESULT result;
 	result = FMOD::Studio::System::create(&system); // Create the Studio System object.
 	if (result != FMOD_OK) {
@@ -36,8 +39,8 @@ SoundManager::SoundManager() : system(NULL) {
 	system->getLowLevelSystem(&lowLevelSystem);
 }
 
-
-SoundManager::~SoundManager() {
+SoundManager::~SoundManager()
+{
 	system->unloadAll();
 	system->release();
 }
