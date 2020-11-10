@@ -7,11 +7,8 @@
 #include "CreditsGameState.h"
 
 
-
 void MenuGameState::init()
 {
-	//glClearColor(1.f, 0.0f, 0.0f, 1.0f);
-
 	initShaders();
 
 	spritesheet.loadFromFile("images/menuBackground_v9.png", TEXTURE_PIXEL_FORMAT_RGBA);
@@ -35,7 +32,6 @@ void MenuGameState::init()
 	channel = soundManager->playSound(music);
 	channel->setVolume(1.0f);
 
-	//bestBreakInDisplay = new NumDisplay();
 	bestBreakInDisplay->init(7, 525, 369, 1); //num. digits, coord x, coord y, tipus
 }
 
@@ -47,7 +43,6 @@ void MenuGameState::update(int deltaTime)
 
 void MenuGameState::render()
 {
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glm::mat4 modelview;
 	texProgram.use();
 	texProgram.setUniformMatrix4f("projection", projection);
@@ -60,7 +55,6 @@ void MenuGameState::render()
 	bestBreakInDisplay->render();
 	press_fire->render();
 }
-
 
 void MenuGameState::keyPressed(int key)
 {
@@ -115,8 +109,6 @@ void MenuGameState::mousePress(int button)
 void MenuGameState::mouseRelease(int button)
 {
 }
-
-
 
 void MenuGameState::initShaders()
 {
