@@ -6,9 +6,7 @@
 //Remove console (only works in Visual Studio)
 #pragma comment(linker, "/subsystem:\"windows\" /entry:\"mainCRTStartup\"")
 
-
 #define TIME_PER_FRAME 1000.f / 60.f // Approx. 60 fps
-
 
 static int prevTime;
 static Game game; // This object represents our whole game
@@ -80,7 +78,6 @@ static void idleCallback()
 	}
 }
 
-
 int main(int argc, char **argv)
 {
 	// GLUT initialization
@@ -111,6 +108,3 @@ int main(int argc, char **argv)
 
 	return 0;
 }
-
-
-
