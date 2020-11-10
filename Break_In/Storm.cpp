@@ -10,19 +10,16 @@ void Storm::init(TileMap* tileMap, ShaderProgram& shaderProgram)
 	spritesheet.loadFromFile("images/big_cloud.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	cloud1 = Sprite::createSprite(glm::ivec2(200, 150), glm::vec2(1, 1), &spritesheet, &shaderProgram);
 	posC1 = glm::vec2(-70, -50);
-	//cloud1->setPosition(glm::vec2(40,-50));
 	cloud1->setPosition(posC1);
 
 	cloud2 = Sprite::createSprite(glm::ivec2(200, 150), glm::vec2(1, 1), &spritesheet, &shaderProgram);
 	posC2 = glm::vec2(320, -50);
 	cloud2->setPosition(posC2);
 
-	//cloud2->setPosition(glm::vec2(220, -50));
-
 	int velocity = rand() % 3 - 1;
 
 	for (int i = 0; i < 10; ++i) {
-		Drop* drop = new Drop(); //usar punteros?
+		Drop* drop = new Drop();
 		drop->init(glm::ivec2(SCREEN_X, SCREEN_Y), shaderProgram, velocity);
 		drop->setTileMap(tileMap);
 		drops.push_back(drop);
@@ -31,7 +28,6 @@ void Storm::init(TileMap* tileMap, ShaderProgram& shaderProgram)
 	lightning = new Lightning();
 	lightning->init(glm::ivec2(SCREEN_X, SCREEN_Y), shaderProgram);
 	lightning->setTileMap(tileMap);
-	//lightning->setPosition(glm::vec2(50, 0));
 
 	currentTime = 0;
 	started = false;
@@ -40,10 +36,7 @@ void Storm::init(TileMap* tileMap, ShaderProgram& shaderProgram)
 	music_rain = soundManager->loadSound("sounds/heavy_rain.mp3", FMOD_LOOP_NORMAL | FMOD_CREATESTREAM);
 	channel = soundManager->playSound(music_rain);
 	channel->setVolume(0.2f);
-
-
 }
-
 
 void Storm::update(int deltaTime)
 {
@@ -94,11 +87,10 @@ void Storm::render()
 
 		lightning->render();
 	}
-
 }
 
-
-void Storm::setMusic(bool b) {
+void Storm::setMusic(bool b)
+{
 	if (b) {
 		channel = soundManager->playSound(music_rain);
 		channel->setVolume(0.2f);
@@ -113,9 +105,7 @@ void Storm::reset() {
 	currentTime = 0;
 	started = false;
 
-
 	posC1 = glm::vec2(-70, -50);
-	//cloud1->setPosition(glm::vec2(40,-50));
 	cloud1->setPosition(posC1);
 
 	posC2 = glm::vec2(320, -50);
