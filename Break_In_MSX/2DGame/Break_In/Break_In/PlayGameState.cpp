@@ -411,11 +411,11 @@ void PlayGameState::keyPressed(int key)
 			stopAnimation();
 	}
 
-	else if (key == 'v')
+	else if (key == 'v' || key == 'V')
 	{
 		ball->addVelocity(1.25);
 	}
-	else if (key == 'f')
+	else if (key == 'f' || key == 'F')
 	{
 		ball->addVelocity(0.8);
 	}
@@ -433,12 +433,12 @@ void PlayGameState::keyPressed(int key)
 			started = true;
 	}
 
-	else if (key == 'd')
+	else if (key == 'd' || key == 'D')
 	{
 		player->addVelocity(0.8);
 	}
 
-	else if (key == 'c')
+	else if (key == 'c' || key == 'C')
 	{
 		player->addVelocity(1.25);
 	}
@@ -446,6 +446,11 @@ void PlayGameState::keyPressed(int key)
 	else if (key == 'g' || key == 'G')
 	{
 		godMode = !godMode;
+	}
+
+	else if (key == 's' || key == 'S')
+	{
+		levels[currentMap]->createStorm();
 	}
 	
 	keys[key] = true;

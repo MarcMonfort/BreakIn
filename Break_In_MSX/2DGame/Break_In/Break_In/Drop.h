@@ -43,7 +43,7 @@ private:
 	int jumpAngle, startY;
 
 	float gravity = 0.1;
-	float energy = 1;
+	float energy = 1.f;
 
 	int countAnim;
 	bool isDead;
@@ -51,6 +51,8 @@ private:
 	int radi;
 	int shortSide;
 	int longSide;
+
+	int timeToFall;
 
 	const SoundManager* soundManager;
 	FMOD::Sound* music_player;

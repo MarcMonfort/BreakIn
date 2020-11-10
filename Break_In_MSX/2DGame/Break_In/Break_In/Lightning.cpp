@@ -8,30 +8,30 @@
 
 enum PlayerAnims
 {
-	MOVE_RIGHT, STAND_LEFT, STAND_RIGHT, MOVE_LEFT
+	STRIKE
 };
 
 void Lightning::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 {
 	spritesheet.loadFromFile("images/ray-set2.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	sprite = Sprite::createSprite(glm::ivec2(141, 352), glm::vec2(0.25, 0.25), &spritesheet, &shaderProgram);
+	sprite = Sprite::createSprite(glm::ivec2(166, 416), glm::vec2(0.25, 0.25), &spritesheet, &shaderProgram);
 	sprite->setNumberAnimations(1);
 
-	sprite->setAnimationSpeed(MOVE_RIGHT, 20);
-	sprite->addKeyframe(MOVE_RIGHT, glm::vec2(0.f, 0.f));
-	sprite->addKeyframe(MOVE_RIGHT, glm::vec2(0.25, 0.f));
-	sprite->addKeyframe(MOVE_RIGHT, glm::vec2(0.5, 0.f));
-	sprite->addKeyframe(MOVE_RIGHT, glm::vec2(0.75, 0.f));
-	sprite->addKeyframe(MOVE_RIGHT, glm::vec2(0.f, 0.25));
-	sprite->addKeyframe(MOVE_RIGHT, glm::vec2(0.25, 0.25));
-	sprite->addKeyframe(MOVE_RIGHT, glm::vec2(0.5, 0.25));
-	sprite->addKeyframe(MOVE_RIGHT, glm::vec2(0.75, 0.25));
-	sprite->addKeyframe(MOVE_RIGHT, glm::vec2(0.f, 0.5));
-	sprite->addKeyframe(MOVE_RIGHT, glm::vec2(0.25, 0.5));
-	sprite->addKeyframe(MOVE_RIGHT, glm::vec2(0.5, 0.5));
-	sprite->addKeyframe(MOVE_RIGHT, glm::vec2(0.75, 0.5));
+	sprite->setAnimationSpeed(STRIKE, 20);
+	sprite->addKeyframe(STRIKE, glm::vec2(0.f, 0.f));
+	sprite->addKeyframe(STRIKE, glm::vec2(0.25, 0.f));
+	sprite->addKeyframe(STRIKE, glm::vec2(0.5, 0.f));
+	sprite->addKeyframe(STRIKE, glm::vec2(0.75, 0.f));
+	sprite->addKeyframe(STRIKE, glm::vec2(0.f, 0.25));
+	sprite->addKeyframe(STRIKE, glm::vec2(0.25, 0.25));
+	sprite->addKeyframe(STRIKE, glm::vec2(0.5, 0.25));
+	sprite->addKeyframe(STRIKE, glm::vec2(0.75, 0.25));
+	sprite->addKeyframe(STRIKE, glm::vec2(0.f, 0.5));
+	sprite->addKeyframe(STRIKE, glm::vec2(0.25, 0.5));
+	sprite->addKeyframe(STRIKE, glm::vec2(0.5, 0.5));
+	sprite->addKeyframe(STRIKE, glm::vec2(0.75, 0.5));
 
-	sprite->changeAnimation(MOVE_RIGHT);
+	sprite->changeAnimation(STRIKE);
 	tileMapDispl = tileMapPos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posLightning.x), float(tileMapDispl.y + posLightning.y)));
 
@@ -39,15 +39,23 @@ void Lightning::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 
 void Lightning::update(int deltaTime)
 {
-	sprite->update(deltaTime);
 	counter += deltaTime;
+	if (counter > 580) {
+		posLightning.x = (rand() % 310) -40;
+		sprite->changeAnimation(STRIKE);
+		counter = 0;
+	}
+
+	sprite->update(deltaTime);
 
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posLightning.x), float(tileMapDispl.y + posLightning.y)));
 }
 
 void Lightning::render()
 {
-	sprite->render();
+	if (counter < 580) {
+		sprite->render();
+	}
 }
 
 
