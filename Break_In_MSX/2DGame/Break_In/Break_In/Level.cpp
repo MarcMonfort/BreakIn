@@ -52,8 +52,8 @@ void Level::createLevel(int numLevel, int numMap)
 		cloud = new Cloud();
 		cloud->init();
 
-		int minCounterLimit = 5000;
-		int maxCounterLimit = 15000;
+		int minCounterLimit = 2000;
+		int maxCounterLimit = 10000;
 		std::random_device rand_dev;
 		std::mt19937 generator(rand_dev());
 		std::uniform_int_distribution<int> distr(minCounterLimit, maxCounterLimit);
