@@ -17,12 +17,10 @@ void CreditsGameState::init()
 
 void CreditsGameState::update(int deltaTime)
 {
-
 }
 
 void CreditsGameState::render()
 {
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glm::mat4 modelview;
 	texProgram.use();
 	texProgram.setUniformMatrix4f("projection", projection);
@@ -31,16 +29,13 @@ void CreditsGameState::render()
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	background->render();
-
 }
-
 
 void CreditsGameState::keyPressed(int key)
 {
 	if (key == 27) // Escape code
 	{
-		//MenuGameState::instance().init();
-		Game::instance().popGameState(); //or better push so we dont loose the state??
+		Game::instance().popGameState();
 		Game::instance().pushGameState(&MenuGameState::instance());
 	}
 
@@ -73,8 +68,6 @@ void CreditsGameState::mousePress(int button)
 void CreditsGameState::mouseRelease(int button)
 {
 }
-
-
 
 void CreditsGameState::initShaders()
 {
