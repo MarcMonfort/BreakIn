@@ -121,7 +121,6 @@ void Guard::reset() {
 	isDead = false;
 }
 
-
 void Guard::setPosition(const glm::vec2& pos)
 {
 	posGuard = pos;
