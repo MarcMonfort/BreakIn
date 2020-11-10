@@ -11,7 +11,6 @@ bool GameState::getSpecialKey(int key) const
 	return specialKeys[key];
 }
 
-
 void GameState::resetKeys()
 {
 	for (int i = 0; i < sizeof(keys); ++i)
