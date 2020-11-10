@@ -5,13 +5,8 @@
 #include "PlayGameState.h"
 
 
-
-
-
 void GameOverGameState::init()
 {
-	//glClearColor(1.f, 0.0f, 0.0f, 1.0f);
-
 	initShaders();
 
 	spritesheet.loadFromFile("images/gameOver.jpg", TEXTURE_PIXEL_FORMAT_RGB);
@@ -41,7 +36,6 @@ void GameOverGameState::update(int deltaTime)
 
 void GameOverGameState::render()
 {
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glm::mat4 modelview;
 	texProgram.use();
 	texProgram.setUniformMatrix4f("projection", projection);
@@ -50,24 +44,11 @@ void GameOverGameState::render()
 	texProgram.setUniformMatrix4f("modelview", modelview);
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 	background->render();
-
 }
 
 
 void GameOverGameState::keyPressed(int key)
 {
-	//if (key == 27) // Escape code
-	//{
-	//	Game::instance().setBplay(false);
-	//}
-	//else if (key == 32) // Space code
-	//{
-	//	channel->stop();
-	//	PlayGameState::instance().init();
-	//	Game::instance().popGameState(); //or better push so we dont loose the state??
-	//	Game::instance().pushGameState(&PlayGameState::instance());
-	//}
-
 	keys[key] = true;
 }
 
@@ -97,8 +78,6 @@ void GameOverGameState::mousePress(int button)
 void GameOverGameState::mouseRelease(int button)
 {
 }
-
-
 
 void GameOverGameState::initShaders()
 {
