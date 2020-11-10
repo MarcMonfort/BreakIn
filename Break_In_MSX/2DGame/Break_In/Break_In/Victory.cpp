@@ -52,6 +52,8 @@ void Victory::init()
 	car_engine = soundManager->loadSound("sounds/car_engine.mp3", FMOD_DEFAULT);
 
 	counter = 0;
+
+	started = false;
 }
 
 void Victory::restart()
@@ -60,6 +62,7 @@ void Victory::restart()
 	channel = soundManager->playSound(music_player);
 	channel3 = soundManager->playSound(coins);
 	channel3->setVolume(0.6);
+	started = true;
 }
 
 void Victory::stopMusic()
@@ -72,6 +75,9 @@ void Victory::stopMusic()
 
 void Victory::update(int deltaTime)
 {
+	if (!started) {
+		restart();
+	}
 	currentTime += deltaTime;
 
 	victory->update(deltaTime);
@@ -82,6 +88,7 @@ void Victory::update(int deltaTime)
 	if (carPos.x >= 500) {
 		if (counter > 8000) {
 			stopMusic();
+			started = false;
 			PlayGameState::instance().winGame();
 		}
 		if (counter > 5000)
