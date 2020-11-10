@@ -6,6 +6,7 @@
 #include "Game.h"
 #include "PlayGameState.h"
 
+
 void Ball::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 {
 	spritesheet.loadFromFile("images/ball.png", TEXTURE_PIXEL_FORMAT_RGBA);
@@ -19,7 +20,6 @@ void Ball::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 	radi = 11;
 	shortSide = 6; 
 	longSide = 9;
-
 
 	soundManager = Game::instance().getSoundManager();
 	music_player = soundManager->loadSound("sounds/player.mp3", FMOD_DEFAULT);
@@ -35,7 +35,6 @@ void Ball::update(int deltaTime, glm::vec2 posPlayer)
 		posBall.y += velocity.y;
 		posBall.x += velocity.x;
 		center = glm::fvec2(center_0.x + velocity.x, center_0.y + velocity.y);
-
 
 		if (map->checkCollision(glm::ivec2(center.x, center.y - radi))) {
 			if (map->collisionPoint(glm::ivec2(center.x, center.y - radi),0)) {	//up
@@ -57,7 +56,6 @@ void Ball::update(int deltaTime, glm::vec2 posPlayer)
 				velocity.y = -abs(velocity.y);
 			}
 		}
-		//4.21 - 10.16
 		else if (map->checkCollision(glm::ivec2(center.x + shortSide, center.y - longSide))) {	//up-right-1
 			if (map->collisionPoint(glm::ivec2(center.x + shortSide, center.y - longSide),0)) {	//up-right-1
 				posBall.y -= velocity.y;
@@ -98,8 +96,6 @@ void Ball::update(int deltaTime, glm::vec2 posPlayer)
 				velocity.y = abs(velocity.y);
 			}
 		}
-
-
 		else if (map->checkCollision(glm::ivec2(center.x - radi, center.y))) {
 			if (map->collisionPoint(glm::ivec2(center.x - radi, center.y),0)) {	//left
 				posBall.x -= velocity.x;
@@ -120,9 +116,6 @@ void Ball::update(int deltaTime, glm::vec2 posPlayer)
 				velocity.x = -abs(velocity.x);
 			}
 		}
-
-		//4.21 - 10.16
-
 		else if (map->checkCollision(glm::ivec2(center.x + longSide, center.y - shortSide))) {	//up-right-2
 			if (map->collisionPoint(glm::ivec2(center.x + longSide, center.y - shortSide),0)) {	//up-right-2
 				posBall.x -= velocity.x;
@@ -163,16 +156,11 @@ void Ball::update(int deltaTime, glm::vec2 posPlayer)
 				velocity.x = abs(velocity.x);
 			}
 		}
-
 		else if (collisionPlayer(posPlayer)) {
 			velocity.y = -abs(velocity.y);
 		}
-
-		
-
 	}
 	else {
-		
 		if (!PlayGameState::instance().getGodMode()) {
 			velocity.x = 1;
 			velocity.y = -5;
@@ -227,11 +215,10 @@ void Ball::setPosition(const glm::vec2& pos)
 
 bool Ball::collisionPlayer(const glm::ivec2& posPlayer)
 {
-	if (velocity.y >= -0.5) { //nomes si la pilota esta baixant
+	if (velocity.y >= -0.5) {
 
-		float ball_size = 22.0; //es podria crear un atribut de la classe
-
-		float playerWidth = 38.0; //es podria passar per parametre
+		float ball_size = 22.0;
+		float playerWidth = 38.0;
 		float pxmin = posPlayer.x;
 		float pxmax = posPlayer.x + playerWidth;
 		float pxcenter = posPlayer.x + playerWidth / 2.0;
@@ -242,7 +229,7 @@ bool Ball::collisionPlayer(const glm::ivec2& posPlayer)
 		if (center.y + radi >= py && center.y + radi <= py + 10) {
 			if (center.x >= pxmin && center.x <= pxmax) {
 				if (!PlayGameState::instance().getGodMode()) {
-					float moveX = (abs(pxcenter - center.x) / (playerWidth / 2)) * 0.9;  // %%% 
+					float moveX = (abs(pxcenter - center.x) / (playerWidth / 2)) * 0.9;
 					float moveY = 1.f - moveX;
 
 					if (center.x < pxcenter) {
@@ -270,7 +257,7 @@ bool Ball::collisionPlayer(const glm::ivec2& posPlayer)
 		if (center.y + longSide >= py && center.y + longSide <= py + 10) {
 			if (center.x + shortSide >= pxmin && center.x + shortSide <= pxmax) {
 				if (!PlayGameState::instance().getGodMode()) {
-					float moveX = (abs(pxcenter - (center.x + shortSide)) / (playerWidth / 2)) * 0.9;  // %%% 
+					float moveX = (abs(pxcenter - (center.x + shortSide)) / (playerWidth / 2)) * 0.9;
 					float moveY = 1.f - moveX;
 
 					if (center.x < pxcenter) {
@@ -295,7 +282,7 @@ bool Ball::collisionPlayer(const glm::ivec2& posPlayer)
 			}
 			else if (center.x - shortSide >= pxmin && center.x - shortSide <= pxmax) {
 				if (!PlayGameState::instance().getGodMode()) {
-					float moveX = (abs(pxcenter - (center.x - shortSide)) / (playerWidth / 2)) * 0.9;  // %%% 
+					float moveX = (abs(pxcenter - (center.x - shortSide)) / (playerWidth / 2)) * 0.9;
 					float moveY = 1.f - moveX;
 
 					if (center.x < pxcenter) {
@@ -323,7 +310,7 @@ bool Ball::collisionPlayer(const glm::ivec2& posPlayer)
 		if (center.y + shortSide >= py && center.y + shortSide <= py + 10) {
 			if (center.x + longSide >= pxmin && center.x + longSide <= pxmax) {
 				if (!PlayGameState::instance().getGodMode()) {
-					float moveX = (abs(pxcenter - (center.x + longSide)) / (playerWidth / 2)) * 0.9;  // %%% 
+					float moveX = (abs(pxcenter - (center.x + longSide)) / (playerWidth / 2)) * 0.9;
 					float moveY = 1.f - moveX;
 
 					if (center.x < pxcenter) {
@@ -348,7 +335,7 @@ bool Ball::collisionPlayer(const glm::ivec2& posPlayer)
 			}
 			else if (center.x - longSide >= pxmin && center.x - longSide <= pxmax) {
 				if (!PlayGameState::instance().getGodMode()) {
-					float moveX = (abs(pxcenter - (center.x - longSide)) / (playerWidth / 2)) * 0.9;  // %%% 
+					float moveX = (abs(pxcenter - (center.x - longSide)) / (playerWidth / 2)) * 0.9;
 					float moveY = 1.f - moveX;
 
 					if (center.x < pxcenter) {
@@ -376,6 +363,3 @@ bool Ball::collisionPlayer(const glm::ivec2& posPlayer)
 	
 	return false;
 }
-
-
-
