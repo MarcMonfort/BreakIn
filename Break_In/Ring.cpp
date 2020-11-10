@@ -6,7 +6,6 @@
 #include "Game.h"
 
 
-
 enum PlayerAnims
 {
 	MOVE_RIGHT, STAND_LEFT, STAND_RIGHT, MOVE_LEFT
@@ -25,14 +24,12 @@ void Ring::init(const glm::ivec2& tileMapPos, ShaderProgram& shaderProgram)
 	sprite->changeAnimation(MOVE_RIGHT);
 	tileMapDispl = tileMapPos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
-
 }
 
 void Ring::update(int deltaTime)
 {
 	sprite->update(deltaTime);
 	counter += deltaTime;
-
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
 }
 
@@ -41,13 +38,13 @@ void Ring::render()
 	sprite->render();
 }
 
-
 void Ring::setPosition(const glm::vec2& pos)
 {
 	posPlayer = pos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
 }
 
-glm::vec2 Ring::getPosition() {
+glm::vec2 Ring::getPosition()
+{
 	return posPlayer;
 }
