@@ -97,6 +97,13 @@ void PlayGameState::init()
 	GAME_END = false;
 	ALL_DEAD = false;
 	godMode = false;
+	bCloud = false;
+	bStorm = false;
+
+	cloudCounter = 0;
+
+	cloud = new Cloud();
+	cloud->init();
 
 	resetKeys();
 }
@@ -164,6 +171,17 @@ void PlayGameState::update(int deltaTime)
 		godMode_sprite->update(deltaTime);
 	}
 
+	if (bCloud) {
+		cloud->update(deltaTime);
+	}
+	else {
+		cloudCounter += deltaTime;
+		if (cloudCounter > 5000) {
+			bCloud = true;
+			cloudCounter = 0;
+		}
+	}
+
 	if (GAME_END) {
 		deleteAll();
 		MenuGameState::instance().init();
@@ -207,6 +225,10 @@ void PlayGameState::render()
 			animation->render();
 		else
 			victory->render();
+	}
+
+	if (bCloud) {
+		cloud->render();
 	}
 
 	counters->render();
@@ -545,4 +567,10 @@ void PlayGameState::winGame() {
 	victory->stopMusic();
 	endPointMoneyTransition();
 	GAME_END = true;
+}
+
+void PlayGameState::cloud_taken() {
+	bCloud = false;
+	bStorm = true;
+	cloud->reinitCloud();
 }

@@ -13,6 +13,7 @@
 #include "NumDisplay.h"
 #include "Animation.h"
 #include "Victory.h"
+#include "Cloud.h"
 
 
 // PlayGameState contains all the entities of our game.
@@ -68,6 +69,8 @@ public:
 	void endPointMoneyTransition();
 
 	void winGame();
+
+	void cloud_taken();
 
 
 private:
@@ -130,6 +133,13 @@ private:
 
 	Texture godMode_spritesheet;
 	Sprite* godMode_sprite;
+
+	Cloud* cloud;
+
+	bool bCloud = false;
+	bool bStorm = false;
+
+	int cloudCounter = 0;
 };
 
 
