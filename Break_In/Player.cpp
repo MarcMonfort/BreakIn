@@ -19,8 +19,6 @@
 
 #define PI 3.1415
 
-
-
 enum PlayerAnims
 {
 	DOWN_CENTER, 
@@ -42,10 +40,7 @@ enum PlayerAnims
 	UP_RIGHT_2,
 
 	DEAD
-
-
 };
-
 
 void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 {
@@ -53,59 +48,59 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 	sprite = Sprite::createSprite(glm::ivec2(SIZE_X_PLAYER, SIZE_Y_PLAYER), glm::vec2(0.2, 0.2), &spritesheet, &shaderProgram); //glm::vec2(0.1484375, 0.203125)
 	sprite->setNumberAnimations(16);
 	
-		sprite->setAnimationSpeed(DOWN_CENTER, 1);
-		sprite->addKeyframe(DOWN_CENTER, glm::vec2(0.f, 0.f));
+	sprite->setAnimationSpeed(DOWN_CENTER, 1);
+	sprite->addKeyframe(DOWN_CENTER, glm::vec2(0.f, 0.f));
 		
-		sprite->setAnimationSpeed(DOWN_RIGHT, 1);
-		sprite->addKeyframe(DOWN_RIGHT, glm::vec2(0.2, 0.6));
+	sprite->setAnimationSpeed(DOWN_RIGHT, 1);
+	sprite->addKeyframe(DOWN_RIGHT, glm::vec2(0.2, 0.6));
 		
-		sprite->setAnimationSpeed(DOWN_LEFT, 1);
-		sprite->addKeyframe(DOWN_LEFT, glm::vec2(0.4, 0.6));
+	sprite->setAnimationSpeed(DOWN_LEFT, 1);
+	sprite->addKeyframe(DOWN_LEFT, glm::vec2(0.4, 0.6));
 
-		sprite->setAnimationSpeed(MIDDLE_CENTER, 1);
-		sprite->addKeyframe(MIDDLE_CENTER, glm::vec2(0.2f, 0.f));
+	sprite->setAnimationSpeed(MIDDLE_CENTER, 1);
+	sprite->addKeyframe(MIDDLE_CENTER, glm::vec2(0.2f, 0.f));
 
-		sprite->setAnimationSpeed(MIDDLE_RIGHT_1, 1);
-		sprite->addKeyframe(MIDDLE_RIGHT_1, glm::vec2(0.4, 0.f));
+	sprite->setAnimationSpeed(MIDDLE_RIGHT_1, 1);
+	sprite->addKeyframe(MIDDLE_RIGHT_1, glm::vec2(0.4, 0.f));
 
-		sprite->setAnimationSpeed(MIDDLE_RIGHT_2, 1);
-		sprite->addKeyframe(MIDDLE_RIGHT_2, glm::vec2(0.6, 0.f));
+	sprite->setAnimationSpeed(MIDDLE_RIGHT_2, 1);
+	sprite->addKeyframe(MIDDLE_RIGHT_2, glm::vec2(0.6, 0.f));
 
-		sprite->setAnimationSpeed(MIDDLE_RIGHT_3, 1);
-		sprite->addKeyframe(MIDDLE_RIGHT_3, glm::vec2(0.f, 0.2f));
+	sprite->setAnimationSpeed(MIDDLE_RIGHT_3, 1);
+	sprite->addKeyframe(MIDDLE_RIGHT_3, glm::vec2(0.f, 0.2f));
 
-		sprite->setAnimationSpeed(MIDDLE_LEFT_1, 1);
-		sprite->addKeyframe(MIDDLE_LEFT_1, glm::vec2(0.2f, 0.2f));
+	sprite->setAnimationSpeed(MIDDLE_LEFT_1, 1);
+	sprite->addKeyframe(MIDDLE_LEFT_1, glm::vec2(0.2f, 0.2f));
 
-		sprite->setAnimationSpeed(MIDDLE_LEFT_2, 1);
-		sprite->addKeyframe(MIDDLE_LEFT_2, glm::vec2(0.4f, 0.2f));
+	sprite->setAnimationSpeed(MIDDLE_LEFT_2, 1);
+	sprite->addKeyframe(MIDDLE_LEFT_2, glm::vec2(0.4f, 0.2f));
 
-		sprite->setAnimationSpeed(MIDDLE_LEFT_3, 1);
-		sprite->addKeyframe(MIDDLE_LEFT_3, glm::vec2(0.6f, 0.2f));
+	sprite->setAnimationSpeed(MIDDLE_LEFT_3, 1);
+	sprite->addKeyframe(MIDDLE_LEFT_3, glm::vec2(0.6f, 0.2f));
 
-		sprite->setAnimationSpeed(UP_CENTER, 1);
-		sprite->addKeyframe(UP_CENTER, glm::vec2(0.f, 0.4));
+	sprite->setAnimationSpeed(UP_CENTER, 1);
+	sprite->addKeyframe(UP_CENTER, glm::vec2(0.f, 0.4));
 
-		sprite->setAnimationSpeed(UP_RIGHT_1, 1);
-		sprite->addKeyframe(UP_RIGHT_1, glm::vec2(0.2, 0.4));
+	sprite->setAnimationSpeed(UP_RIGHT_1, 1);
+	sprite->addKeyframe(UP_RIGHT_1, glm::vec2(0.2, 0.4));
 
-		sprite->setAnimationSpeed(UP_RIGHT_2, 1);
-		sprite->addKeyframe(UP_RIGHT_2, glm::vec2(0.4, 0.4));
+	sprite->setAnimationSpeed(UP_RIGHT_2, 1);
+	sprite->addKeyframe(UP_RIGHT_2, glm::vec2(0.4, 0.4));
 
-		sprite->setAnimationSpeed(UP_LEFT_1, 1);
-		sprite->addKeyframe(UP_LEFT_1, glm::vec2(0.6, 0.4));
+	sprite->setAnimationSpeed(UP_LEFT_1, 1);
+	sprite->addKeyframe(UP_LEFT_1, glm::vec2(0.6, 0.4));
 
-		sprite->setAnimationSpeed(UP_LEFT_2, 1);
-		sprite->addKeyframe(UP_LEFT_2, glm::vec2(0.f, 0.6));
+	sprite->setAnimationSpeed(UP_LEFT_2, 1);
+	sprite->addKeyframe(UP_LEFT_2, glm::vec2(0.f, 0.6));
 
-		sprite->setAnimationSpeed(DEAD, 4);
-		sprite->addKeyframe(DEAD, glm::vec2(0.8, 0.f));
-		sprite->addKeyframe(DEAD, glm::vec2(0.0, 0.8));
-		sprite->addKeyframe(DEAD, glm::vec2(0.8, 0.2));
-		sprite->addKeyframe(DEAD, glm::vec2(0.2, 0.8));
-		sprite->addKeyframe(DEAD, glm::vec2(0.8, 0.4));
-		sprite->addKeyframe(DEAD, glm::vec2(0.4, 0.8));
-		sprite->addKeyframe(DEAD, glm::vec2(0.8, 0.6));
+	sprite->setAnimationSpeed(DEAD, 4);
+	sprite->addKeyframe(DEAD, glm::vec2(0.8, 0.f));
+	sprite->addKeyframe(DEAD, glm::vec2(0.0, 0.8));
+	sprite->addKeyframe(DEAD, glm::vec2(0.8, 0.2));
+	sprite->addKeyframe(DEAD, glm::vec2(0.2, 0.8));
+	sprite->addKeyframe(DEAD, glm::vec2(0.8, 0.4));
+	sprite->addKeyframe(DEAD, glm::vec2(0.4, 0.8));
+	sprite->addKeyframe(DEAD, glm::vec2(0.8, 0.6));
 
 	isDead = false;
 
@@ -123,7 +118,6 @@ void Player::init(const glm::ivec2 &tileMapPos, ShaderProgram &shaderProgram)
 void Player::update(int deltaTime, glm::vec2 posBall)
 {
 	sprite->update(deltaTime);
-
 
 	if (isDead) {
 		if (sprite->animation() != DEAD) {
@@ -144,7 +138,6 @@ void Player::update(int deltaTime, glm::vec2 posBall)
 				PlayGameState::instance().setAlarm(false);
 			}
 		}
-
 	}
 	else {
 
@@ -155,8 +148,6 @@ void Player::update(int deltaTime, glm::vec2 posBall)
 
 		if (angle < 0)
 			angle = 360 + angle;
-
-		//cout << angle << endl;
 
 		if (angle < 30 || angle > 330) {
 			if (abs(distX) > 200)
@@ -202,8 +193,6 @@ void Player::update(int deltaTime, glm::vec2 posBall)
 			sprite->changeAnimation(DOWN_RIGHT);
 		}
 
-
-
 		// Esquerra o dreta
 		if (Game::instance().getGameState()->getSpecialKey(GLUT_KEY_LEFT))
 		{
@@ -214,7 +203,6 @@ void Player::update(int deltaTime, glm::vec2 posBall)
 					posPlayer.x += (velocity.x-1);
 				else
 					posPlayer.x += velocity.x;
-
 			}
 		}
 		else if (Game::instance().getGameState()->getSpecialKey(GLUT_KEY_RIGHT))
@@ -228,13 +216,6 @@ void Player::update(int deltaTime, glm::vec2 posBall)
 					posPlayer.x -= velocity.x;
 			}
 		}
-		/*else
-		{
-			if(sprite->animation() == MOVE_LEFT)
-				sprite->changeAnimation(STAND_LEFT);
-			else if(sprite->animation() == MOVE_RIGHT)
-				sprite->changeAnimation(STAND_RIGHT);
-		}*/
 
 		// Amunt o avall
 		if (Game::instance().getGameState()->getSpecialKey(GLUT_KEY_UP))
@@ -261,15 +242,7 @@ void Player::update(int deltaTime, glm::vec2 posBall)
 				else
 					posPlayer.y -= velocity.y;
 			}
-
 		}
-		/*else
-		{
-			if (sprite->animation() == MOVE_LEFT)
-				sprite->changeAnimation(STAND_LEFT);
-			else if (sprite->animation() == MOVE_RIGHT)
-				sprite->changeAnimation(STAND_RIGHT);
-		}*/
 
 		sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
 	}
@@ -300,7 +273,6 @@ void Player::setPosition(const glm::vec2 &pos)
 	posPlayer = pos;
 	sprite->setPosition(glm::vec2(float(tileMapDispl.x + posPlayer.x), float(tileMapDispl.y + posPlayer.y)));
 }
-
 
 void Player::addVelocity(float increase)
 {
