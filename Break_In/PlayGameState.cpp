@@ -105,6 +105,7 @@ void PlayGameState::update(int deltaTime)
 		if (currentLevel < NUM_LEVELS)
 			nextLevel();
 		else {
+			levels[currentMap]->setMusic(false);
 			bAnim = true;
 			bVict = true;
 		}
@@ -401,6 +402,7 @@ void PlayGameState::keyPressed(int key)
 			else {
 				bAnim = true;
 				bVict = true;
+				levels[currentMap]->setMusic(false);
 				victory->restart();
 			}
 		}
