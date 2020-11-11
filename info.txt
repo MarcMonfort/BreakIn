@@ -1,0 +1,84 @@
+
+Nom i cognoms dels integrats del grup:
+- Jordi Cluet
+- Marc Monfort
+
+
+
+Funcionalitats implementades:
+
+- Part comuna: 
+  Hem implementat totes les funcionalitats que es demanen a l'enunciat.
+
+
+- Part addicional:
+  La mecànica extra que hem afegit al nostre joc consisteix en un nou ítem que activa una tempesta. Més concretament,
+  en algunes de les pantalles del joc apareix al cap d'un temps curt (entre 2 i 15 segons de joc) un núvol que es va
+  movent pseudo-aleatòriament per la meitat inferior del terreny de joc.
+
+  Quan el jugador agafa el núvol (hi col·lisiona), l'ítem desapareix, i comença la tempesta. Apareixen dos núvols grans
+  a la part superior del terreny de joc, i comencen a caure gotes de pluja. Aquestes es comporten com la pilota:
+  col·lisionen amb els blocs i els van destruint. La diferència és que, a diferència de la pilota, cauen sempre com si
+  estiguessin afectades per la força de la gravetat i del vent, rebotant lleugerament amb els blocs però acabant sempre
+  a la part inferior de la pantalla. Quan hi arriben, desapareixen i tornen a "ploure" des dels núvols.
+
+  Alhora, els núvols també produeixen llamps cada uns quants segons aleatoris. La dinàmica és la següent: els núvols
+  "avisen" d'on caurà el llamp fent aparèixer una bola elèctrica a sobre el núvol, i al cap d'uns instants, cau un llamp
+  des d'aquell punt fins a baix de la pantalla, que destrueix tots els blocs que hi hagi i treu una vida al jugador si
+  hi col·lisiona, tal i com ho faria el guàrdia del joc, per exemple.
+
+  Aquesta tempesta es manté a la pantalla on hagi aparegut per sempre més, és a dir, que si s'avança de pantalla es perd
+  de vista, però si es torna cap enrera la tempesta segueix allà on era. El mateix amb l'ítem del núvol: si el jugador
+  encara no l'ha agafat i passa de pantalla, si més endavant torna cap enrere, el núvol seguirà allà on era i reprendrà
+  el seu moviment.
+
+  Aquesta mecànica, doncs, introdueix una part positiva i una de negativa al joc, ja que activar la tempesta ajuda a
+  destuir els blocs del nivell, però també activa els llamps, que poden fer perdre vides al jugador. És decisió del
+  jugador agafar o no l'ítem del núvol.
+
+  Per fer la mecànica més immersiva, hem afegit sons de trons, pluja, llamps, electricitat, etc.
+
+  Es pot activar aquesta mecànica en qualsevol moment i en qualsevol nivell prement la tecla 's', encara que aquella
+  pantalla a priori no tingui tempesta.
+
+
+- Altres funcionalitats implementades:
+  Hem afegit una animació de victòria al final del joc (quan es guanya el joc) que no apareixia al joc
+  original. Està basada en les animacions normals del joc, però en aquest cas el lladre puja a un cotxe i marxa per
+  la dreta de la pantalla mentre se senten monedes de fons.
+
+  També hem afegit una pantalla i música de Game Over quan el jugador perd totes les vides (quan es perd el joc),
+  abans de tornar al menú principal.
+
+  A més a més, hem implementat el guardat de la puntuació màxima obtinguda, que es mostra al menú principal com en el
+  joc original, tot i que no es demanava explícitament a l'enunciat.
+
+
+
+Instruccions del joc:
+
+Les intruccions bàsiques del joc es mostren a la pantalla "Instructions", que es pot trobar prement la tecla 'I' des del
+menú principal. Són aquestes:
+
+ - Space 		-> 		Fire
+ - Right arrow		-> 		Move right
+ - Left arrow		-> 		Move left
+ - Up arrow		-> 		Move up
+ - Down arrow		-> 		Move down
+
+ - Tecla "N"		->		Next screen
+ - Tecla "B"		-> 		Previous screen
+ - Tecles [1..3]	-> 		Go to level [num]
+
+ - Tecla "G"		-> 		Activar God Mode
+
+
+Altres instruccions per provar el joc:
+
+ - Tecla "S"		-> 		Activar tempesta
+
+ - Tecla "F"		-> 		Disminuir velocitat pilota
+ - Tecla "V"		-> 		Augmentar velocitat pilota
+
+ - Tecla "D"		-> 		Disminuir velocitat jugador
+ - Tecla "C"		-> 		Augmentar velocitat jugador
